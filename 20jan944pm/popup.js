@@ -30,6 +30,7 @@ function categorizeCookies(cookies) {
 }
 
 
+// Function to display cookies in the UI
 function displayCookies(categories) {
   const container = document.getElementById('cookieList');
   container.innerHTML = '';
@@ -54,18 +55,23 @@ function displayCookies(categories) {
       cookieName.classList.add('cookie-name');
       listItem.appendChild(cookieName);
 
-
-
       // Arrow icon setup
       let arrowIcon = document.createElement('img');
-      arrowIcon.src = 'down_arrow_logo.png';  // Path to your down arrow icon
+      arrowIcon.src = 'down_arrow_logo.png'; // Path to your down arrow icon
       arrowIcon.classList.add('arrow-icon');
+      arrowIcon.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const isCollapsed = cookieDetails.classList.contains('collapsed');
+        cookieDetails.classList.toggle('collapsed', !isCollapsed);
+        arrowIcon.src = isCollapsed ? 'up_arrow_logo.png' : 'down_arrow_logo.png';
+      });
       listItem.appendChild(arrowIcon);
 
       // Hide cookie details by default
       let cookieDetails = document.createElement('div');
       cookieDetails.classList.add('cookie-details', 'collapsed');
       listItem.appendChild(cookieDetails);
+      list.appendChild(listItem);
 
       // Toggle cookie details on arrow icon click
       arrowIcon.addEventListener('click', () => {
@@ -126,24 +132,23 @@ function createEditableField(text, className) {
 }
 
 
+// Function to transform cookie details into editable fields
 function transformToEditable(cookieDetails, cookie) {
+  const originalDetailsContent = cookieDetails.innerHTML;
+
   const valueLabel = document.createElement('label');
   valueLabel.innerText = 'Value:';
   valueLabel.classList.add('editable-label');
 
   const valueField = createEditableField(cookie.value, 'editable-value');
+  valueField.addEventListener('click', (event) => event.stopPropagation());
 
   const expiresLabel = document.createElement('label');
   expiresLabel.innerText = 'Expires:';
   expiresLabel.classList.add('editable-label');
 
   const expiresField = createEditableField(new Date(cookie.expirationDate * 1000).toLocaleString(), 'editable-expires');
-
-  cookieDetails.innerHTML = '';
-  cookieDetails.appendChild(valueLabel);
-  cookieDetails.appendChild(valueField);
-  cookieDetails.appendChild(expiresLabel);
-  cookieDetails.appendChild(expiresField);
+  expiresField.addEventListener('click', (event) => event.stopPropagation());
 
   const saveButton = document.createElement('button');
   saveButton.innerText = 'Save Changes';
@@ -154,17 +159,38 @@ function transformToEditable(cookieDetails, cookie) {
 
   cookieDetails.appendChild(saveButton);
 
-  // Add Cancel button
-  const cancelButton = document.createElement('button');
-  cancelButton.innerText = 'Cancel';
-  cancelButton.classList.add('cancel-button');
-  cancelButton.addEventListener('click', () => {
-    // Logic to revert changes or close edit mode
-    displayCookieDetails(cookieDetails, cookie);
-  });
+    // Add Cancel button
+    const cancelButton = document.createElement('button');
+    cancelButton.innerText = 'Cancel';
+    cancelButton.classList.add('cancel-button');
+    cancelButton.addEventListener('click', () => {
+        // Revert to the original details view
+        cookieDetails.innerHTML = originalDetailsContent;
 
-  cookieDetails.appendChild(saveButton);
-  cookieDetails.appendChild(cancelButton); // Add the cancel button next to save button
+        // Reattach event listeners for Edit and Delete buttons since the innerHTML was reset
+        const editButton = cookieDetails.querySelector('.edit-button');
+        editButton.addEventListener('click', () => transformToEditable(cookieDetails, cookie));
+
+        const deleteButton = cookieDetails.querySelector('.delete-button');
+        deleteButton.addEventListener('click', () => {
+            confirmDeletion(cookie, () => {
+                // Delete logic here
+            });
+        });
+
+        // Update the arrow icon and collapse the details
+        const arrowIcon = cookieDetails.previousSibling;  // Assuming arrowIcon is added just before cookieDetails
+        arrowIcon.src = 'down_arrow_logo.png';  // Change to down arrow
+    });
+
+    // Clear the current details and add the new editable fields and buttons
+    cookieDetails.innerHTML = '';
+    cookieDetails.appendChild(valueLabel);
+    cookieDetails.appendChild(valueField);
+    cookieDetails.appendChild(expiresLabel);
+    cookieDetails.appendChild(expiresField);
+    cookieDetails.appendChild(saveButton);
+    cookieDetails.appendChild(cancelButton);
 }
 
 

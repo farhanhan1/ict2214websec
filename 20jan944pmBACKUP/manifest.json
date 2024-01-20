@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Cookies 'N Crypt",
+  "description": "Categorizes and displays cookies used by websites. Developed by ICT2214 Group 16!",
+  "version": "13.37",
+  "permissions": [
+    "cookies",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "48": "icon.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
