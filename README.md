@@ -1,3 +1,5 @@
+<h1>ICT2214 Web Security Group 16</h1>
+
 To load the extension,
 
 1. On Google Chrome, go to chrome://extensions/
