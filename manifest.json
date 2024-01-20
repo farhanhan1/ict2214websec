@@ -1,7 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Cookie Categorizer",
-  "version": "1.0",
+  "name": "Cookies 'N Crypt",
+  "description": "Categorizes and displays cookies used by websites. Developed by ICT2214 Group 16!",
+  "version": "13.37",
   "permissions": [
     "cookies",
     "activeTab"

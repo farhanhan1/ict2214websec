@@ -1,15 +1,143 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Cookie Categorizer</title>
   <style>
-    body { width: 300px; }
-    #cookieList { margin-top: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 10px;
+      color: #333;
+      width: 400px;
+    }
+
+    h1 {
+      color: #007bff;
+    }
+
+    .cookie-category {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .cookie-item {
+      cursor: pointer;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      word-wrap: break-word;
+      /* Ensure long words are broken and wrapped */
+    }
+
+    .cookie-name {
+      font-weight: bold;
+    }
+
+    .cookie-title:hover {
+      text-decoration: underline;
+    }
+
+    .cookie-details.collapsed {
+      display: block;
+    }
+
+    .cookie-details {
+      display: none;
+      max-height: 300px;
+      margin-top: 5px;
+      font-size: 0.9em;
+      word-wrap: break-word;
+      /* Ensure long words are broken and wrapped */
+      max-height: 70px; /* Set a maximum height for the details */
+    overflow-y: auto; /* Add vertical scrolling */
+    }
+
+    .cookie-value, .cookie-expiration {
+    /* Styles for value and expiration fields */
+    max-height: 50px; /* Maximum height before scrolling */
+    overflow-y: auto; /* Enable vertical scroll */
+    /*white-space: nowrap; /* Keeps the text on a single line */
+    /*overflow-x: auto; /* Enable horizontal scroll */
+  }
+
+  .cookie-category {
+    transition: all 0.3s ease;
+  }
+
+  .expanded-category {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+    .cookie-category h2 {
+      color: #28a745;
+      font-size: 1.2em;
+      margin-bottom: 5px;
+    }
+
+    .cookie-category ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .cookie-category li {
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      padding: 5px 10px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      font-size: 0.9em;
+    }
+
+    .cookie-list.collapsed {
+      display: none;
+    }
+
+    .category-title {
+      cursor: pointer;
+      color: #0056b3;
+    }
+
+    .edit-button,
+    .delete-button {
+      margin-top: 5px;
+      cursor: pointer;
+    }
+
+    #cookieList {
+      margin-top: 10px;
+    }
+
+    .editable-value, .editable-expires {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+  }
+
+  .confirmation-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: white;
+    z-index: 10;
+  }
   </style>
 </head>
+
 <body>
-  <h1>Cookie Categorizer</h1>
+  <h1>Cookies 'N Crypt</h1>
   <div id="cookieList"></div>
   <script src="popup.js"></script>
 </body>
+
 </html>

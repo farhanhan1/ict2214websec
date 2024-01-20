@@ -1,5 +1,5 @@
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('Cookie Categorizer installed.');
+  console.log('Cookies N Crypt installed.');
 });
 
 // Listen for messages from popup
