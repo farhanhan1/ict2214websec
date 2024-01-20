@@ -30,12 +30,16 @@ function displayCookies(categories) {
   });
 }
 
-// On popup load
 document.addEventListener('DOMContentLoaded', () => {
   chrome.tabs.query({active: true, currentWindow: true}, tabs => {
     chrome.runtime.sendMessage({action: "getCookies", url: tabs[0].url}, response => {
-      let categorizedCookies = categorizeCookies(response.data);
-      displayCookies(categorizedCookies);
+      if (response && response.data) {
+        let categorizedCookies = categorizeCookies(response.data);
+        displayCookies(categorizedCookies);
+      } else {
+        console.error('No response or response data', chrome.runtime.lastError);
+        // Handle the error or display a message to the user
+      }
     });
   });
 });
