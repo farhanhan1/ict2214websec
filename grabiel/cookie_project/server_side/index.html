@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .button-container {
+            margin-bottom: 10px;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-container label {
+            margin-right: 5px;
+        }
+
+        .step {
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        function setCookie(cookieName, cookieValue, expirationDays) {
+            var date = new Date();
+            date.setTime(date.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + date.toUTCString();
+
+            fetch("server.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name: cookieName, value: cookieValue }),
+            })
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.text(); // Convert the response to text
+                    } else {
+                        throw new Error("Failed to set cookie.");
+                    }
+                })
+                .then(function (textResponse) {
+                    document.getElementById("result").textContent = textResponse; // This is the "Cookie set successfully." message
+                    return getEncryptedCookie(cookieName); // Fetch the encrypted cookie after setting it
+                })
+                .then(function (encryptedValue) {
+                    document.getElementById("encrypted-result").textContent = "Encrypted cookie value: " + encryptedValue; // Display the encrypted value
+                })
+                .catch(function (error) {
+                    document.getElementById("result").textContent = "An error occurred while setting the cookie: " + error;
+                });
+        }
+
+        // New function to fetch the encrypted cookie value
+        function getEncryptedCookie(cookieName) {
+            return fetch("server.php?name=" + cookieName + "&encrypted=true")
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error("Failed to retrieve encrypted cookie.");
+                    }
+                });
+        }
+
+        function getCookie(cookieName) {
+                fetch("server.php?name=" + encodeURIComponent(cookieName), {
+                    credentials: 'same-origin' // Ensure cookies are sent with the request
+                })
+                    .then(function (response) {
+                        if (response.ok) {
+                            return response.text();
+                        } else {
+                            throw new Error("Failed to retrieve cookie.");
+                        }
+                    })
+                    .then(function (cookieValue) {
+                        // Assume the response is in the format "Cookie found with value: VALUE"
+                        var match = /Cookie found with value: (.+)/.exec(cookieValue);
+                        if (match && match[1]) {
+                            // Extract the actual cookie value from the matched group
+                            document.getElementById("result").textContent = "Retrieved cookie value: " + match[1];
+                        } else {
+                            // If the format does not match, display the raw response
+                            document.getElementById("result").textContent = cookieValue;
+                        }
+                    })
+                    .catch(function (error) {
+                        document.getElementById("result").textContent = "An error occurred while retrieving the cookie: " + error;
+                    });
+            }
+
+        function handleSetCookie() {
+            var cookieValue = document.getElementById("cookie-value").value;
+            var cookieName = "my_cookie";
+            var expirationDays = 7;
+
+            setCookie(cookieName, cookieValue, expirationDays);
+        }
+
+        function handleRetrieveCookie() {
+            var cookieName = "my_cookie";
+
+            getCookie(cookieName);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="button-container">
+            <button onclick="handleSetCookie()">Set Cookie</button>
+            <button onclick="handleRetrieveCookie()">Retrieve Cookie</button>
+        </div>
+        <div class="input-container">
+            <label for="cookie-value">Cookie Value:</label>
+            <input type="text" id="cookie-value">
+        </div>
+        <div id="result"></div>
+        <div id="encrypted-result"></div>
+    </div>
+</body>
+
+</html>

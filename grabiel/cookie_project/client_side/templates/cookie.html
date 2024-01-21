@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cookie Demo</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cookie Demo</h1>
+        {% if decrypted_value %}
+        <div class="cookie-value">
+            <p>Encrypted Cookie Value: {{ encoded_value }}</p>
+            <p>Decrypted Cookie Value:</p>
+            <pre>{{ decrypted_value }}</pre>
+        </div>
+        {% else %}
+        <div class="cookie-value">
+            <p>Invalid or missing cookie.</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

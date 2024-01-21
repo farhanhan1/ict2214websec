@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .button-container {
+      margin-bottom: 10px;
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .input-container label {
+      margin-right: 5px;
+    }
+
+    .step {
+      margin-bottom: 20px;
+    }
+  </style>
+  <script>
+    var encryptionKey = "secret key";
+
+    function setCookie(cookieName, cookieValue, expirationDays) {
+      var date = new Date();
+      date.setTime(date.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+      var expires = "expires=" + date.toUTCString();
+
+      // Encrypt the cookie value using AES encryption
+      var encryptedValue = CryptoJS.AES.encrypt(cookieValue, encryptionKey).toString();
+
+      document.cookie = cookieName + "=" + encryptedValue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cookieName) {
+      var name = cookieName + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var cookieArray = decodedCookie.split(';');
+      for (var i = 0; i < cookieArray.length; i++) {
+        var cookie = cookieArray[i];
+        while (cookie.charAt(0) === ' ') {
+          cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) === 0) {
+          // Decrypt the cookie value using AES decryption
+          var encryptedValue = cookie.substring(name.length, cookie.length);
+          var decryptedValue = CryptoJS.AES.decrypt(encryptedValue, encryptionKey).toString(CryptoJS.enc.Utf8);
+          return decryptedValue;
+        }
+      }
+      return "";
+    }
+
+    function handleSetCookie() {
+      var cookieValue = document.getElementById("cookie-value").value;
+      var cookieName = "my_cookie";
+      var expirationDays = 7;
+
+      setCookie(cookieName, cookieValue, expirationDays);
+
+      var outputElement = document.getElementById("output");
+      var encryptedOutputElement = document.getElementById("encrypted-output");
+
+      outputElement.innerText = "Cookie Value: " + cookieValue;
+      encryptedOutputElement.innerText = "Encrypted Value: " + CryptoJS.AES.encrypt(cookieValue, encryptionKey).toString();
+    }
+
+    function handleRetrieveCookie() {
+      var cookieName = "my_cookie";
+
+      var retrievedCookie = getCookie(cookieName);
+
+      var outputElement = document.getElementById("output");
+      var encryptedOutputElement = document.getElementById("encrypted-output");
+
+      if (retrievedCookie !== "") {
+        outputElement.innerText = "Retrieved Cookie Value: " + retrievedCookie;
+        encryptedOutputElement.innerText = "Encrypted Value: " + CryptoJS.AES.encrypt(retrievedCookie, encryptionKey).toString();
+      } else {
+        outputElement.innerText = "No cookie found.";
+        encryptedOutputElement.innerText = "";
+      }
+    }
+
+    function handleKeyChange() {
+      encryptionKey = document.getElementById("encryption-key").value;
+      document.getElementById("key-output").innerText = "Current Encryption Key: " + encryptionKey;
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="button-container">
+      <button onclick="handleSetCookie()">Set Cookie</button>
+      <button onclick="handleRetrieveCookie()">Retrieve Cookie</button>
+    </div>
+    <div class="input-container">
+      <label for="cookie-value">Cookie Value:</label>
+      <input type="text" id="cookie-value">
+    </div>
+    <div class="input-container">
+      <label for="encryption-key">Encryption Key:</label>
+      <input type="text" id="encryption-key" value="secret key">
+    </div>
+    <button onclick="handleKeyChange()">Change Key</button>
+    <div id="output"></div>
+    <div id="encrypted-output"></div>
+    <div id="key-output">Current Encryption Key: secret key</div>
+  </div>
+</body>
+</html>

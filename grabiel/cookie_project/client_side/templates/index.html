@@ -1,0 +1,40 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Application</title>
+</head>
+<body>
+    <h1>Welcome to the Flask application!</h1>
+    <form action="/set_cookie" method="GET">
+        <button type="submit">Set Cookie</button>
+    </form>
+    <form action="/set_modified_cookie" method="GET">
+        <button type="submit">Set Modified Cookie</button>
+    </form>
+    <form action="/get_cookie" method="GET">
+        <button type="submit">Get Cookie</button>
+    </form>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Application</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Flask application!</h1>
+        <form action="/set_cookie" method="GET">
+            <button type="submit">Set Cookie</button>
+        </form>
+        <form action="/set_modified_cookie" method="GET">
+            <button type="submit">Set Modified Cookie</button>
+        </form>
+        <form action="/get_cookie" method="GET">
+            <button type="submit">Get Cookie</button>
+        </form>
+    </div>
+</body>
+</html>
