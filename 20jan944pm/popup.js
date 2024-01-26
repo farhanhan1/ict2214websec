@@ -1,5 +1,6 @@
-// Categorizes cookies into predefined categories based on their name or domain attributes.
+// Categorizes cookies into predefined categories based on their name or domain
 function categorizeCookies(cookies) {
+  // Define categories
   let categories = {
     "Essential": [],
     "Performance": [],
@@ -9,10 +10,9 @@ function categorizeCookies(cookies) {
     "Unclassified": []
   };
 
-  // Iterate over each cookie and categorize them according to specific keywords in their names or domains.
+  // Iterate and categorize cookies
   cookies.forEach(cookie => {
-    if (cookie.name.includes('sess') || cookie.name.includes('Sess') || cookie.name.includes('csrf')
-      || cookie.name.includes('login')) {
+    if (cookie.name.includes('sess') || cookie.name.includes('Sess') || cookie.name.includes('csrf') || cookie.name.includes('login')) {
       categories.Essential.push(cookie);
     } else if (cookie.domain.includes('google-analytics') || cookie.name.includes('performance')) {
       categories.Performance.push(cookie);
@@ -30,12 +30,12 @@ function categorizeCookies(cookies) {
   return categories;
 }
 
-// Function to display cookies in the UI
+// Displays cookies in the UI
 function displayCookies(categories) {
   const container = document.getElementById('cookieList');
   container.innerHTML = '';
 
-  // Iterate over each category to create and display them in the UI
+  // Display each category with its cookies
   Object.keys(categories).forEach(category => {
     let section = document.createElement('div');
     section.classList.add('cookie-category');
@@ -44,7 +44,6 @@ function displayCookies(categories) {
     title.innerText = `${category} (${categories[category].length})`;
     title.classList.add('category-title');
 
-    // Set up the event listener for the category title to toggle display of its cookies
     title.addEventListener('click', () => {
       list.classList.toggle('collapsed');
     });
@@ -52,7 +51,6 @@ function displayCookies(categories) {
     let list = document.createElement('ul');
     list.classList.add('cookie-list', 'collapsed');
 
-    // Create and append list items (cookies) for each category
     categories[category].forEach(cookie => {
       let listItem = document.createElement('li');
       listItem.classList.add('cookie-item');
@@ -62,35 +60,20 @@ function displayCookies(categories) {
       cookieName.classList.add('cookie-name');
       listItem.appendChild(cookieName);
 
-      // Arrow icon setup for toggling cookie details
       let arrowIcon = document.createElement('img');
-      arrowIcon.src = 'down_arrow_logo.png'; // Placeholder image path
+      arrowIcon.src = 'down_arrow_logo.png'; // Placeholder for arrow icon
       arrowIcon.classList.add('arrow-icon');
       arrowIcon.addEventListener('click', (event) => {
         event.stopPropagation();
-        const isCollapsed = cookieDetails.classList.contains('collapsed');
-        cookieDetails.classList.toggle('collapsed', !isCollapsed);
-        arrowIcon.src = isCollapsed ? 'up_arrow_logo.png' : 'down_arrow_logo.png';
+        toggleCookieDetails(cookieDetails, arrowIcon);
       });
       listItem.appendChild(arrowIcon);
 
-      // Create and initially hide the detailed view of cookies
       let cookieDetails = document.createElement('div');
       cookieDetails.classList.add('cookie-details', 'collapsed');
-      listItem.appendChild(cookieDetails);
-      list.appendChild(listItem);
-
-      // Populate the detailed view with cookie information and action buttons.
-      let cookieExpires = cookie.expirationDate ? new Date(cookie.expirationDate * 1000).toLocaleString() : 'Session';
-      cookieDetails.innerHTML = `
-        <strong>Value:</strong> <span class="cookie-value">${cookie.value}</span><br>
-        <strong>Expires:</strong> ${cookieExpires}<br>
-        <button class="edit-button">Edit</button>
-        <button class="delete-button">Delete</button>
-      `;
+      appendCookieDetails(cookieDetails, cookie);
       listItem.appendChild(cookieDetails);
 
-      // Event listeners for edit and delete actions.
       let editButton = cookieDetails.querySelector('.edit-button');
       editButton.addEventListener('click', () => {
         transformToEditable(cookieDetails, cookie);
@@ -98,9 +81,7 @@ function displayCookies(categories) {
 
       let deleteButton = cookieDetails.querySelector('.delete-button');
       deleteButton.addEventListener('click', () => {
-        confirmDeletion(cookie, () => {
-          // This callback is empty, as the actual delete operation is handled in confirmDeletion
-        });
+        confirmDeletion(cookie, () => {});
       });
 
       list.appendChild(listItem);
@@ -112,110 +93,150 @@ function displayCookies(categories) {
   });
 }
 
-// Creates an editable text area for cookie values or expiration dates.
-function createEditableField(text, className) {
-  const input = document.createElement('textarea');
-  input.classList.add(className);
-  input.value = text;
-  return input;
+// Appends cookie details to the details element
+function appendCookieDetails(cookieDetails, cookie) {
+  let cookieExpires = cookie.expirationDate ? new Date(cookie.expirationDate * 1000).toLocaleString() : 'Session';
+  cookieDetails.innerHTML = `
+    <strong>Value:</strong> <span class="cookie-value">${cookie.value}</span><br>
+    <strong>Expires:</strong> <span class="cookie-expires">${cookieExpires}</span><br>
+    <strong>Domain:</strong> <span class="cookie-domain">${cookie.domain}</span><br>
+    <strong>Path:</strong> <span class="cookie-path">${cookie.path}</span><br>
+    <strong>Secure:</strong> <span class="cookie-secure">${cookie.secure}</span><br>
+    <strong>HttpOnly:</strong> <span class="cookie-httpOnly">${cookie.httpOnly}</span><br>
+    <strong>SameSite:</strong> <span class="cookie-sameSite">${cookie.sameSite}</span><br>
+    <strong>StoreId:</strong> <span class="cookie-storeId">${cookie.storeId || 'N/A'}</span><br>
+    <button class="edit-button">Edit</button>
+    <button class="delete-button">Delete</button>
+  `;
 }
 
-// Transforms a cookie's details view into an editable form to allow users to change the cookie's value or expiration date.
-function transformToEditable(cookieDetails, cookie) {
-  // Store the original non-editable view of the cookie details.
+// Toggles the display of cookie details
+function toggleCookieDetails(cookieDetails, arrowIcon) {
+  const isCollapsed = cookieDetails.classList.contains('collapsed');
+  cookieDetails.classList.toggle('collapsed', !isCollapsed);
+  arrowIcon.src = isCollapsed ? 'up_arrow_logo.png' : 'down_arrow_logo.png';
+}
+
+// Transforms cookie details view into an editable form
+function transformToEditable(cookieDetails, cookie, listItem) {
   const originalDetailsContent = cookieDetails.innerHTML;
 
-  // Create labels and editable fields for the 'Value' and 'Expires' attributes.
-  const valueLabel = document.createElement('label');
-  valueLabel.innerText = 'Value:';
-  valueLabel.classList.add('editable-label');
-
-  const valueField = createEditableField(cookie.value, 'editable-value');
-  valueField.addEventListener('click', (event) => event.stopPropagation());
-
-  const expiresLabel = document.createElement('label');
-  expiresLabel.innerText = 'Expires:';
-  expiresLabel.classList.add('editable-label');
-
-  const expiresField = createEditableField(new Date(cookie.expirationDate * 1000).toLocaleString(), 'editable-expires');
-  expiresField.addEventListener('click', (event) => event.stopPropagation());
-
-  // Create 'Save Changes' and 'Cancel' buttons, attaching event listeners for their functionality.
-  const saveButton = document.createElement('button');
-  saveButton.innerText = 'Save Changes';
-  saveButton.classList.add('save-button');
-  saveButton.addEventListener('click', () => {
-    saveCookieChanges(cookie.name, valueField.value, new Date(expiresField.value));
+  // Create editable fields for each attribute
+  const fields = createEditableFields(cookie);
+  const saveButton = createButton('Save Changes', 'save-button', () => {
+    saveCookieChanges(cookie, fields, listItem, cookieDetails);
   });
 
-  const cancelButton = document.createElement('button');
-  cancelButton.innerText = 'Cancel';
-  cancelButton.classList.add('cancel-button');
-  cancelButton.addEventListener('click', () => {
-    // Revert the cookie details view back to the original non-editable state.
+  const cancelButton = createButton('Cancel', 'cancel-button', () => {
     cookieDetails.innerHTML = originalDetailsContent;
-
-    // Reattach event listeners to the newly added 'Edit' and 'Delete' buttons.
-    const newEditButton = cookieDetails.querySelector('.edit-button');
-    newEditButton.addEventListener('click', () => transformToEditable(cookieDetails, cookie));
-
-    const newDeleteButton = cookieDetails.querySelector('.delete-button');
-    newDeleteButton.addEventListener('click', () => {
-      confirmDeletion(cookie, () => {
-        // Delete logic here
-      });
-    });
-
-    // Reset the arrow icon to indicate the details are now collapsed.
-    const arrowIcon = listItem.querySelector('.arrow-icon');
-    arrowIcon.src = 'down_arrow_logo.png'; // Placeholder image path
+    reattachEventListeners(cookieDetails, cookie, listItem);
   });
 
-  // Clear the current details view and add the new editable fields and buttons.
   cookieDetails.innerHTML = '';
-  cookieDetails.appendChild(valueLabel);
-  cookieDetails.appendChild(valueField);
-  cookieDetails.appendChild(expiresLabel);
-  cookieDetails.appendChild(expiresField);
+  Object.values(fields).forEach(field => cookieDetails.appendChild(field));
   cookieDetails.appendChild(saveButton);
   cookieDetails.appendChild(cancelButton);
 }
 
-// Updates a cookie's value or expiration date using the Chrome cookies API.
-function saveCookieChanges(cookieName, value, expires) {
-  // Convert the expiration date to a Unix timestamp.
-  let expirationTimestamp = new Date(expires).getTime() / 1000;
+// Creates editable fields for cookie attributes
+function createEditableFields(cookie) {
+  return {
+    valueLabel: createLabel('Value:', 'editable-label'),
+    valueField: createEditableField(cookie.value, 'editable-value'),
+    expiresLabel: createLabel('Expires:', 'editable-label'),
+    expiresField: createEditableField(new Date(cookie.expirationDate * 1000).toLocaleString(), 'editable-expires'),
+    domainLabel: createLabel('Domain:', 'editable-label'),
+    domainField: createEditableField(cookie.domain, 'editable-domain'),
+    // Add other fields for Path, Secure, etc.
+    pathLabel: createLabel('Path:', 'editable-label'),
+    pathField: createEditableField(cookie.path, 'editable-value'),
 
-  // Validate the expiration date.
+    secureLabel: createLabel('Secure:', 'editable-label'),
+    secureField: createEditableField(cookie.secure, 'editable-value'),
+
+    httpOnlyLabel: createLabel('HttpOnly:', 'editable-label'),
+    httpOnlyField: createEditableField(cookie.httpOnly, 'editable-value'),
+
+    sameSiteLabel: createLabel('SameSite:', 'editable-label'),
+    sameSiteField: createEditableField(cookie.sameSite, 'editable-value'),
+
+    storeIdLabel: createLabel('StoreId:', 'editable-label'),
+    storeIdField: createEditableField(cookie.storeId, 'editable-value'),
+  };
+}
+
+// Creates a label element
+function createLabel(text, className) {
+  const label = document.createElement('label');
+  label.innerText = text;
+  label.classList.add(className);
+  return label;
+}
+
+// Creates a button element
+function createButton(text, className, onClick) {
+  const button = document.createElement('button');
+  button.innerText = text;
+  button.classList.add(className);
+  button.addEventListener('click', onClick);
+  return button;
+}
+
+// Saves cookie changes using the Chrome API
+function saveCookieChanges(originalCookie, fields, listItem, cookieDetails) {
+  // Convert expiration date to a valid Unix timestamp or use the existing one
+  let expirationTimestamp = fields.expiresField.value ? 
+                            new Date(fields.expiresField.value).getTime() / 1000 : 
+                            originalCookie.expirationDate;
+
+  // Check if the expiration date conversion resulted in a valid number
   if (isNaN(expirationTimestamp)) {
     alert("Invalid expiration date. Please enter a valid date.");
     return;
   }
 
-  // Set the cookie with the updated values.
-  chrome.cookies.set({
-    url: 'http://' + cookie.domain + cookie.path,
-    name: cookieName,
-    value: value,
-    domain: cookie.domain,
-    path: cookie.path,
-    secure: cookie.secure,
-    httpOnly: cookie.httpOnly,
-    expirationDate: expirationTimestamp,
-    sameSite: cookie.sameSite
-  }, (newCookie) => {
-    // Check for errors and log the outcome.
+  const updatedCookie = {
+    url: 'http://' + originalCookie.domain + originalCookie.path,
+    name: originalCookie.name,
+    value: fields.valueField.value,
+    domain: fields.domainField.value,
+    path: fields.pathField.value,
+    secure: fields.secureField.value.toLowerCase() === 'true', // Convert string to boolean
+    httpOnly: fields.httpOnlyField.value.toLowerCase() === 'true', // Convert string to boolean
+    sameSite: fields.sameSiteField.value,
+    storeId: fields.storeIdField.value,
+    expirationDate: expirationTimestamp
+  };
+
+  chrome.cookies.set(updatedCookie, (newCookie) => {
     if (chrome.runtime.lastError) {
       console.error(chrome.runtime.lastError);
     } else {
       console.log('Cookie updated:', newCookie);
+      // Refresh the details view with updated cookie
+      appendCookieDetails(cookieDetails, newCookie || originalCookie);
+      if (listItem) {
+        listItem.classList.remove('editing'); // Optional, if you have a specific style for editing
+      }      
     }
   });
 }
 
-// Displays a confirmation dialog before deleting a cookie.
+
+
+// Reattach event listeners to the new buttons
+function reattachEventListeners(cookieDetails, cookie, listItem) {
+  const editButton = cookieDetails.querySelector('.edit-button');
+  editButton.addEventListener('click', () => transformToEditable(cookieDetails, cookie, listItem));
+
+  const deleteButton = cookieDetails.querySelector('.delete-button');
+  deleteButton.addEventListener('click', () => {
+    confirmDeletion(cookie, () => {});
+  });
+}
+
+// Confirmation dialog for cookie deletion
 function confirmDeletion(cookie, deleteCallback) {
-  // Create and display the confirmation dialog.
   const confirmationDialog = document.createElement('div');
   confirmationDialog.innerHTML = `
     <p>Are you sure you want to delete '${cookie.name}'?</p>
@@ -223,14 +244,10 @@ function confirmDeletion(cookie, deleteCallback) {
     <button id="cancel-delete">No</button>
   `;
   confirmationDialog.classList.add('confirmation-dialog');
-
-  // Append the dialog to the body and set up button event listeners.
   document.body.appendChild(confirmationDialog);
 
   document.getElementById('confirm-delete').addEventListener('click', () => {
-    // Remove the cookie and execute the callback function.
     chrome.cookies.remove({ url: 'http://' + cookie.domain + cookie.path, name: cookie.name }, () => {
-      // Log any errors or confirm the deletion.
       if (chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError);
       } else {
@@ -242,24 +259,28 @@ function confirmDeletion(cookie, deleteCallback) {
   });
 
   document.getElementById('cancel-delete').addEventListener('click', () => {
-    // Close the confirmation dialog without performing any action.
     confirmationDialog.remove();
   });
 }
 
-// Initialization on document load to set up the cookie list display.
+// Initialize display of cookies on document load
 document.addEventListener('DOMContentLoaded', () => {
-  // Query the active tab and request the cookies from it.
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     chrome.runtime.sendMessage({ action: "getCookies", url: tabs[0].url }, response => {
-      // Categorize and display the cookies if the data is retrieved successfully.
       if (response && response.data) {
         let categorizedCookies = categorizeCookies(response.data);
         displayCookies(categorizedCookies);
       } else {
-        // Log any errors or indicate issues in retrieving cookie data.
         console.error('No response or response data', chrome.runtime.lastError);
       }
     });
   });
 });
+
+// Creates an editable text field
+function createEditableField(text, className) {
+  const input = document.createElement('textarea');
+  input.classList.add(className);
+  input.value = text;
+  return input;
+}
