@@ -975,7 +975,7 @@ advertisement,cookielawinfo-checkbox-advertisement-es
 advertisement,cookielawinfo-checkbox-advertisement-pt
 advertisement,cookielawinfo-checkbox-advertisements
 necessary,cookielawinfo-checkbox-advertising
-necessary,cookielawinfo-checkbox-advertising-targeting
+advertisement,cookielawinfo-checkbox-advertising-targeting
 necessary,cookielawinfo-checkbox-advertising-tracking
 necessary,cookielawinfo-checkbox-afiliados
 necessary,cookielawinfo-checkbox-alapveto
@@ -1452,8 +1452,8 @@ necessary,cookielawinfo-checkbox-statisztikai
 necessary,cookielawinfo-checkbox-suorituskykyevasteet
 necessary,cookielawinfo-checkbox-szukseges
 necessary,cookielawinfo-checkbox-szukseges-sutik
-necessary,cookielawinfo-checkbox-targeting-and-advertising
-necessary,cookielawinfo-checkbox-targeting-cookies
+advertisement,cookielawinfo-checkbox-targeting-and-advertising
+advertisement,cookielawinfo-checkbox-targeting-cookies
 necessary,cookielawinfo-checkbox-technical
 necessary,cookielawinfo-checkbox-technisch-notwendige-cookies
 necessary,cookielawinfo-checkbox-tecnicas
@@ -3310,7 +3310,7 @@ analytics,_gat_TA3_spravodajska_televizia
 analytics,_gat_Tablebooker
 analytics,_gat_tagTracker
 analytics,_gat_takeoverTracker
-functional,_gat_targetvideosynplayertracker
+advertisement,_gat_targetvideosynplayertracker
 analytics,_gat_TC_pagetracker_1
 analytics,_gat_teachableTracker
 analytics,_gat_tealium_0
@@ -8424,7 +8424,7 @@ functional,collect_chat_launcher_load
 functional,collect_chat_page_load
 necessary,continually_session
 functional,continually_user_id
-functional,cookielawinfo-checkbox-targeting
+advertisement,cookielawinfo-checkbox-targeting
 necessary,cp_session
 functional,CP3
 necessary,cpSess
@@ -8459,7 +8459,7 @@ functional,ELOQUA
 functional,em_cdn_uid
 functional,ep203
 functional,fh-content-language
-functional,fh-target-language
+advertisement,fh-target-language
 functional,fh-units-language
 functional,flrb
 functional,flrbgdrp
@@ -12232,7 +12232,7 @@ necessary,_reg-csrf-token
 necessary,_reifenhauser_com_session
 others,_remoteIP
 others,_responsive
-necessary,_retarget-links_session
+advertisement,_retarget-links_session
 others,_retarGroup
 necessary,_retina_app_session
 others,_retraced
@@ -14568,7 +14568,7 @@ others,4ffcb3d9b71835ffa02971bc59fd0096
 others,4frontend
 others,4LB
 others,4tagIi0FLf
-others,4targetingcookie
+advertisement,4targetingcookie
 others,5_2_MD
 others,5_2_SS
 others,500_hits_counter
@@ -16155,7 +16155,7 @@ others,aamuattest
 others,AANVRAAGMAGAZINE2020
 others,aasd
 others,aawlaunch
-performance,aawp-geotargeting
+advertisement,aawp-geotargeting
 functional,AB Tasty Banner countdown 630725
 functional,AB Tasty Banner redirection 570742
 functional,ab_04238991
@@ -16318,7 +16318,7 @@ others,abdCarrier
 functional,abdGeo
 functional,abdGeoMM
 others,abdn_show_cookie_advisory_20180525
-others,abdTarget_1568371711
+advertisement,abdTarget_1568371711
 functional,abdUID
 others,aBFKypVtDNvR
 others,abfp
@@ -16899,7 +16899,7 @@ others,adsuu
 advertisement,adt_firstvisit
 others,adt_recurring
 functional,adt_uxid
-others,adtechTargetingKeys
+advertisement,adtechTargetingKeys
 functional,adtheorent[cuid]
 others,adtiming
 functional,adtool_guid
@@ -16957,7 +16957,7 @@ others,ADVS
 advertisement,advservices-cookie
 functional,advst_uid_11
 others,advtrk
-others,adwise_retarget
+advertisement,adwise_retarget
 others,adx
 functional,adx_profile_guid
 functional,adxadid
@@ -18501,10 +18501,10 @@ advertisement,aws-first-visit-2
 necessary,aws-mkto-trk
 necessary,aws-priv
 necessary,aws-signin-csrf
-necessary,aws-target-data
-necessary,aws-target-session-id
-functional,aws-target-static-id
-functional,aws-target-visitor-id
+advertisement,aws-target-data
+advertisement,aws-target-session-id
+advertisement,aws-target-static-id
+advertisement,aws-target-visitor-id
 functional,aws-ubid-main
 necessary,AWSALBTG
 necessary,AWSALBTGCORS
@@ -20494,7 +20494,7 @@ others,CA_LAND_PAGE
 others,ca_nudgesDisabled
 others,ca_recommendationGroup
 necessary,CA_SESSION_ID
-others,CA_TARGET
+advertisement,CA_TARGET
 functional,ca_trk_request_id
 functional,ca_trk_uuid
 others,ca_uv-106
@@ -21448,7 +21448,7 @@ necessary,cicapfest_session
 others,CIcookie
 functional,CIDCookie
 functional,cidlid
-functional,CIDOT.GeoTargetOverride
+advertisement,CIDOT.GeoTargetOverride
 functional,cif-language
 others,cikneeto
 others,cikneeto_lastad
@@ -21608,8 +21608,8 @@ others,claims
 others,claimsTypeCookie
 analytics,clAnalyticsId
 functional,clang
-functional,clareitysecurity-did
-functional,clareitysecurity-tid
+necessary,clareitysecurity-did
+necessary,clareitysecurity-tid
 necessary,ClareitySession
 others,clarion_uv_home
 others,clarion_uv_home_time1
@@ -22201,7 +22201,7 @@ others,com.paf.frontend.common.journeycookie
 others,com.paf.frontend.common.LifeCycleCookie
 functional,com.paf.frontend.common.LocaleCookie
 functional,com.paf.frontend.common.tid
-others,com.sap.engine.security.authentication.original_application_url
+necessary,com.sap.engine.security.authentication.original_application_url
 others,com.wm.reflector
 necessary,com.xk72.webparts.csrf
 functional,comfortiva_skipEmail
@@ -22408,7 +22408,7 @@ others,cookie_clasica
 others,cookie_code
 functional,cookie_consent_first
 functional,cookie_consent_performance
-functional,cookie_consent_targeting
+advertisement,cookie_consent_targeting
 functional,cookie_consent_timestamp
 functional,cookie_country
 others,cookie_crypto
@@ -26245,7 +26245,7 @@ necessary,ecsession14-6094cedc595ae47c2d7e76e9362bf8d4
 functional,ECSID
 advertisement,ecvisits13-fd74319c464c247b7c0305bfc329d4f0
 advertisement,ecvisits14-6094cedc595ae47c2d7e76e9362bf8d4
-others,ecvtcn_bs_retargeting
+advertisement,ecvtcn_bs_retargeting
 others,ed_cc
 others,ED_mjMNI
 necessary,ed_session_startdate
@@ -26353,7 +26353,7 @@ functional,eff5e3c7-467b-4409-9429-e6bc5d1285aefaktorId
 others,effcc6653305ab5bd95dd87cbc730b4e
 functional,effishow660016671
 functional,effishowprec660016671
-others,effitarget
+advertisement,effitarget
 functional,eFreshCSR_LoggedInUserID
 others,eFreshCSR_UserDS
 others,efUInZExgLszefxkrsa
@@ -26488,7 +26488,7 @@ necessary,emailSignupTimer
 functional,embed[sidebaroff]
 functional,embed[width]
 others,embedded
-necessary,ember_simple_auth-redirectTarget
+advertisement,ember_simple_auth-redirectTarget
 necessary,ember_simple_auth:session
 others,embercom_host
 others,embryo
@@ -27641,7 +27641,7 @@ functional,feature_homepage_yext_promo_nov_2019_v2
 functional,feature_tests
 functional,feature_token
 functional,feature-flag-cookie
-functional,feature-flag-targeting
+advertisement,feature-flag-targeting
 functional,feature-flag-user-token
 functional,feature-RWD-6307-1
 functional,feature-RWD-6433-1
@@ -28853,7 +28853,7 @@ functional,geospock-_zldt
 functional,geot_rocket_city
 necessary,geot_rocket_country
 functional,geot_rocket_state
-functional,Geotargeting
+advertisement,Geotargeting
 functional,geoZipcode
 necessary,GESESSID
 necessary,gestor_session
@@ -30549,8 +30549,8 @@ others,IC
 necessary,IC_IP2Location_Locale
 necessary,IC_IP2Location_Locale-legacy
 others,ic_pixel_ration
-others,IC_TargetCurrency
-analytics,IC_TargetCurrency-legacy
+advertisement,IC_TargetCurrency
+advertisement,IC_TargetCurrency-legacy
 others,IC_USER_COOCKIE
 others,ic_window_resolution_14
 others,ic_window_resolution_1555
@@ -35401,7 +35401,7 @@ others,mystuffapp_live_u2main
 others,mystuffapp_live_u2main.sig
 others,mystuffapp_u1main
 advertisement,myt_storevisit
-others,mytarget
+advertisement,mytarget
 others,mytextsizeatextsize
 others,myth_cookie_policy
 necessary,myth_country
@@ -37274,7 +37274,7 @@ others,originName
 analytics,OriginReferer
 analytics,originReferrer
 others,originURI
-others,origtargetURL
+advertisement,origtargetURL
 others,OrigURL
 necessary,ORION_SESSION
 necessary,ORION_SESSION_REQ
@@ -37893,7 +37893,7 @@ others,pc_r
 others,pc_replace_number
 functional,pc_sid
 others,pc_sr
-others,pc_swap_target_number
+advertisement,pc_swap_target_number
 others,pc_uk_en_abt
 functional,pc_uuid
 necessary,pc_v1_www_lang
@@ -38184,7 +38184,7 @@ functional,phoenix_redirect
 necessary,phoenix_use_ssl
 functional,phoenix.favorites.6
 functional,phoenix.favorites.6.lastSynced
-necessary,phoenixPostLoginTarget
+advertisement,phoenixPostLoginTarget
 functional,phone
 functional,PHONE_NUMBER_GROUP
 functional,phone2action-production
@@ -38830,8 +38830,8 @@ performance,ppca_tracker
 advertisement,PPCC
 others,ppd
 others,PPDM
-functional,ppe_logged_in_user_target_80
-functional,ppe_logged_in_user_target_80_categories
+advertisement,ppe_logged_in_user_target_80
+advertisement,ppe_logged_in_user_target_80_categories
 others,ppesp
 functional,ppid
 others,ppkcookie
@@ -39302,7 +39302,7 @@ functional,psmRetryExternalIds
 others,psmrkio
 functional,PSN
 functional,psn_atf
-functional,psnTarget
+advertisement,psnTarget
 functional,psping
 functional,psprogram
 functional,pspstate
@@ -40555,9 +40555,9 @@ advertisement,resx_visitor
 functional,Ret
 functional,ret_on
 functional,retail_uid
-others,retargeter
-functional,retargeting_group
-functional,retargeting_split_cookie
+advertisement,retargeter
+advertisement,retargeting_group
+advertisement,retargeting_split_cookie
 functional,retc
 functional,retDate
 functional,RETHOMEV
@@ -43574,7 +43574,7 @@ others,SPC_U
 functional,spcid
 necessary,spconsent
 others,spcookie
-others,spcTarget
+advertisement,spcTarget
 others,spd-custhash
 others,specialB2b
 others,specialists
@@ -45672,26 +45672,26 @@ functional,TAP_ID
 necessary,tap_sess
 others,tar
 others,TAReturnTo
-others,target
-others,target_activity
-others,target_date
-others,target_lat
-others,target_lng
-others,target_pos
-others,Target_Test
-others,target_url
-analytics,Target: User Last Vehicle Seen
-functional,TargetData
+advertisement,target
+advertisement,target_activity
+advertisement,target_date
+advertisement,target_lat
+advertisement,target_lng
+advertisement,target_pos
+advertisement,Target_Test
+advertisement,target_url
+advertisement,Target: User Last Vehicle Seen
+advertisement,TargetData
 advertisement,targeted_ads
-functional,targetGroupPath
-functional,targetid
-functional,TARGETING_COOKIES
+advertisement,targetGroupPath
+advertisement,targetid
+advertisement,TARGETING_COOKIES
 advertisement,targeting-or-advertising
 advertisement,TargetingCookie
 advertisement,TargetingCookiesAllowed
-functional,targetMobileCookie
-necessary,targetTestVersion
-functional,targetUrl
+advertisement,targetMobileCookie
+advertisement,targetTestVersion
+advertisement,targetUrl
 functional,tariffBoxLocked
 functional,TARRACOTICKET_FRONTEND
 others,tartaucitron
@@ -46860,7 +46860,7 @@ analytics,traffic_se_co
 analytics,traffic_source
 analytics,traffic_src
 analytics,traffic_src_first
-analytics,traffic_target
+advertisement,traffic_target
 analytics,traffic_type
 analytics,Traffic-Source
 analytics,TrafficChannel
@@ -46868,7 +46868,7 @@ analytics,trafficSource
 analytics,trafficsource_pff
 analytics,trafficSource2_visitId
 analytics,trafficSourceTime
-analytics,trafficsplit-target
+advertisement,trafficsplit-target
 analytics,trafic_h
 analytics,trafic_v
 analytics,trail_count
@@ -47115,7 +47115,7 @@ others,tt_canary
 others,tt_cj_cookie
 others,TT_CURR
 necessary,TT_LANG
-others,tt_retargetly
+advertisement,tt_retargetly
 others,tt_settings
 others,tt_utm_entries
 functional,tt_visitor_id
@@ -50652,7 +50652,7 @@ analytics,x_qtag_leroy
 analytics,x_qtag_mecwienerstaedtischewienerstaedtischeat
 analytics,x_qtag_montepio
 analytics,x_qtag_novobanco
-necessary,x_qtag_rheinlandversicherungretargetingcontainer
+advertisement,x_qtag_rheinlandversicherungretargetingcontainer
 analytics,x_qtag_uwvwwwprodv3
 analytics,x_qtag_walbuschmaincontainer
 analytics,x_referrer
@@ -51130,7 +51130,7 @@ others,yCzQUwEsUserToken
 others,yd_loggedIn
 others,ydkKPTINz
 others,YdU2vCgJ
-others,yeahtargeter
+advertisement,yeahtargeter
 necessary,YEDGESESSION
 others,yednOuPXcNH
 others,YEghivndt-_FQuoH
