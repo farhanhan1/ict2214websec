@@ -20662,8 +20662,8 @@ others,canUseWebP
 necessary,canvas_session
 others,CanyonCustomer
 functional,CAOCID
-others,CaosGtag_ga
-functional,CaosGtag_ga_gid
+analytics,CaosGtag_ga
+analytics,CaosGtag_ga_gid
 others,cap
 functional,caparol-icons-shoppingList
 others,capdata
@@ -30384,7 +30384,7 @@ necessary,i18n_locale_code
 others,i18n_redirect
 others,i18n_redirected
 others,i18n-prefs
-necessary,i18n.langtag
+analytics,i18n.langtag
 others,i18next
 others,i1dSiteTimer
 others,i2c
@@ -46827,7 +46827,7 @@ advertisement,trackingParams
 advertisement,trackingRichRelevance
 necessary,trackingSessionID
 advertisement,trackingSf
-advertisement,TrackingTags
+analytics,TrackingTags
 necessary,trackingteam_abtest_version
 advertisement,trackingV2
 advertisement,TrackJS
@@ -50985,7 +50985,7 @@ functional,xng.gid
 functional,xng.sid
 others,xNgv_joHEuPRl
 functional,XnLh.idsrv.xsrf
-necessary,xnlh.langtag
+analytics,xnlh.langtag
 others,XnLh.SignInMessage.6f144ca522dd4301d0e56e7bc314c1d0
 others,XnLh.SignInMessage.8f0fab6c0a3db75077a0149ce82de650
 others,XnLh.SignInMessage.e9f8bbc7350323f0dbf00b107ce2328f
