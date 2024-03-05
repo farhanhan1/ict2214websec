@@ -14568,7 +14568,7 @@ others,4ffcb3d9b71835ffa02971bc59fd0096
 others,4frontend
 others,4LB
 others,4tagIi0FLf
-others,4targetingcookie
+advertisement,4targetingcookie
 others,5_2_MD
 others,5_2_SS
 others,500_hits_counter
@@ -16155,7 +16155,7 @@ others,aamuattest
 others,AANVRAAGMAGAZINE2020
 others,aasd
 others,aawlaunch
-others,aawp-geotargeting
+advertisement,aawp-geotargeting
 others,AB Tasty Banner countdown 630725
 others,AB Tasty Banner redirection 570742
 others,ab_04238991
@@ -16624,7 +16624,7 @@ others,ad_primaryWarehouseCity
 others,ad_primaryWarehouseId
 others,ad_primaryWarehouseName
 others,ad_primaryWarehouseState
-others,ad_retargeting
+advertisement,ad_retargeting
 others,ad_rm
 others,ad_rmu
 necessary,ad_session_id
@@ -16899,7 +16899,7 @@ others,adsuu
 advertisement,adt_firstvisit
 others,adt_recurring
 others,adt_uxid
-others,adtechTargetingKeys
+advertisement,adtechTargetingKeys
 others,adtheorent[cuid]
 others,adtiming
 others,adtool_guid
@@ -21608,8 +21608,8 @@ others,claims
 others,claimsTypeCookie
 others,clAnalyticsId
 others,clang
-others,clareitysecurity-did
-others,clareitysecurity-tid
+necessary,clareitysecurity-did
+necessary,clareitysecurity-tid
 necessary,ClareitySession
 others,clarion_uv_home
 others,clarion_uv_home_time1
@@ -22201,7 +22201,7 @@ others,com.paf.frontend.common.journeycookie
 others,com.paf.frontend.common.LifeCycleCookie
 others,com.paf.frontend.common.LocaleCookie
 others,com.paf.frontend.common.tid
-others,com.sap.engine.security.authentication.original_application_url
+necessary,com.sap.engine.security.authentication.original_application_url
 others,com.wm.reflector
 necessary,com.xk72.webparts.csrf
 others,comfortiva_skipEmail
@@ -22342,7 +22342,7 @@ others,content
 others,content_lang
 others,content_layer_count
 others,content_tags_prev_page
-others,content-targeting
+advertisement,content-targeting
 others,contentDir
 others,contentFilters
 others,contento_ratings
@@ -22408,7 +22408,7 @@ others,cookie_clasica
 others,cookie_code
 others,cookie_consent_first
 others,cookie_consent_performance
-others,cookie_consent_targeting
+advertisement,cookie_consent_targeting
 others,cookie_consent_timestamp
 others,cookie_country
 others,cookie_crypto
@@ -24356,8 +24356,8 @@ others,deqwas_rtbsync_as
 others,deqwas_rtbsync_db
 others,deqwas_rtbsync_ta
 others,deqwas_rtbsync_td
-others,DEretargeting
-others,DEretargetingExp
+advertisement,DEretargeting
+advertisement,DEretargetingExp
 others,dermodalcookie
 others,descyNBUaHrxkl
 necessary,designer_session_id
@@ -24523,7 +24523,7 @@ others,dfp_segment_test_v2
 others,dfp_segment_test_v3
 others,dfp_segment_test_v4
 others,dfp_user_id
-others,DFPTargetingByUser
+advertisement,DFPTargetingByUser
 necessary,dfsession
 others,dfusrpid
 others,DfUvsgeVlwny-I
@@ -26245,7 +26245,7 @@ necessary,ecsession14-6094cedc595ae47c2d7e76e9362bf8d4
 others,ECSID
 advertisement,ecvisits13-fd74319c464c247b7c0305bfc329d4f0
 advertisement,ecvisits14-6094cedc595ae47c2d7e76e9362bf8d4
-others,ecvtcn_bs_retargeting
+advertisement,ecvtcn_bs_retargeting
 others,ed_cc
 others,ED_mjMNI
 necessary,ed_session_startdate
@@ -27641,7 +27641,7 @@ others,feature_homepage_yext_promo_nov_2019_v2
 others,feature_tests
 others,feature_token
 others,feature-flag-cookie
-others,feature-flag-targeting
+advertisement,feature-flag-targeting
 others,feature-flag-user-token
 others,feature-RWD-6307-1
 others,feature-RWD-6433-1
@@ -28853,7 +28853,7 @@ others,geospock-_zldt
 others,geot_rocket_city
 others,geot_rocket_country
 others,geot_rocket_state
-others,Geotargeting
+advertisement,Geotargeting
 others,geoZipcode
 necessary,GESESSID
 necessary,gestor_session
@@ -40556,8 +40556,8 @@ others,Ret
 others,ret_on
 others,retail_uid
 others,retargeter
-others,retargeting_group
-others,retargeting_split_cookie
+advertisement,retargeting_group
+advertisement,retargeting_split_cookie
 others,retc
 others,retDate
 others,RETHOMEV
@@ -41961,19 +41961,19 @@ necessary,SecureSessionID-SUbAqADT58IAAAFVVqQ_jAez
 necessary,SecureSessionID-uLkKAB1bU1IAAAFccb1nubUa
 necessary,SecureSessionKey
 others,SECURETOKEN
-others,security_code_contact
-others,SECURITY_secret
+necessary,security_code_contact
+necessary,SECURITY_secret
 necessary,security_session_verify
-others,SecurityAccess
-others,securityAlert
-others,SecurityCerb_jfYEAWTLaPB
-others,SecurityCerb_LYDPRaFc
-others,SecurityCerb_O_E-ZzIqaDTi
-others,SecurityCerb_ptXwHRSjB
-others,SecurityCerb_qm-DLrRYetoMfAjl
-others,SecurityCerb_xCMlFrIdbuvTUmX
-others,SecurityCerbO_E-ZzIqaDTi
-others,SecurityCerbxCMlFrIdbuvTUmX
+necessary,SecurityAccess
+necessary,securityAlert
+necessary,SecurityCerb_jfYEAWTLaPB
+necessary,SecurityCerb_LYDPRaFc
+necessary,SecurityCerb_O_E-ZzIqaDTi
+necessary,SecurityCerb_ptXwHRSjB
+necessary,SecurityCerb_qm-DLrRYetoMfAjl
+necessary,SecurityCerb_xCMlFrIdbuvTUmX
+necessary,SecurityCerbO_E-ZzIqaDTi
+necessary,SecurityCerbxCMlFrIdbuvTUmX
 others,secWireSanibel
 others,seed
 others,seedid
@@ -45685,10 +45685,10 @@ others,TargetData
 others,targeted_ads
 others,targetGroupPath
 others,targetid
-others,TARGETING_COOKIES
-others,targeting-or-advertising
-others,TargetingCookie
-others,TargetingCookiesAllowed
+advertisement,TARGETING_COOKIES
+advertisement,targeting-or-advertising
+advertisement,TargetingCookie
+advertisement,TargetingCookiesAllowed
 others,targetMobileCookie
 others,targetTestVersion
 others,targetUrl
@@ -50652,7 +50652,7 @@ others,x_qtag_leroy
 others,x_qtag_mecwienerstaedtischewienerstaedtischeat
 others,x_qtag_montepio
 others,x_qtag_novobanco
-others,x_qtag_rheinlandversicherungretargetingcontainer
+advertisement,x_qtag_rheinlandversicherungretargetingcontainer
 others,x_qtag_uwvwwwprodv3
 others,x_qtag_walbuschmaincontainer
 others,x_referrer
