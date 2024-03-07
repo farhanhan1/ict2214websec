@@ -81,7 +81,7 @@ function displayCookies(categories) {
 
       let deleteButton = cookieDetails.querySelector('.delete-button');
       deleteButton.addEventListener('click', () => {
-        confirmDeletion(cookie, () => {});
+        confirmDeletion(cookie, () => { });
       });
 
       list.appendChild(listItem);
@@ -215,7 +215,7 @@ function reattachEventListeners(cookieDetails, cookie, listItem) {
 
   const deleteButton = cookieDetails.querySelector('.delete-button');
   deleteButton.addEventListener('click', () => {
-    confirmDeletion(cookie, () => {});
+    confirmDeletion(cookie, () => { });
   });
 }
 
@@ -239,7 +239,7 @@ function confirmDeletion(cookie, deleteCallback) {
       }
     });
     deleteCallback
-();
+      ();
     confirmationDialog.remove();
   });
 
@@ -260,7 +260,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+  
+  // Ensure the button exists in the DOM before adding an event listener
+  const viewChangesButton = document.getElementById('viewCookieChanges');
+  if (viewChangesButton) {
+    viewChangesButton.addEventListener('click', () => {
+      window.location.href = chrome.runtime.getURL('cookieChanges.html');
+    });
+  } else {
+    console.error('Button not found');
+  }
 });
+
 
 // Creates an editable text field
 function createEditableField(text, className) {
@@ -269,3 +280,4 @@ function createEditableField(text, className) {
   input.value = text;
   return input;
 }
+

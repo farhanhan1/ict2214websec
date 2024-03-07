@@ -1,11 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Cookies 'N Crypt",
+  "name": "Cookies 'N Crypt2",
   "description": "Categorizes and displays cookies used by websites. Developed by ICT2214 Group 16!",
   "version": "13.37",
   "permissions": [
     "cookies",
-    "activeTab"
+    "activeTab",
+    "storage",
+    "webNavigation",
+    "notifications"
   ],
   "host_permissions": [
     "*://*/*"
@@ -19,5 +22,14 @@
   },
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["cookieChanges.html", "cookieChanges.js", "style.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
