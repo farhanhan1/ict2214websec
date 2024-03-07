@@ -10,7 +10,9 @@
     "tabs",
     "activeTab",
     "declarativeNetRequest",
-    "background"
+    "background",
+    "webNavigation",
+    "notifications"
   ],
   "host_permissions": 
   [
@@ -28,5 +30,12 @@
   "background": 
   {
     "service_worker": "background.js"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["cookieChanges.html", "cookieChanges.js", "style.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+  
 }

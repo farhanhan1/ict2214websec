@@ -325,7 +325,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+  
+  // Adding this function to have a separate gui for cookie changes
+  const viewChangesButton = document.getElementById('viewCookieChanges');
+  if (viewChangesButton) {
+    viewChangesButton.addEventListener('click', () => {
+      window.location.href = chrome.runtime.getURL('cookieChanges.html');
+    });
+  } else {
+    console.error('Button not found');
+  }
 });
+
 
 function confirmDeletion(cookie, deleteCallback) {
   const dialogContainer = document.getElementById('dialog-container'); // Get the dialog container

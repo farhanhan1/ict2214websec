@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            color: #333;
+            width: 400px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        .cookie-category {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .cookie-item {
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            word-wrap: break-word;
+            /* Ensure long words are broken and wrapped */
+            position: relative;
+            /* Added for absolute positioning of icons */
+        }
+
+        .cookie-name {
+            font-weight: bold;
+            display: inline-block;
+            /* This will help with alignment */
+            width: calc(100% - 40px);
+            /* Adjust the width to make space for the icon */
+        }
+
+        .cookie-title:hover {
+            text-decoration: underline;
+        }
+
+        .cookie-details.collapsed {
+            display: block;
+        }
+
+        .cookie-details {
+            display: none;
+            max-height: 100px;
+            margin-top: 5px;
+            font-size: 0.9em;
+            word-wrap: break-word;
+            /* Ensure long words are broken and wrapped */
+            overflow-y: auto;
+            /* Add vertical scrolling */
+        }
+
+        .cookie-value,
+        .cookie-expiration {
+            /* Styles for value and expiration fields */
+            max-height: 50px;
+            /* Maximum height before scrolling */
+            overflow-y: auto;
+            /* Enable vertical scroll */
+            /*white-space: nowrap; /* Keeps the text on a single line */
+            /*overflow-x: auto; /* Enable horizontal scroll */
+        }
+
+        .expanded-category {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .cookie-category h2 {
+            color: #28a745;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .cookie-category ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cookie-category li {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .cookie-list.collapsed {
+            display: none;
+        }
+
+        .category-title {
+            cursor: pointer;
+            color: #0056b3;
+        }
+
+        .edit-button,
+        .delete-button {
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        #cookieList {
+            margin-top: 10px;
+        }
+
+        .editable-label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            /* Make label take its own line */
+        }
+
+        .editable-value,
+        .editable-expires {
+            width: calc(100% - 20px);
+            height: 50px;
+            margin: 5px 0;
+            padding: 5px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            resize: vertical;
+            /* Allows resizing vertically */
+        }
+
+        /* To make save button look nicer */
+        .save-button {
+            display: block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .save-button:hover {
+            background-color: #0056b3;
+        }
+
+        .arrow-icon {
+            cursor: pointer;
+            float: right;
+            /* Align to the right */
+            width: 20px;
+            /* Adjust size as needed */
+            height: 20px;
+            /* Adjust size as needed */
+        }
+
+        /* To make cancel button look nicer */
+        .cancel-button {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 8px 15px;
+            background-color: #dc3545;
+            /* Red theme */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .cancel-button:hover {
+            background-color: #c82333;
+        }
+
+
+        .confirmation-dialog {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #ddd;
+            padding: 20px;
+            background-color: white;
+            z-index: 10;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies Changes</title>
+</head>
+
+<body>
+    <div id="addedCookies"></div>
+    <div id="removedCookies"></div>
+    <script src="cookieChanges.js"></script>
+</body>
+</html>
