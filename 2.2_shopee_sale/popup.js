@@ -1,33 +1,79 @@
-// Categorizes cookies into predefined categories based on their name or domain
-function categorizeCookies(cookies) {
-  // Define categories
+// // Categorizes cookies into predefined categories based on their name or domain
+// function categorizeCookies(cookies) {
+//   // Define categories
+//   // let categories = {
+//   //   "Essential": [],
+//   //   "Performance": [],
+//   //   "Analytics": [],
+//   //   "Advertising": [],
+//   //   "SocialNetworking": [],
+//   //   "Unclassified": []
+//   // };
+//   let categories = {
+//     "Necessary": [],
+//     "Functional": [],
+//     "Analytics": [],
+//     "Advertisement": [],
+//     "Performance": [],
+//     "Others": []
+//   };
+
+//   // Iterate over each cookie and categorize it
+//   cookies.forEach(cookie => {
+//     if (cookie.name.includes('sess') || cookie.name.includes('csrf') || cookie.name.includes('login')) {
+//       categories.Necessary.push(cookie);
+//     } else if (cookie.domain.includes('google-analytics') || cookie.name.includes('performance')) {
+//       categories.Analytics.push(cookie);
+//     } else if (cookie.name.includes('prefs') || cookie.name.includes('ui')) {
+//       categories.Functional.push(cookie);
+//     } else if (cookie.name.includes('ad') || cookie.name.includes('track')) {
+//       categories.Advertisement.push(cookie);
+//     } else if (cookie.domain.includes('facebook.com') || cookie.name.includes('share')) {
+//       categories.Advertisement.push(cookie);
+//     } else {
+//       categories.Others.push(cookie);
+//     }
+//   });
+
+//   return categories;
+// }
+
+// Function to fetch cookie category from Flask app for a batch of cookie names
+async function fetchCookieCategories(cookieNames) {
+  const response = await fetch('http://52.147.200.156:5000/predict_batch', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cookie_names: cookieNames })
+  });
+  const data = await response.json();
+  return data.categories; // Assuming the Flask app returns an object with cookie names as keys and categories as values
+}
+
+// Asynchronously categorizes cookies into predefined categories based on their names using batch processing
+async function categorizeCookies(cookies) {
   let categories = {
-    "Essential": [],
-    "Performance": [],
+    "Necessary": [],
+    "Functional": [],
     "Analytics": [],
-    "Advertising": [],
-    "SocialNetworking": [],
-    "Unclassified": []
+    "Advertisement": [],
+    "Performance": [],
+    "Others": []
   };
 
-  // Iterate over each cookie and categorize it
+  const cookieNames = cookies.map(cookie => cookie.name);
+  const batchCategories = await fetchCookieCategories(cookieNames);
+
   cookies.forEach(cookie => {
-    if (cookie.name.includes('sess') || cookie.name.includes('csrf') || cookie.name.includes('login')) {
-      categories.Essential.push(cookie);
-    } else if (cookie.domain.includes('google-analytics') || cookie.name.includes('performance')) {
-      categories.Performance.push(cookie);
-    } else if (cookie.name.includes('prefs') || cookie.name.includes('ui')) {
-      categories.Analytics.push(cookie);
-    } else if (cookie.name.includes('ad') || cookie.name.includes('track')) {
-      categories.Advertising.push(cookie);
-    } else if (cookie.domain.includes('facebook.com') || cookie.name.includes('share')) {
-      categories.SocialNetworking.push(cookie);
-    } else {
-      categories.Unclassified.push(cookie);
-    }
+    const category = batchCategories[cookie.name] ? capitalizeFirstLetter(batchCategories[cookie.name]) : 'Others';
+    categories[category].push(cookie);
   });
 
   return categories;
+}
+
+// Helper function to capitalize the first letter of a string for category matching
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
 // Displays cookies in the UI
@@ -87,7 +133,7 @@ function displayCookies(categories) {
 
       let deleteButton = cookieDetails.querySelector('.delete-button');
       deleteButton.addEventListener('click', () => {
-        confirmDeletion(cookie, () => {});
+        confirmDeletion(cookie, () => { });
       });
 
       list.appendChild(listItem);
@@ -221,13 +267,13 @@ function displayDeletedCookies() {
     var deletedCookies = result.deletedCookies || [];
     var listContainer = document.getElementById('deletedCookiesList');
     listContainer.innerHTML = '<h2>Chosen Cookies for Deletion</h2>';
-    
-    deletedCookies.forEach(function(cookie, index) {
+
+    deletedCookies.forEach(function (cookie, index) {
       var listItem = document.createElement('div');
       listItem.textContent = `${cookie.name} (Domain: ${cookie.domain})`;
       var unmarkButton = document.createElement('button');
       unmarkButton.textContent = 'Unmark';
-      unmarkButton.onclick = function() {
+      unmarkButton.onclick = function () {
         // Remove cookie from deletedCookies array and update storage
         unmarkCookieForDeletion(index);
       };
@@ -250,7 +296,7 @@ function unmarkCookieForDeletion(index) {
         displayDeletedCookies(); // Refresh the list
         refreshCookieList();
         // Now reload the current tab
-        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
           const currentTab = tabs[0];
           if (currentTab) {
             chrome.tabs.reload(currentTab.id);
@@ -262,8 +308,7 @@ function unmarkCookieForDeletion(index) {
 }
 
 // Call `displayDeletedCookies` in the DOMContentLoaded event listener
-document.addEventListener('DOMContentLoaded', function () 
-{
+document.addEventListener('DOMContentLoaded', function () {
   displayDeletedCookies();
 });
 
@@ -272,7 +317,7 @@ function saveUserPreference(cookie, callback) {
   chrome.storage.sync.get(['deletedCookies'], function (result) {
     const deletedCookies = result.deletedCookies || [];
     // Check if the cookie already exists in the array
-    if (!deletedCookies.some(deletedCookie => 
+    if (!deletedCookies.some(deletedCookie =>
       deletedCookie.name === cookie.name && deletedCookie.domain === cookie.domain)) {
       deletedCookies.push({ name: cookie.name, domain: cookie.domain, path: cookie.path });
       chrome.storage.sync.set({ deletedCookies: deletedCookies }, function () {
@@ -293,7 +338,7 @@ function reattachEventListeners(cookieDetails, cookie, listItem) {
 
   const deleteButton = cookieDetails.querySelector('.delete-button');
   deleteButton.addEventListener('click', () => {
-    confirmDeletion(cookie, () => {});
+    confirmDeletion(cookie, () => { });
   });
 }
 
@@ -325,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-  
+
   // Adding this function to have a separate gui for cookie changes
   const viewChangesButton = document.getElementById('viewCookieChanges');
   if (viewChangesButton) {
@@ -354,16 +399,16 @@ function confirmDeletion(cookie, deleteCallback) {
 
   // Now the elements are in the DOM, you can query them within the container
   confirmationDialog.querySelector('#confirm-delete').addEventListener('click', () => {
-    chrome.cookies.remove({ url: 'http://' + cookie.domain + cookie.path, name: cookie.name }, function(removed) {
+    chrome.cookies.remove({ url: 'http://' + cookie.domain + cookie.path, name: cookie.name }, function (removed) {
       if (chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError);
       } else {
         console.log('Cookie deleted:', cookie.name);
-        saveUserPreference(cookie, function() {
+        saveUserPreference(cookie, function () {
           displayDeletedCookies();
           refreshCookieList();
           // Reload the current tab
-          chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+          chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             const currentTab = tabs[0];
             if (currentTab) {
               chrome.tabs.reload(currentTab.id);
@@ -389,3 +434,33 @@ function createEditableField(text, className) {
   input.value = text;
   return input;
 }
+
+// // Preload and cache cookie categorization
+// chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+//   if (changeInfo.status === 'complete' && tab.active) {
+//     // Fetch cookies and categorize them
+//     chrome.cookies.getAll({ url: tab.url }, async (cookies) => {
+//       const categorizedCookies = await categorizeCookies(cookies);
+//       // Cache the categorized cookies for the current tab
+//       chrome.storage.local.set({ [tabId]: categorizedCookies });
+//     });
+//   }
+// });
+
+// For categorization of cookies via Flask
+// Fetching and displaying categorized cookies when the popup is opened
+document.addEventListener('DOMContentLoaded', async () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    const currentTab = tabs[0];
+    if (currentTab) {
+      // Attempt to retrieve cached categories
+      chrome.storage.local.get([currentTab.id.toString()], (result) => {
+        // Fallback to Fetch and categorize cookies
+        chrome.cookies.getAll({ url: currentTab.url }, async (cookies) => {
+          const categorizedCookies = await categorizeCookies(cookies);
+          displayCookies(categorizedCookies);
+        });
+      });
+    }
+  });
+});
