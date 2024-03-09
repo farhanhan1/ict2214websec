@@ -120,6 +120,28 @@ function appendCookieDetails(cookieDetails, cookie) {
     <button class="edit-button">Edit</button>
     <button class="delete-button">Delete</button>
   `;
+    // Add a new delete button "delete2"
+    let delete2Button = document.createElement('button');
+    delete2Button.innerText = 'Delete2';
+    delete2Button.addEventListener('click', () => {
+      // Call a new function to confirm deletion without blocking
+      confirmActualDeletion(cookie);
+    });
+    cookieDetails.appendChild(delete2Button);
+}
+
+// Function to confirm actual deletion without blocking
+function confirmActualDeletion(cookie) {
+  if (confirm(`Are you sure you want to delete '${cookie.name}'?`)) {
+    chrome.cookies.remove({ url: 'http://' + cookie.domain + cookie.path, name: cookie.name }, function (removed) {
+      if (chrome.runtime.lastError) {
+        console.error('Error deleting cookie:', chrome.runtime.lastError);
+      } else {
+        console.log('Cookie deleted:', cookie.name);
+        refreshCookieList();
+      }
+    });
+  }
 }
 
 // Toggles the display of cookie details
