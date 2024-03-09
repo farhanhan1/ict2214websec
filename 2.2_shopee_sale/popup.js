@@ -157,20 +157,32 @@ function transformToEditable(cookieDetails, cookie, listItem) {
 
   // Create editable fields for each attribute
   const fields = createEditableFields(cookie);
+
+  // Create the container for the buttons
+  const buttonContainer = document.createElement('div');
+  buttonContainer.classList.add('button-container');
+
+  // Create save button
   const saveButton = createButton('Save Changes', 'save-button', () => {
     saveCookieChanges(cookie, fields, listItem, cookieDetails);
   });
 
+  // Create cancel button
   const cancelButton = createButton('Cancel', 'cancel-button', () => {
     cookieDetails.innerHTML = originalDetailsContent;
     reattachEventListeners(cookieDetails, cookie, listItem);
   });
 
+  // Append buttons to the container
+  buttonContainer.appendChild(saveButton);
+  buttonContainer.appendChild(cancelButton);
+
+  // Clear the current cookie details and append new fields and the button container
   cookieDetails.innerHTML = '';
   Object.values(fields).forEach(field => cookieDetails.appendChild(field));
-  cookieDetails.appendChild(saveButton);
-  cookieDetails.appendChild(cancelButton);
+  cookieDetails.appendChild(buttonContainer); // Append the button container instead of individual buttons
 }
+
 
 // Creates editable fields for cookie attributes
 function createEditableFields(cookie) {
@@ -252,7 +264,7 @@ function displayDeletedCookies() {
 
     deletedCookies.forEach(function (cookie, index) {
       var listItem = document.createElement('div');
-      listItem.textContent = `${cookie.name} (Domain: ${cookie.domain})`;
+      listItem.textContent = `${cookie.name} (Domain: ${cookie.domain}) `;
       var unmarkButton = document.createElement('button');
       unmarkButton.textContent = 'Unmark';
       unmarkButton.onclick = function () {
