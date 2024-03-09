@@ -306,17 +306,17 @@ function refreshCookieList() {
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     const currentTab = tabs[0];
     if (currentTab) {
-      chrome.runtime.sendMessage({ action: "getCookies", url: currentTab.url }, response => {
-        if (response && response.data) {
-          let categorizedCookies = categorizeCookies(response.data);
-          displayCookies(categorizedCookies);
+      chrome.cookies.getAll({ url: currentTab.url }, cookies => {
+        if (cookies) {
+          categorizeCookies(cookies).then(displayCookies);
         } else {
-          console.error('No response or response data', chrome.runtime.lastError);
+          console.error('No cookies found', chrome.runtime.lastError);
         }
       });
     }
   });
 }
+
 
 // Initialize display of cookies on document load
 document.addEventListener('DOMContentLoaded', () => {
@@ -461,6 +461,9 @@ function createNewCookie() {
     } else {
       console.log('Cookie set successfully:', newCookie);
       hideCreateCookieForm();
+
+      // Refresh the cookie list to include the new cookie
+      refreshCookieList(); // Call this function to update the UI
     }
   });
 }
@@ -481,13 +484,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Set the current domain in the form
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     const currentDomain = new URL(tabs[0].url).hostname;
     const domainInput = document.getElementById('cookieDomainInput');
     if (domainInput) {
       domainInput.value = currentDomain;
     }
   });
-
-  // ... (rest of your DOMContentLoaded listener)
 });
