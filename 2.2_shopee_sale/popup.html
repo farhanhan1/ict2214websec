@@ -9,6 +9,8 @@
 <body>
   <h1>CookieCrypt</h1>
   <button id="viewCookieChanges">View Cookie Changes</button>
+  <!-- Add this button inside the body tag -->
+  <button id="createCookieButton">Create Cookie</button>
   <div id="cookieList"></div>
   <div id="deletedCookiesList"></div>
   <div id="dialog-container"
@@ -16,29 +18,22 @@
     <!-- Confirmation dialogs will be appended here -->
   </div>
 
-  <div id="createCookieView" style="display:none;">
-    <form id="newCookieForm">
-      <label for="cookieName">Name:</label>
-      <input type="text" id="cookieName" name="name" required><br>
-      <label for="cookieValue">Value:</label>
-      <textarea id="cookieValue" name="value" required></textarea><br>
-      <label for="cookieDomain">Domain:</label>
-      <input type="text" id="cookieDomain" name="domain" required><br>
-      <label for="cookiePath">Path:</label>
-      <input type="text" id="cookiePath" name="path" required value="/"><br>
-      <label for="cookieExpiration">Expiration:</label>
-      <input type="datetime-local" id="cookieExpiration" name="expiration"><br>
-      <input type="checkbox" id="cookieHostOnly" name="hostOnly">
-      <label for="cookieHostOnly">HostOnly</label>
-      <input type="checkbox" id="cookieSession" name="session">
-      <label for="cookieSession">Session</label>
-      <input type="checkbox" id="cookieSecure" name="secure">
-      <label for="cookieSecure">Secure</label>
-      <input type="checkbox" id="cookieHttpOnly" name="httpOnly">
-      <label for="cookieHttpOnly">HttpOnly</label><br>
-      <button type="submit">Create</button>
-      <button type="button" id="cancelCreateCookie">Cancel</button>
-    </form>
+  <!-- Add this form inside the body tag -->
+  <div id="createCookieForm" class="modal" style="display: none;">
+    <div class="modal-content">
+      <input id="cookieNameInput" type="text" placeholder="Name">
+      <input id="cookieValueInput" type="text" placeholder="Value">
+      <!-- Domain should be set by JavaScript to match the current domain -->
+      <input id="cookieDomainInput" type="text" placeholder="Domain">
+      <input id="cookiePathInput" type="text" value="/" placeholder="Path">
+      <!-- Use flatpickr for the calendar input -->
+      <input id="cookieExpirationInput" type="text" placeholder="Expiration">
+      <input id="cookieSecureInput" type="checkbox"> Secure
+      <input id="cookieHttpOnlyInput" type="checkbox"> HttpOnly
+      <!-- Add more inputs as necessary -->
+      <button id="saveCookieButton" type="button">Create</button>
+      <button id="cancelCreateCookie" type="button">Cancel</button>
+    </div>
   </div>
 
   <script src="popup.js"></script>

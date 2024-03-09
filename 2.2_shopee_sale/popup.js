@@ -412,3 +412,82 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 });
+
+
+
+// Function to show the form for creating a new cookie
+function showCreateCookieForm() {
+  const formContainer = document.getElementById('createCookieForm');
+  if (formContainer) {
+    formContainer.style.display = 'block';
+  }
+}
+
+// Function to hide the form for creating a new cookie
+function hideCreateCookieForm() {
+  const formContainer = document.getElementById('createCookieForm');
+  if (formContainer) {
+    formContainer.style.display = 'none';
+  }
+}
+
+// Function to create a new cookie based on form data
+function createNewCookie() {
+  const name = document.getElementById('cookieNameInput').value;
+  const value = document.getElementById('cookieValueInput').value;
+  const domain = document.getElementById('cookieDomainInput').value;
+  const path = document.getElementById('cookiePathInput').value;
+  const expiration = document.getElementById('cookieExpirationInput').value;
+  const expirationDate = expiration ? new Date(expiration).getTime() / 1000 : undefined;
+  const secure = document.getElementById('cookieSecureInput').checked;
+  const httpOnly = document.getElementById('cookieHttpOnlyInput').checked;
+  // const sameSiteRestriction = document.getElementById('cookieSameSiteSelect').value;
+
+  const newCookie = {
+    url: `http${secure ? 's' : ''}://${domain}${path}`,
+    name,
+    value,
+    domain,
+    path,
+    secure,
+    httpOnly,
+    // sameSite: sameSiteRestriction,
+    expirationDate
+  };
+
+  chrome.cookies.set(newCookie, () => {
+    if (chrome.runtime.lastError) {
+      console.error('Error setting cookie:', chrome.runtime.lastError);
+    } else {
+      console.log('Cookie set successfully:', newCookie);
+      hideCreateCookieForm();
+    }
+  });
+}
+
+// Add the event listeners for the Create Cookie button and form
+document.addEventListener('DOMContentLoaded', function () {
+  // Add event listeners here
+  const createCookieButton = document.getElementById('createCookieButton');
+  const saveCookieButton = document.getElementById('saveCookieButton');
+  const cancelCreateButton = document.getElementById('cancelCreateCookie');
+
+  if (createCookieButton && saveCookieButton && cancelCreateButton) {
+    createCookieButton.addEventListener('click', showCreateCookieForm);
+    saveCookieButton.addEventListener('click', createNewCookie);
+    cancelCreateButton.addEventListener('click', hideCreateCookieForm);
+  } else {
+    console.error('One or more elements do not exist in the DOM.');
+  }
+
+  // Set the current domain in the form
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    const currentDomain = new URL(tabs[0].url).hostname;
+    const domainInput = document.getElementById('cookieDomainInput');
+    if (domainInput) {
+      domainInput.value = currentDomain;
+    }
+  });
+
+  // ... (rest of your DOMContentLoaded listener)
+});
