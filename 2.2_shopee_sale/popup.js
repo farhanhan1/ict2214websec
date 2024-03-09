@@ -1,43 +1,3 @@
-// // Categorizes cookies into predefined categories based on their name or domain
-// function categorizeCookies(cookies) {
-//   // Define categories
-//   // let categories = {
-//   //   "Essential": [],
-//   //   "Performance": [],
-//   //   "Analytics": [],
-//   //   "Advertising": [],
-//   //   "SocialNetworking": [],
-//   //   "Unclassified": []
-//   // };
-//   let categories = {
-//     "Necessary": [],
-//     "Functional": [],
-//     "Analytics": [],
-//     "Advertisement": [],
-//     "Performance": [],
-//     "Others": []
-//   };
-
-//   // Iterate over each cookie and categorize it
-//   cookies.forEach(cookie => {
-//     if (cookie.name.includes('sess') || cookie.name.includes('csrf') || cookie.name.includes('login')) {
-//       categories.Necessary.push(cookie);
-//     } else if (cookie.domain.includes('google-analytics') || cookie.name.includes('performance')) {
-//       categories.Analytics.push(cookie);
-//     } else if (cookie.name.includes('prefs') || cookie.name.includes('ui')) {
-//       categories.Functional.push(cookie);
-//     } else if (cookie.name.includes('ad') || cookie.name.includes('track')) {
-//       categories.Advertisement.push(cookie);
-//     } else if (cookie.domain.includes('facebook.com') || cookie.name.includes('share')) {
-//       categories.Advertisement.push(cookie);
-//     } else {
-//       categories.Others.push(cookie);
-//     }
-//   });
-
-//   return categories;
-// }
-
 // Function to fetch cookie category from Flask app for a batch of cookie names
 async function fetchCookieCategories(cookieNames) {
   const response = await fetch('http://52.147.200.156:5000/predict_batch', {
@@ -434,18 +394,6 @@ function createEditableField(text, className) {
   input.value = text;
   return input;
 }
-
-// // Preload and cache cookie categorization
-// chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-//   if (changeInfo.status === 'complete' && tab.active) {
-//     // Fetch cookies and categorize them
-//     chrome.cookies.getAll({ url: tab.url }, async (cookies) => {
-//       const categorizedCookies = await categorizeCookies(cookies);
-//       // Cache the categorized cookies for the current tab
-//       chrome.storage.local.set({ [tabId]: categorizedCookies });
-//     });
-//   }
-// });
 
 // For categorization of cookies via Flask
 // Fetching and displaying categorized cookies when the popup is opened
