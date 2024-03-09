@@ -87,7 +87,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   }
 });
 
-//Real time monitoring of addition or deletion of cookies
+// Real time monitoring of addition or deletion of cookies
 chrome.webNavigation.onCompleted.addListener((details) => {
   const url = new URL(details.url).toString(); // Convert URL to string
 

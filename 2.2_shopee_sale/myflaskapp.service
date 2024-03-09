@@ -1,0 +1,12 @@
+[Unit]
+Description=My Flask App
+After=network.target
+
+[Service]
+User=farhan
+Group=farhan
+WorkingDirectory=/home/farhan/myflaskapp
+ExecStart=/home/farhan/myflaskapp/venv/bin/python /home/farhan/myflaskapp/app.py
+
+[Install]
+WantedBy=multi-user.target
