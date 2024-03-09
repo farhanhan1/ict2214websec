@@ -120,14 +120,14 @@ function appendCookieDetails(cookieDetails, cookie) {
     <button class="edit-button">Edit</button>
     <button class="delete-button">Delete</button>
   `;
-    // Add a new delete button "delete2"
-    let delete2Button = document.createElement('button');
-    delete2Button.innerText = 'Delete2';
-    delete2Button.addEventListener('click', () => {
-      // Call a new function to confirm deletion without blocking
-      confirmActualDeletion(cookie);
-    });
-    cookieDetails.appendChild(delete2Button);
+  // Add a new delete button "delete2"
+  let delete2Button = document.createElement('button');
+  delete2Button.innerText = 'Delete2';
+  delete2Button.addEventListener('click', () => {
+    // Call a new function to confirm deletion without blocking
+    confirmActualDeletion(cookie);
+  });
+  cookieDetails.appendChild(delete2Button);
 }
 
 // Function to confirm actual deletion without blocking
@@ -459,6 +459,7 @@ function createNewCookie() {
   const value = document.getElementById('cookieValueInput').value;
   const domain = document.getElementById('cookieDomainInput').value;
   const path = document.getElementById('cookiePathInput').value;
+  // Get the value from the datetime-local input and convert it to a valid date
   const expiration = document.getElementById('cookieExpirationInput').value;
   const expirationDate = expiration ? new Date(expiration).getTime() / 1000 : undefined;
   const secure = document.getElementById('cookieSecureInput').checked;

@@ -23,14 +23,12 @@
     <div class="modal-content">
       <input id="cookieNameInput" type="text" placeholder="Name">
       <input id="cookieValueInput" type="text" placeholder="Value">
-      <!-- Domain should be set by JavaScript to match the current domain -->
       <input id="cookieDomainInput" type="text" placeholder="Domain">
       <input id="cookiePathInput" type="text" value="/" placeholder="Path">
-      <!-- Use flatpickr for the calendar input -->
-      <input id="cookieExpirationInput" type="text" placeholder="Expiration">
+      <label for="cookieExpirationInput">Expiration:</label>
+      <input id="cookieExpirationInput" type="datetime-local" placeholder="Expiration">
       <input id="cookieSecureInput" type="checkbox"> Secure
       <input id="cookieHttpOnlyInput" type="checkbox"> HttpOnly
-      <!-- Add more inputs as necessary -->
       <button id="saveCookieButton" type="button">Create</button>
       <button id="cancelCreateCookie" type="button">Cancel</button>
     </div>
