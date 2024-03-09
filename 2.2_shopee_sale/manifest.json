@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Cookies 'N Crypt",
+  "name": "CookieCrypt",
   "description": "Categorizes and displays cookies used by websites. Developed by ICT2214 Group 16!",
   "version": "13.37",
   "permissions": 
