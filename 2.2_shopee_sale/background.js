@@ -101,8 +101,8 @@ function checkForNewCookies() {
         const addedCookies = currentCookieNames.filter(name => !storedCookies.cookies.includes(name));
         const removedCookies = storedCookies.cookies.filter(name => !currentCookieNames.includes(name));
 
-        // Update the storage with the current list of cookies
-        chrome.storage.local.set({ [url]: { cookies: currentCookieNames } }, () => {
+        // Update the storage with the current list of cookies, added cookies, and removed cookies
+        chrome.storage.local.set({ [url]: { cookies: currentCookieNames, addedCookies, removedCookies } }, () => {
           if (chrome.runtime.lastError) {
             console.error(`Error setting storage for ${url}: ${chrome.runtime.lastError.message}`);
           } else {
@@ -139,4 +139,3 @@ function checkForNewCookies() {
 
 // Check for new cookies every 30 seconds
 setInterval(checkForNewCookies, 30000);
-
