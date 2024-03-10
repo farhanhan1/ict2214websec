@@ -49,6 +49,7 @@ function displayCookies(categories) {
     // Create and append the delete all button (Leaving it here but havent implement functionality yet)
     let deleteAllButton = document.createElement('button');
     deleteAllButton.innerText = 'Delete All';
+    deleteAllButton.classList.add('delete-all-button');
     deleteAllButton.addEventListener('click', () => deleteAllCookiesInCategory(category));
     section.appendChild(deleteAllButton);
 
@@ -87,11 +88,13 @@ function displayCookies(categories) {
       listItem.appendChild(cookieDetails);
 
       let editButton = cookieDetails.querySelector('.edit-button');
+      editButton.classList.add('blue-thin-button');
       editButton.addEventListener('click', () => {
         transformToEditable(cookieDetails, cookie, listItem);
       });
 
       let deleteButton = cookieDetails.querySelector('.delete-button');
+      deleteButton.classList.add('red-thin-button');
       deleteButton.addEventListener('click', () => {
         confirmDeletion(cookie, () => { });
       });

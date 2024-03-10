@@ -5,6 +5,7 @@ body {
     background-color: #333333;
     opacity: 95%;
     width: 400px;
+    background-image: url(cookiecryptBG.jpg);
 }
 
 h1 {
@@ -16,6 +17,7 @@ h1 {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
+    background-color: #333333
 }
 
 .cookie-item {
@@ -217,4 +219,44 @@ h1 {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+  }
+
+  .delete-all-button {
+    padding: 4px 8px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .red-thin-button {
+    padding: 4px 8px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .red-thin-button.collapsed {
+    display: none;
+  }
+
+  .blue-thin-button {
+    padding: 4px 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .purple-thin-button {
+    padding: 4px 8px;
+    background-color: #7317ec;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
   }
