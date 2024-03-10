@@ -10,6 +10,7 @@ from scipy.sparse import hstack, csr_matrix
 import logging
 from time import sleep
 
+# Custom tokenizer class for preprocessing text data
 class CustomTokenizer:
     def __init__(self):
         self.stemmer = PorterStemmer()
@@ -21,6 +22,7 @@ class CustomTokenizer:
         enhanced_tokens = [self.stemmer.stem(word) for word in tokens if word.lower() not in self.stop_words and word.isalnum()]
         return enhanced_tokens
 
+# Custom feature extractor class that combines TF-IDF features with custom keyword features
 class CustomFeatureExtractor(BaseEstimator, TransformerMixin):
     def __init__(self, tokenizer, category_keywords):
         self.tfidf_vectorizer = TfidfVectorizer(tokenizer=tokenizer)
