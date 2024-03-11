@@ -46,19 +46,14 @@ function displayCookies(categories) {
     let section = document.createElement('div');
     section.classList.add('cookie-category');
 
-    // Create and append the delete all button (Leaving it here but havent implement functionality yet)
-    let deleteAllButton = document.createElement('button');
-    deleteAllButton.innerText = 'Delete All';
-    deleteAllButton.classList.add('delete-all-button');
-    deleteAllButton.addEventListener('click', () => deleteAllCookiesInCategory(category));
-    section.appendChild(deleteAllButton);
-
     let title = document.createElement('h2');
     title.innerText = `${category} (${categories[category].length})`;
     title.classList.add('category-title');
     title.addEventListener('click', () => {
       list.classList.toggle('collapsed');
     });
+
+
 
     let list = document.createElement('ul');
     list.classList.add('cookie-list', 'collapsed');
@@ -83,28 +78,35 @@ function displayCookies(categories) {
       listItem.appendChild(arrowIcon);
 
       let cookieDetails = document.createElement('div');
-      cookieDetails.classList.add('cookie-details', 'collapsed');
+      cookieDetails.classList.add('cookie-details');
+      // Below is to start with expanded cookie instead
+      // // cookieDetails.classList.add('cookie-details', 'collapsed');
       appendCookieDetails(cookieDetails, cookie);
       listItem.appendChild(cookieDetails);
 
       let editButton = cookieDetails.querySelector('.edit-button');
-      editButton.classList.add('blue-thin-button');
+      // editButton.classList.add('blue-thin-button');
       editButton.addEventListener('click', () => {
         transformToEditable(cookieDetails, cookie, listItem);
       });
 
       let deleteButton = cookieDetails.querySelector('.delete-button');
-      deleteButton.classList.add('red-thin-button');
+      // deleteButton.classList.add('red-thin-button');
       deleteButton.addEventListener('click', () => {
         confirmDeletion(cookie, () => { });
       });
 
       list.appendChild(listItem);
     });
-
     section.appendChild(title);
     section.appendChild(list);
     container.appendChild(section);
+    // Create and append the delete all button (Leaving it here but havent implement functionality yet)
+    let deleteAllButton = document.createElement('button');
+    deleteAllButton.innerText = 'Delete All';
+    deleteAllButton.classList.add('delete-all-button');
+    deleteAllButton.addEventListener('click', () => deleteAllCookiesInCategory(category));
+    section.appendChild(deleteAllButton);
   });
 }
 
@@ -121,11 +123,12 @@ function appendCookieDetails(cookieDetails, cookie) {
     <strong>SameSite:</strong> <span class="cookie-sameSite">${cookie.sameSite}</span><br>
     <strong>StoreId:</strong> <span class="cookie-storeId">${cookie.storeId || 'N/A'}</span><br>
     <button class="edit-button">Edit</button>
-    <button class="delete-button">Delete</button>
+    <button style="background-color: #790914" class="delete-button">Blacklist</button>
   `;
   // Add a new delete button "delete2"
   let delete2Button = document.createElement('button');
-  delete2Button.innerText = 'Delete2';
+  delete2Button.innerText = 'Delete';
+  delete2Button.classList.add('red-thin-button');
   delete2Button.addEventListener('click', () => {
     // Call a new function to confirm deletion without blocking
     confirmActualDeletion(cookie);
@@ -135,10 +138,10 @@ function appendCookieDetails(cookieDetails, cookie) {
 
 // Function to confirm actual deletion without blocking
 function confirmActualDeletion(cookie) {
-  if (confirm(`Are you sure you want to delete '${cookie.name}'?`)) {
+  if (confirm(`Are you sure you want to blacklist '${cookie.name}'?`)) {
     chrome.cookies.remove({ url: 'http://' + cookie.domain + cookie.path, name: cookie.name }, function (removed) {
       if (chrome.runtime.lastError) {
-        console.error('Error deleting cookie:', chrome.runtime.lastError);
+        console.error('Error blacklisting cookie:', chrome.runtime.lastError);
       } else {
         console.log('Cookie deleted:', cookie.name);
         refreshCookieList();
@@ -263,7 +266,7 @@ function displayDeletedCookies() {
   chrome.storage.sync.get(['deletedCookies'], function (result) {
     var deletedCookies = result.deletedCookies || [];
     var listContainer = document.getElementById('deletedCookiesList');
-    listContainer.innerHTML = '<h2>Chosen Cookies for Deletion</h2>';
+    listContainer.innerHTML = '<h2>Cookie Blacklist</h2>';
 
     deletedCookies.forEach(function (cookie, index) {
       var listItem = document.createElement('div');

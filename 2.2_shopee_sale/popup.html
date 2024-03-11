@@ -21,16 +21,27 @@
   <!-- Add this form inside the body tag -->
   <div id="createCookieForm" class="modal" style="display: none;">
     <div class="modal-content">
-      <input id="cookieNameInput" type="text" placeholder="Name">
-      <input id="cookieValueInput" type="text" placeholder="Value">
-      <input id="cookieDomainInput" type="text" placeholder="Domain">
-      <input id="cookiePathInput" type="text" value="/" placeholder="Path">
+      <label for="cookieNameInput">Name:</label>
+      <input style="margin-left: 21px;" id="cookieNameInput" type="Name" placeholder="Name">
+      <br>
+      <label for="cookieValueInput">Value:</label>
+      <input style="margin-left: 24px;" id="cookieValueInput" type="Value" placeholder="Value">
+      <br>
+      <label for="cookieDomainInput">Domain:</label>
+      <input style="margin-left: 12px;" id="cookieDomainInput" type="text" placeholder="Domain">
+      <br>
+      <label for="cookiePathInput">Path:</label>
+      <input style="margin-left: 29px;" id="cookiePathInput" type="text" value="/" placeholder="Path">
+      <br>
       <label for="cookieExpirationInput">Expiration:</label>
       <input id="cookieExpirationInput" type="datetime-local" placeholder="Expiration">
+      <br>
       <input id="cookieSecureInput" type="checkbox"> Secure
       <input id="cookieHttpOnlyInput" type="checkbox"> HttpOnly
-      <button id="saveCookieButton" type="button">Create</button>
-      <button id="cancelCreateCookie" type="button">Cancel</button>
+      <br>
+      <br>
+      <button id="saveCookieButton" class="blue-thin-button" type="button">Create</button>
+      <button id="cancelCreateCookie" class="red-thin-button" type="button">Cancel</button>
     </div>
   </div>
 
