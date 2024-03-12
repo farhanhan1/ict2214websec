@@ -84,7 +84,8 @@ h1 {
 .cookie-category h2 {
     color: #44d62c;
     font-size: 1.2em;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    margin-top: 4px;
 }
 
 .cookie-category h2:hover {

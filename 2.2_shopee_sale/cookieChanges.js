@@ -18,13 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById('addedCookies')) {
           document.getElementById('addedCookies').innerHTML = addedCookies.length > 0 ?
             `<h2>Added Cookies</h2><ul>${addedCookies.map(cookie => `<li>${cookie}</li>`).join('')}</ul>` :
-            `<h2>Added Cookies</h2><p style="color: #ccc">No cookies added during this session.</p>`;
+            `<h2>Added Cookies</h2><p style="color: #ccc;font-style: italic;">No cookies added during this session.</p>`;
         }
 
         if (document.getElementById('removedCookies')) {
           document.getElementById('removedCookies').innerHTML = removedCookies.length > 0 ?
             `<h2>Removed Cookies</h2><ul>${removedCookies.map(cookie => `<li>${cookie}</li>`).join('')}</ul>` :
-            `<h2>Removed Cookies</h2><p style="color: #ccc">No cookies removed during this session.</p>`;
+            `<h2>Removed Cookies</h2><p style="color: #ccc;font-style: italic;">No cookies removed during this session.</p>`;
         }
       } else {
         // If it's the first visit or no data is available, set default values for these UI elements

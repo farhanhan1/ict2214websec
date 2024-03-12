@@ -53,8 +53,6 @@ function displayCookies(categories) {
       list.classList.toggle('collapsed');
     });
 
-
-
     let list = document.createElement('ul');
     list.classList.add('cookie-list', 'collapsed');
 
@@ -101,12 +99,22 @@ function displayCookies(categories) {
     section.appendChild(title);
     section.appendChild(list);
     container.appendChild(section);
-    // Create and append the delete all button (Leaving it here but havent implement functionality yet)
-    let deleteAllButton = document.createElement('button');
-    deleteAllButton.innerText = 'Delete All';
-    deleteAllButton.classList.add('delete-all-button');
-    deleteAllButton.addEventListener('click', () => deleteAllCookiesInCategory(category));
-    section.appendChild(deleteAllButton);
+    if (categories[category].length === 0) {
+      // Display a message if no cookies are in the category
+      let noCookiesMessage = document.createElement('p');
+      noCookiesMessage.textContent = 'No cookies in this category.';
+      noCookiesMessage.classList.add('no-cookies-message');
+      noCookiesMessage.style.fontStyle = 'italic';
+      noCookiesMessage.style.color = '#ccc';
+      section.appendChild(noCookiesMessage);
+    } else {
+      // Create and append the delete all button (Leaving it here but havent implement functionality yet)
+      let deleteAllButton = document.createElement('button');
+      deleteAllButton.innerText = 'Delete All';
+      deleteAllButton.classList.add('delete-all-button');
+      deleteAllButton.addEventListener('click', () => deleteAllCookiesInCategory(category));
+      section.appendChild(deleteAllButton);
+    }
   });
 }
 
@@ -272,7 +280,8 @@ function displayDeletedCookies() {
       // Create and display a message if no cookies are blacklisted
       var noCookiesMessage = document.createElement('p');
       noCookiesMessage.textContent = 'No cookies blacklisted';
-      noCookiesMessage.style.color = '#ccc'; // You can style it as you see fit
+      noCookiesMessage.style.color = '#ccc';
+      noCookiesMessage.style.fontStyle = 'italic';
       listContainer.appendChild(noCookiesMessage);
     } else {
       deletedCookies.forEach(function (cookie, index) {
