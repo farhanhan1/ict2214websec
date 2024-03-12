@@ -368,7 +368,7 @@ function reattachEventListeners(cookieDetails, cookie, listItem) {
 
   if (deleteButton) {
     deleteButton.addEventListener('click', () => {
-      confirmDeletion(cookie, () => {});
+      confirmDeletion(cookie, () => { });
     });
   } else {
     console.error('Delete button not found.');
@@ -414,6 +414,9 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     console.error('Button not found');
   }
+
+  const wipeAllButton = document.getElementById('wipeAllCookiesButton');
+  wipeAllButton.addEventListener('click', wipeAllCookiesForDomain);
 });
 
 
@@ -569,3 +572,28 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+function wipeAllCookiesForDomain() {
+  if (confirm("Are you sure you want to delete ALL cookies for this domain?")) {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const url = new URL(tabs[0].url);
+      const domain = url.hostname;
+
+      // Getting all cookies for the domain
+      chrome.cookies.getAll({ domain }, (cookies) => {
+        cookies.forEach((cookie) => {
+          // Constructing a URL to pass to chrome.cookies.remove
+          let cookieUrl = (cookie.secure ? "https://" : "http://") + cookie.domain + cookie.path;
+
+          chrome.cookies.remove({ url: cookieUrl, name: cookie.name }, (details) => {
+            console.log(`Deleted cookie ${cookie.name}`);
+          });
+        });
+        refreshCookieList();
+      });
+    });
+  } else {
+    // User did not confirm, do nothing.
+    console.log("User canceled the cookie deletion.");
+  }
+}
