@@ -146,7 +146,7 @@ function appendCookieDetails(cookieDetails, cookie) {
 
 // Function to confirm actual deletion without blocking
 function confirmActualDeletion(cookie) {
-  if (confirm(`Are you sure you want to blacklist '${cookie.name}'?`)) {
+  if (confirm(`Are you sure you want to delete '${cookie.name}'?`)) {
     chrome.cookies.remove({ url: 'http://' + cookie.domain + cookie.path, name: cookie.name }, function (removed) {
       if (chrome.runtime.lastError) {
         console.error('Error blacklisting cookie:', chrome.runtime.lastError);
@@ -263,8 +263,11 @@ function saveCookieChanges(originalCookie, fields, listItem, cookieDetails) {
       console.error('Error updating cookie:', chrome.runtime.lastError);
     } else {
       console.log('Cookie updated:', newCookie);
+      // You need to appendCookieDetails here, then reattach the event listeners
       appendCookieDetails(cookieDetails, newCookie || originalCookie);
       if (listItem) listItem.classList.remove('editing');
+      // Reattach the event listeners after the innerHTML has been updated
+      reattachEventListeners(cookieDetails, newCookie || originalCookie, listItem);
     }
   });
 }
@@ -350,14 +353,26 @@ function saveUserPreference(cookie, callback) {
 }
 
 function reattachEventListeners(cookieDetails, cookie, listItem) {
+  // Find the edit and delete buttons within the cookieDetails
   const editButton = cookieDetails.querySelector('.edit-button');
-  editButton.addEventListener('click', () => transformToEditable(cookieDetails, cookie, listItem));
-
   const deleteButton = cookieDetails.querySelector('.delete-button');
-  deleteButton.addEventListener('click', () => {
-    confirmDeletion(cookie, () => { });
-  });
+
+  // Check if editButton and deleteButton elements exist before adding event listeners
+  if (editButton) {
+    editButton.addEventListener('click', () => transformToEditable(cookieDetails, cookie, listItem));
+  } else {
+    console.error('Edit button not found.');
+  }
+
+  if (deleteButton) {
+    deleteButton.addEventListener('click', () => {
+      confirmDeletion(cookie, () => {});
+    });
+  } else {
+    console.error('Delete button not found.');
+  }
 }
+
 
 function refreshCookieList() {
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
@@ -404,7 +419,7 @@ function confirmDeletion(cookie, deleteCallback) {
   const dialogContainer = document.getElementById('dialog-container'); // Get the dialog container
   const confirmationDialog = document.createElement('div');
   confirmationDialog.innerHTML = `
-    <p>Are you sure you want to delete '${cookie.name}'?</p>
+    <p>Are you sure you want to blacklist '${cookie.name}'?</p>
     <button id="confirm-delete">Yes</button>
     <button id="cancel-delete">No</button>
   `;
