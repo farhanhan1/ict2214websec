@@ -6,6 +6,7 @@ CookieCrypt is an innovative browser extension designed to empower users with ad
 <p align="center">
   <img alt="CookieCrypt GIF Demo" width="auto" height="500" src="cookiecryptdemo.gif">
 </p>
+
 ## Key Features
 
 ### 1. Cookie Inventory Categorization
