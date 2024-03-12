@@ -87,6 +87,11 @@ h1 {
     margin-bottom: 5px;
 }
 
+.cookie-category h2:hover {
+    color: #ee5710;
+    transition: 0.2s
+}
+
 .cookie-category ul {
     list-style: none;
     padding: 0;
@@ -120,6 +125,12 @@ h1 {
     border-radius: 4px;
     cursor: pointer;
 }
+
+.edit-button:hover {
+    background-color: #0551a1;
+    transition: 0.2s
+}
+
 .delete-button {
     margin-top: 5px;
     cursor: pointer;
@@ -157,18 +168,21 @@ h1 {
 
 /* To make save button look nicer */
 .save-button {
-    display: inline-block; /* Change to inline-block */
+    display: inline-block;
+    /* Change to inline-block */
     padding: 8px 15px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-right: 10px; /* Add right margin for spacing */
+    margin-right: 10px;
+    /* Add right margin for spacing */
 }
 
 .save-button:hover {
     background-color: #0056b3;
+    transition: 0.2s
 }
 
 .arrow-icon {
@@ -183,7 +197,8 @@ h1 {
 
 /* To make cancel button look nicer */
 .cancel-button {
-    display: inline-block; /* Change to inline-block */
+    display: inline-block;
+    /* Change to inline-block */
     padding: 8px 15px;
     background-color: #dc3545;
     color: white;
@@ -194,6 +209,7 @@ h1 {
 
 .cancel-button:hover {
     background-color: #c82333;
+    transition: 0.2s
 }
 
 /* Container for buttons */
@@ -223,55 +239,102 @@ h1 {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
     padding-top: 60px;
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     background-color: rgb(49, 46, 46);
     margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-  }
+}
 
-  .delete-all-button {
+.delete-all-button {
     padding: 4px 8px;
     background-color: #dc3545;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
+}
 
-  .red-thin-button {
+.delete-all-button:hover {
+    background-color: #a01c2a;
+    transition: 0.2s
+}
+
+.red-thin-button {
     padding: 4px 8px;
     background-color: #dc3545;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
+}
 
-  .red-thin-button.collapsed {
+.red-thin-button:hover {
+    background-color: #af0d1d;
+    transition: 0.2s
+}
+
+.red-thin-button.collapsed {
     display: none;
-  }
+}
 
-  .blue-thin-button {
+.blue-thin-button {
     padding: 4px 8px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
-  
-  .purple-thin-button {
+}
+
+.blue-thin-button:hover {
+    background-color: #024ea0;
+    transition: 0.2s
+}
+
+.purple-thin-button {
     padding: 4px 8px;
     background-color: #7317ec;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
+}
+
+.purple-thin-button:hover {
+    background-color: #490d97;
+    transition: 0.2s
+}
+
+/* This styles the scrollbar track */
+::-webkit-scrollbar {
+    width: 12px;
+    /* Adjust the width of the scrollbar */
+    background-color: black;
+    /* Makes the background transparent */
+}
+
+/* This styles the scrollbar handle */
+::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 128, 128, 0.5);
+    /* A semi-transparent gray color */
+    border-radius: 6px;
+    /* Rounds the corners of the scrollbar handle */
+    border: 3px solid transparent;
+    /* Makes the scrollbar handle 'float' */
+    background-clip: content-box;
+    /* Ensures the inner border doesn't overlap */
+}
+
+/* Optional: This styles the scrollbar handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(128, 128, 128, 0.75);
+    transition: 0.2s
+    /* A darker semi-transparent gray color on hover */
+}

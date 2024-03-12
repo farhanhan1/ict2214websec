@@ -35,3 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// For back button
+document.querySelector('.blue-thin-button').addEventListener('click', function () {
+  window.history.back();
+});

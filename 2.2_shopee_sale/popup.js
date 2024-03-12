@@ -154,7 +154,7 @@ function confirmActualDeletion(cookie) {
 function toggleCookieDetails(cookieDetails, arrowIcon) {
   const isCollapsed = cookieDetails.classList.contains('collapsed');
   cookieDetails.classList.toggle('collapsed', !isCollapsed);
-  arrowIcon.src = isCollapsed ? 'up_arrow_logo.png' : 'down_arrow_logo.png';
+  arrowIcon.src = isCollapsed ? 'down_arrow_logo.png' : 'up_arrow_logo.png';
 }
 
 // Transforms cookie details view into an editable form
@@ -268,18 +268,26 @@ function displayDeletedCookies() {
     var listContainer = document.getElementById('deletedCookiesList');
     listContainer.innerHTML = '<h2>Cookie Blacklist</h2>';
 
-    deletedCookies.forEach(function (cookie, index) {
-      var listItem = document.createElement('div');
-      listItem.textContent = `${cookie.name} (Domain: ${cookie.domain}) `;
-      var unmarkButton = document.createElement('button');
-      unmarkButton.textContent = 'Unmark';
-      unmarkButton.onclick = function () {
-        // Remove cookie from deletedCookies array and update storage
-        unmarkCookieForDeletion(index);
-      };
-      listItem.appendChild(unmarkButton);
-      listContainer.appendChild(listItem);
-    });
+    if (deletedCookies.length === 0) {
+      // Create and display a message if no cookies are blacklisted
+      var noCookiesMessage = document.createElement('p');
+      noCookiesMessage.textContent = 'No cookies blacklisted';
+      noCookiesMessage.style.color = '#ccc'; // You can style it as you see fit
+      listContainer.appendChild(noCookiesMessage);
+    } else {
+      deletedCookies.forEach(function (cookie, index) {
+        var listItem = document.createElement('div');
+        listItem.textContent = `${cookie.name} (Domain: ${cookie.domain}) `;
+        var unmarkButton = document.createElement('button');
+        unmarkButton.textContent = 'Unmark';
+        unmarkButton.onclick = function () {
+          // Remove cookie from deletedCookies array and update storage
+          unmarkCookieForDeletion(index);
+        };
+        listItem.appendChild(unmarkButton);
+        listContainer.appendChild(listItem);
+      });
+    }
   });
 }
 
