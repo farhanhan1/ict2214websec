@@ -261,6 +261,8 @@ function saveCookieChanges(originalCookie, fields, listItem, cookieDetails) {
   chrome.cookies.set(updatedCookie, (newCookie) => {
     if (chrome.runtime.lastError) {
       console.error('Error updating cookie:', chrome.runtime.lastError);
+      // Log the entire error object for more details
+      console.log(chrome.runtime.lastError);
     } else {
       console.log('Cookie updated:', newCookie);
       // You need to appendCookieDetails here, then reattach the event listeners
@@ -508,6 +510,8 @@ function createNewCookie() {
   const name = document.getElementById('cookieNameInput').value;
   const value = document.getElementById('cookieValueInput').value;
   const domain = document.getElementById('cookieDomainInput').value;
+  // Trim leading dot if present in the domain input value
+  const trimmedDomain = domain.startsWith('.') ? domain.substring(1) : domain;
   const path = document.getElementById('cookiePathInput').value;
   // Get the value from the datetime-local input and convert it to a valid date
   const expiration = document.getElementById('cookieExpirationInput').value;
@@ -517,10 +521,10 @@ function createNewCookie() {
   // const sameSiteRestriction = document.getElementById('cookieSameSiteSelect').value;
 
   const newCookie = {
-    url: `http${secure ? 's' : ''}://${domain}${path}`,
+    url: `http${secure ? 's' : ''}://${trimmedDomain}${path}`,
     name,
     value,
-    domain,
+    // domain,
     path,
     secure,
     httpOnly,
