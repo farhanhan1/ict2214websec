@@ -132,7 +132,7 @@ h1 {
     transition: 0.2s
 }
 
-.delete-button {
+.blacklist-button {
     margin-top: 5px;
     cursor: pointer;
     background-color: #dc3545;
@@ -253,7 +253,7 @@ h1 {
     width: 80%;
 }
 
-.delete-all-button {
+.blacklist-all-button {
     padding: 4px 8px;
     background-color: #dc3545;
     color: white;
@@ -262,7 +262,7 @@ h1 {
     cursor: pointer;
 }
 
-.delete-all-button:hover {
+.blacklist-all-button:hover {
     background-color: #a01c2a;
     transition: 0.2s
 }
