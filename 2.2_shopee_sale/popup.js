@@ -245,11 +245,14 @@ function saveCookieChanges(originalCookie, fields, listItem, cookieDetails) {
     expirationTimestamp = originalCookie.expirationDate;
   }
 
+  const protocol = fields.secureField.value === 'true' ? "https://" : "http://";
+  const domainForCookieSet = originalCookie.domain.startsWith('.') ? originalCookie.domain.substring(1) : originalCookie.domain;
+  const isSubdomainCookie = originalCookie.domain.startsWith('.');
+
   const updatedCookie = {
-    url: 'http://' + originalCookie.domain + originalCookie.path,
+    url: protocol + domainForCookieSet + originalCookie.path,
     name: originalCookie.name,
     value: fields.valueField.value,
-    //domain: originalCookie.domain,
     path: fields.pathField.value,
     secure: fields.secureField.value === 'true',
     httpOnly: fields.httpOnlyField.value === 'true',
@@ -258,21 +261,30 @@ function saveCookieChanges(originalCookie, fields, listItem, cookieDetails) {
     expirationDate: expirationTimestamp
   };
 
+  // Decide whether to include the domain property based on whether it's a subdomain cookie
+  if (isSubdomainCookie) {
+    updatedCookie.domain = domainForCookieSet;
+  }
+
+  console.log('Updating cookie with details:', updatedCookie);
+
   chrome.cookies.set(updatedCookie, (newCookie) => {
     if (chrome.runtime.lastError) {
-      console.error('Error updating cookie:', chrome.runtime.lastError);
-      // Log the entire error object for more details
+      console.error('Error updating cookie:', chrome.runtime.lastError.message);
+      // Additional logging for debugging
+      console.log('Failed cookie details:', updatedCookie);
       console.log(chrome.runtime.lastError);
     } else {
-      console.log('Cookie updated:', newCookie);
-      // You need to appendCookieDetails here, then reattach the event listeners
+      console.log('Cookie successfully updated:', newCookie);
       appendCookieDetails(cookieDetails, newCookie || originalCookie);
       if (listItem) listItem.classList.remove('editing');
-      // Reattach the event listeners after the innerHTML has been updated
-      reattachEventListeners(cookieDetails, newCookie || originalCookie, listItem);
+      reattachEventListeners(cookieDetails, newCookie, listItem);
     }
   });
 }
+
+
+
 
 // Call this function to display the deleted cookies list
 function displayDeletedCookies() {
