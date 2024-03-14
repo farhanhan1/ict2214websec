@@ -141,6 +141,15 @@ function appendCookieDetails(cookieDetails, cookie) {
     <button class="edit-button">Edit</button>
     <button style="background-color: #790914" class="blacklist-button">Blacklist</button>
   `;
+  // Add a new delete button "delete2"
+  let delete2Button = document.createElement('button');
+  delete2Button.innerText = 'Delete';
+  delete2Button.classList.add('red-thin-button');
+  delete2Button.addEventListener('click', () => {
+    // Call a new function to confirm deletion without blocking
+    confirmActualDeletion(cookie);
+  });
+  cookieDetails.appendChild(delete2Button);
 }
 
 // Function to confirm actual deletion without blocking
