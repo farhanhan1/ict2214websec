@@ -678,6 +678,7 @@ function confirmBlacklist(cookie, category) {
           // Then, update the UI
           addCookieToBlacklistUI([cookie]);
           resolve();
+          
         }
 
         // Optionally reload the current tab if necessary
@@ -699,6 +700,8 @@ function confirmBlacklist(cookie, category) {
       dialogContainer.style.display = 'none'; // Hide the container
     });
   });
+
+  refreshCookieList();
 }
 
 // Called from confirmBlacklist to add the cookie to the blacklist
@@ -869,6 +872,8 @@ async function blacklistAllCookiesInCategory(category, cookies) {
     dialogContainer.removeChild(confirmationDialog); // Remove the confirmation dialog
     dialogContainer.style.display = 'none'; // Hide the container
   });
+
+  refreshCookieList();
 }
 
 
