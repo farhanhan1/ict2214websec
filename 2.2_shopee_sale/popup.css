@@ -132,15 +132,20 @@ h1 {
     transition: 0.2s
 }
 
-.delete-button {
+.blacklist-button {
     margin-top: 5px;
     cursor: pointer;
-    background-color: #dc3545;
+    background-color: #790914;
     padding: 4px 8px;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.blacklist-button:hover {
+    background-color: #47070e;
+    transition: 0.2s;
 }
 
 #cookieList {
@@ -253,7 +258,7 @@ h1 {
     width: 80%;
 }
 
-.delete-all-button {
+.blacklist-all-button {
     padding: 4px 8px;
     background-color: #dc3545;
     color: white;
@@ -262,7 +267,7 @@ h1 {
     cursor: pointer;
 }
 
-.delete-all-button:hover {
+.blacklist-all-button:hover {
     background-color: #a01c2a;
     transition: 0.2s
 }
