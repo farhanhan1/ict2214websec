@@ -135,12 +135,17 @@ h1 {
 .blacklist-button {
     margin-top: 5px;
     cursor: pointer;
-    background-color: #dc3545;
+    background-color: #790914;
     padding: 4px 8px;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.blacklist-button:hover {
+    background-color: #47070e;
+    transition: 0.2s;
 }
 
 #cookieList {
