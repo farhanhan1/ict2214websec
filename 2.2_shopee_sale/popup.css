@@ -148,6 +148,22 @@ h1 {
     transition: 0.2s;
 }
 
+.blacklist-category-button {
+    margin-top: 5px;
+    cursor: pointer;
+    background-color: #790914;
+    padding: 4px 8px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.blacklist-category-button:hover {
+    background-color: #47070e;
+    transition: 0.2s;
+}
+
 #cookieList {
     margin-top: 10px;
 }
@@ -258,20 +274,6 @@ h1 {
     width: 80%;
 }
 
-.blacklist-all-button {
-    padding: 4px 8px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.blacklist-all-button:hover {
-    background-color: #a01c2a;
-    transition: 0.2s
-}
-
 .red-thin-button {
     padding: 4px 8px;
     background-color: #dc3545;
@@ -282,6 +284,20 @@ h1 {
 }
 
 .red-thin-button:hover {
+    background-color: #af0d1d;
+    transition: 0.2s
+}
+
+.delete-thin-button {
+    padding: 4px 8px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-thin-button:hover {
     background-color: #af0d1d;
     transition: 0.2s
 }

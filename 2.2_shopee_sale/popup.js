@@ -90,15 +90,15 @@ function displayCookies(categories) {
       });
 
       let blacklistButton = cookieDetails.querySelector('.blacklist-button');
-      
+
       // Set data attributes for the category and other details
       blacklistButton.setAttribute('data-cookie-name', cookie.name);
       blacklistButton.setAttribute('data-cookie-domain', cookie.domain);
       blacklistButton.setAttribute('data-cookie-path', cookie.path);
       blacklistButton.setAttribute('data-cookie-category', category);
-      
+
       blacklistButton.addEventListener('click', () => {
-        confirmBlacklist(cookie, category, () => {});
+        confirmBlacklist(cookie, category, () => { });
       });
 
       list.appendChild(listItem);
@@ -118,17 +118,17 @@ function displayCookies(categories) {
       // Create and append the delete all button
       let blacklistAllButton = document.createElement('button');
       blacklistAllButton.innerText = 'Blacklist Category';
-      blacklistAllButton.classList.add('blacklist-all-button');
+      blacklistAllButton.classList.add('blacklist-category-button');
       blacklistAllButton.style.float = 'right';
       blacklistAllButton.style.marginTop = '-26px'; // Adjust the amount to move it higher
-    
-      
+
+
       blacklistAllButton.addEventListener('click', () => {
         blacklistAllCookiesInCategory(category, categories[category]);
       });
       section.appendChild(blacklistAllButton);
     }
-    
+
     section.appendChild(list);
     container.appendChild(section);
   });
@@ -152,7 +152,7 @@ function appendCookieDetails(cookieDetails, cookie) {
   // Add a new delete button "delete2"
   let delete2Button = document.createElement('button');
   delete2Button.innerText = 'Delete';
-  delete2Button.classList.add('red-thin-button');
+  delete2Button.classList.add('delete-thin-button');
   delete2Button.addEventListener('click', () => {
     // Call a new function to confirm deletion without blocking
     confirmActualDeletion(cookie);
@@ -165,7 +165,7 @@ function confirmActualDeletion(cookie) {
   if (confirm(`Are you sure you want to delete '${cookie.name}'?`)) {
     chrome.cookies.remove({ url: 'http://' + cookie.domain + cookie.path, name: cookie.name }, function (removed) {
       if (chrome.runtime.lastError) {
-        console.error('Error blacklisting cookie:', chrome.runtime.lastError);
+        console.error('Error deleting cookie:', chrome.runtime.lastError);
       } else {
         console.log('Cookie deleted:', cookie.name);
         refreshCookieList();
@@ -201,6 +201,10 @@ function transformToEditable(cookieDetails, cookie, listItem, category) {
   const cancelButton = createButton('Cancel', 'cancel-button', () => {
     cookieDetails.innerHTML = originalDetailsContent;
     reattachEventListeners(cookieDetails, cookie, listItem, category);
+    const delete2Button = cookieDetails.querySelector('.delete-thin-button');
+    delete2Button.addEventListener('click', () => {
+      confirmActualDeletion(cookie);
+    });
   });
 
   // Append buttons to the container
@@ -356,7 +360,7 @@ function createCategoryElement(category, cookies) {
   // Adjust the top margin to move the button higher
   unmarkAllButton.style.marginTop = '-35px'; // Adjust the amount to move it higher
   unmarkAllButton.style.marginRight = '10px';
-  unmarkAllButton.addEventListener('click', function() {
+  unmarkAllButton.addEventListener('click', function () {
     // Implement unmark all logic here
     unmarkAllCookiesInCategory(category);
   });
@@ -382,7 +386,7 @@ function createCategoryElement(category, cookies) {
     // Adjust the top margin to move the button higher
     unmarkButton.style.marginTop = '-15px'; // Adjust the amount to move it higher
 
-    unmarkButton.addEventListener('click', function() {
+    unmarkButton.addEventListener('click', function () {
       // Implement unmark logic here
       unmarkCookieForBlacklist(cookie.identifier);
     });
@@ -404,7 +408,7 @@ function unmarkCookieForBlacklist(cookieIdentifier) {
     if (indexToUnmark !== -1) {
       blacklistedCookies.splice(indexToUnmark, 1); // Remove the cookie
     }
-    
+
     // Save the updated array
     chrome.storage.sync.set({ blacklistedCookies: blacklistedCookies }, function () {
       if (chrome.runtime.lastError) {
@@ -444,8 +448,8 @@ function unmarkAllCookiesInCategory(category) {
         recategorizeAndDisplayUnmarkedCookies(cookiesToUnmark);
 
         // Refresh the list and blacklist display
-        displayBlacklistedCookies(); 
-        refreshCookieList(); 
+        displayBlacklistedCookies();
+        refreshCookieList();
 
         // Now reload the current tab
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -531,7 +535,7 @@ function reattachEventListeners(cookieDetails, cookie, listItem, category) {
       confirmBlacklist(cookie, category);
     });
   } else {
-    console.error('Delete button not found.');
+    console.error('Blacklist button not found.');
   }
 }
 
@@ -574,7 +578,7 @@ function confirmBlacklist(cookie, category) {
 
     // If confirm button is clicked, send a message to background.js for aggressive removal
     confirmationDialog.querySelector('#confirm-blacklist').addEventListener('click', () => {
-      chrome.cookies.remove({ url: `http${cookie.secure ? 's' : ''}://${cookie.domain}${cookie.path}`, name: cookie.name}, function(removed) {
+      chrome.cookies.remove({ url: `http${cookie.secure ? 's' : ''}://${cookie.domain}${cookie.path}`, name: cookie.name }, function (removed) {
         if (chrome.runtime.lastError) {
           console.error('Error blacklisting cookie:', chrome.runtime.lastError);
           reject(chrome.runtime.lastError);
@@ -583,11 +587,11 @@ function confirmBlacklist(cookie, category) {
           // Then, update the UI
           addCookieToBlacklistUI([cookie]);
           resolve();
-          
+
         }
 
         // Optionally reload the current tab if necessary
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
           const currentTab = tabs[0];
           if (currentTab) {
             chrome.tabs.reload(currentTab.id);
@@ -616,7 +620,7 @@ function addCookieToBlacklistUI(cookies) {
     let blacklistedCookies = result.blacklistedCookies || [];
 
     cookies.forEach(cookie => {
-      let cookieIdentifier = `${cookie.name}@${cookie.domain}`; 
+      let cookieIdentifier = `${cookie.name}@${cookie.domain}`;
 
       if (!blacklistedCookies.some(existingCookie => existingCookie.identifier === cookieIdentifier)) {
         blacklistedCookies.push({
@@ -650,6 +654,15 @@ function createEditableField(text, className) {
 
 // Function to show the form for creating a new cookie
 function showCreateCookieForm() {
+  // Get the current tab's URL
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    const currentTabUrl = tabs[0].url;
+    const currentDomain = new URL(currentTabUrl).hostname;
+
+    // Pre-fill cookieDomainInput with the current domain
+    const cookieDomainInput = document.getElementById('cookieDomainInput');
+    cookieDomainInput.value = currentDomain;
+  });
   const formContainer = document.getElementById('createCookieForm');
   if (formContainer) {
     formContainer.style.display = 'block';
@@ -739,7 +752,7 @@ async function blacklistAllCookiesInCategory(category, cookies) {
     <button class="blue-thin-button" id="cancel-blacklistAll">No</button>
   `;
   confirmationDialog.classList.add('confirmation-dialog');
-  
+
   // Set data attributes on the confirmation dialog
   confirmationDialog.setAttribute('data-cookie-category', category);
 
@@ -764,7 +777,7 @@ async function blacklistAllCookiesInCategory(category, cookies) {
       addCookieToBlacklistUI(cookiesToRemove);
       console.log('Cookie blacklisted:', cookie.name, cookie.domain, cookie.path, cookie.category);
     });
-    
+
     // Close the confirmation dialog and hide the container
     dialogContainer.removeChild(confirmationDialog); // Remove the confirmation dialog
     dialogContainer.style.display = 'none'; // Hide the container
@@ -780,11 +793,11 @@ async function blacklistAllCookiesInCategory(category, cookies) {
 }
 
 // Combine DOMContentLoaded event listeners
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const wipeAllButton = document.getElementById('wipeAllCookiesButton');
   wipeAllButton.addEventListener('click', wipeAllCookiesForDomain);
 
-  document.getElementById('dialog-container').addEventListener('click', function(event) {
+  document.getElementById('dialog-container').addEventListener('click', function (event) {
     // Check if the clicked element is a blacklist button
     if (event.target && event.target.id === 'confirm-blacklist') {
       // Retrieve the cookie information somehow. This might be stored on the dialog
@@ -801,10 +814,10 @@ document.addEventListener('DOMContentLoaded', function() {
         category: cookieCategory
       };
       saveUserPreference(cookie, cookieCategory)
-    } 
+    }
   });
 
-  (async function() {
+  (async function () {
     // Show blacklisted cookies as soon DOM is loaded
     displayBlacklistedCookies();
 
