@@ -1,0 +1,12 @@
+Location:
+~/myflaskapp
+Files:
+requirements.txt
+app.py
+cookieDB.csv
+cookie_classifier_model_RF.joblib
+
+Location:
+/etc/systemd/system
+Files:
+myflaskapp.service
