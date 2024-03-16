@@ -37,5 +37,70 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 3. Enable 'Developer Mode'.
 4. Choose 'Load Unpacked' and select the downloaded `CookieCrypt` folder
 
+## User Manual
+### Create New Cookie
+1. Click on the `Create Cookie` button in the extension popup.
+2. Fill in the details for the cookie as necessary: Name, Value, Domain, Path, Expiration, Secure flag, and HttpOnly flag.
+3. Press the `Create` button to create the cookie on the current domain.
+<p align="center">
+  <img alt="CookieCrypt Create New Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+</p>
+
+### View Cookie Changes
+1. To view any changes made to cookies, click on the `View Cookie Changes` button.
+2. You'll be directed to a page listing all added or removed cookies during the current session.
+<p align="center">
+  <img alt="CookieCrypt View Cookie Changes Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+</p>
+
+### Edit Cookie
+1. Click on the Category that the cookie belongs to.
+2. Click on the dropdown arrow icon belonging to the desired cookie that you wish to edit.
+3. Click the `Edit` button, make your changes, and then press Save Changes to update the cookie.
+<p align="center">
+  <img alt="CookieCrypt Edit Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+</p>
+
+### Delete Cookie
+1. Click on the Category that the cookie belongs to.
+2. Click on the dropdown arrow icon belonging to the desired cookie that you wish to delete.
+3. Click the `Delete` button.
+4. Confirm your action in the popup dialog to remove the cookie.
+<p align="center">
+  <img alt="CookieCrypt Delete Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+</p>
+
+### Wipe ALL Cookies
+1. To remove all cookies associated with a domain, press the `Wipe ALL Cookies` button.
+2. Confirm the action when prompted to clear all cookies.
+<p align="center">
+  <img alt="CookieCrypt Wipe ALL Cookies Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+</p>
+
+### Blacklist Cookie
+1. Click on the Category that the cookie belongs to.
+2. Click on the dropdown arrow icon belonging to the desired cookie that you wish to blacklist.
+3. Click on the `Blacklist` button.
+4. This will add the cookie to your blacklist, and it will not be set in future sessions.
+<p align="center">
+  <img alt="CookieCrypt Blacklist Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+</p>
+
+### Blacklist Category
+1. To blacklist all cookies within a category, click on the `Blacklist Category` button found at the top of each cookie category section.
+2. Confirm the action to prevent all cookies in that category from being set in the future.
+<p align="center">
+  <img alt="CookieCrypt Blacklist Category Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+</p>
+
+### Unmark Cookie/Category From Blacklist
+1. To remove a cookie or an entire category from the blacklist, navigate to the Cookie Blacklist section.
+2. Click on the `Unmark` button next to the individual cookie or the `Unmark All` button for a category.
+3. Confirm the action to unmark the selected Cookie/Category.
+4. The selected cookies will be removed from the blacklist and allowed in future sessions.
+<p align="center">
+  <img alt="CookieCrypt Unmark Cookie/Category From Blacklist Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+</p>
+
 ## Acknowledgements
 Thank you Prof. Weihan and Prof. Liming for providing us with an opportunity to work on this Web Security project.
