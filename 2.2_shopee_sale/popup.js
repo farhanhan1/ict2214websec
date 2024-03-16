@@ -138,14 +138,14 @@ function displayCookies(categories) {
 function appendCookieDetails(cookieDetails, cookie) {
   let cookieExpires = cookie.expirationDate ? new Date(cookie.expirationDate * 1000).toLocaleString() : 'Session';
   cookieDetails.innerHTML = `
-    <strong style="color: #E5E1DA; padding-right: 18px;">Value:</strong> <span class="cookie-value">${cookie.value}</span><br>
-    <strong style="color: #E5E1DA; padding-right: 9px;">Expires:</strong> <span class="cookie-expires">${cookieExpires}</span><br>
-    <strong style="color: #E5E1DA; padding-right: 8px;">Domain:</strong> <span class="cookie-domain">${cookie.domain}</span><br>
-    <strong style="color: #E5E1DA; padding-right: 23px;">Path:</strong> <span class="cookie-path">${cookie.path}</span><br>
-    <strong style="color: #E5E1DA; padding-right: 12px; margin-left:-1px;">Secure:</strong> <span class="cookie-secure">${cookie.secure}</span><br>
+    <strong style="color: #E5E1DA; padding-right: 21px;">Value:</strong> <span class="cookie-value">${cookie.value}</span><br>
+    <strong style="color: #E5E1DA; padding-right: 10px;">Expires:</strong> <span class="cookie-expires">${cookieExpires}</span><br>
+    <strong style="color: #E5E1DA; padding-right: 9px;">Domain:</strong> <span class="cookie-domain">${cookie.domain}</span><br>
+    <strong style="color: #E5E1DA; padding-right: 25px;">Path:</strong> <span class="cookie-path">${cookie.path}</span><br>
+    <strong style="color: #E5E1DA; padding-right: 14px; margin-left:-1px;">Secure:</strong> <span class="cookie-secure">${cookie.secure}</span><br>
     <strong style="color: #E5E1DA; padding-right: 3px;">HttpOnly:</strong> <span class="cookie-httpOnly">${cookie.httpOnly}</span><br>
     <strong style="color: #E5E1DA; padding-right: 1px; margin-left: -1px;">SameSite:</strong> <span class="cookie-sameSite">${cookie.sameSite}</span><br>
-    <strong style="color: #E5E1DA; padding-right: 11px; margin-left:-1px;">StoreId:</strong> <span class="cookie-storeId">${cookie.storeId || 'N/A'}</span><br>
+    <strong style="color: #E5E1DA; padding-right: 12px; margin-left:-1px;">StoreId:</strong> <span class="cookie-storeId">${cookie.storeId || 'N/A'}</span><br>
     <button style="margin-top: 10px;" class="edit-button">Edit</button>
     <button class="blacklist-button">Blacklist</button>
   `;
