@@ -1,10 +1,10 @@
-![CookieCrypt](2.2_shopee_sale/cookiecryptLogo.png)
+![CookieCrypt](READMEassets/cookiecryptLogo.png)
 
 ## Overview
 CookieCrypt is an innovative browser extension designed to empower users with advanced cookie management. It offers a trio of key features: Cookie Inventory Categorization, Real-Time Cookie Monitoring & Alerts, and Cookie Permission Management. These functionalities enhance user understanding, provide greater control over privacy, and align with stringent data protection regulations. Behind its user-centric interface, CookieCrypt leverages a robust backend hosted on an Azure Cloud VM, utilizing Flask for a streamlined API endpoint. This backend is the powerhouse for processing cookies, employing multiple machine learning algorithms to ensure accuracy and efficiency in categorization. The use of Azure Cloud VM ensures scalability and reliability, allowing CookieCrypt to handle vast amounts of data seamlessly while providing the machine learning backbone necessary for its features.
 
 <p align="center">
-  <img alt="CookieCrypt GIF Demo" width="auto" height="500" src="cookiecryptdemo.gif">
+  <img alt="CookieCrypt GIF Demo" width="auto" height="500" src="READMEassets/cookiecryptdemo.gif">
 </p>
 
 ## Key Features
