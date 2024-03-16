@@ -356,7 +356,7 @@ function createCategoryElement(category, cookies) {
   unmarkAllButton.textContent = 'Unmark All';
   unmarkAllButton.style.float = 'right';
   unmarkAllButton.classList.add('unmark-all-button');
-  unmarkAllButton.classList.add('red-thin-button');
+  unmarkAllButton.classList.add('blacklist-category-button');
   // Adjust the top margin to move the button higher
   unmarkAllButton.style.marginTop = '-35px'; // Adjust the amount to move it higher
   unmarkAllButton.style.marginRight = '10px';
