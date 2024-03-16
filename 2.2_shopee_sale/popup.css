@@ -318,6 +318,20 @@ h1 {
     transition: 0.2s
 }
 
+.gray-thin-button {
+    padding: 4px 8px;
+    background-color: #313030;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.gray-thin-button:hover {
+    background-color: #1d1d1d;
+    transition: 0.2s
+}
+
 /* This styles the scrollbar track */
 ::-webkit-scrollbar {
     width: 12px;
@@ -344,3 +358,14 @@ h1 {
     transition: 0.2s
     /* A darker semi-transparent gray color on hover */
 }
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  .blinking {
+    animation: blink 1s linear infinite;
+  }
+  

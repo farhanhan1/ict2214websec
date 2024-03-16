@@ -16,7 +16,11 @@ keywords_categories = {
     # "social": "advertisement"
     # "gid": "analytics",
     # "cf_clearance": "necessary",
-    # "visid_incap": "necessary"
+    # "visid_incap": "necessary",
+    "_gcl": "analytics",
+    "_ga": "analytics",
+    "_opt_": "analytics",
+    "__utm": "analytics",
 }
 
 

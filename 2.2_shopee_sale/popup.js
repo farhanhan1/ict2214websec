@@ -49,6 +49,7 @@ function displayCookies(categories) {
     let title = document.createElement('h2');
     title.innerText = `${category} (${categories[category].length})`;
     title.classList.add('category-title');
+    // Variable to keep track of the current style state
     title.addEventListener('click', () => {
       list.classList.toggle('collapsed');
     });
@@ -102,9 +103,9 @@ function displayCookies(categories) {
 
       list.appendChild(listItem);
     });
+
+
     section.appendChild(title);
-    section.appendChild(list);
-    container.appendChild(section);
     if (categories[category].length === 0) {
       // Display a message if no cookies are in the category
       let noCookiesMessage = document.createElement('p');
@@ -114,15 +115,22 @@ function displayCookies(categories) {
       noCookiesMessage.style.color = '#ccc';
       section.appendChild(noCookiesMessage);
     } else {
-      // Create and append the delete all button (Leaving it here but havent implement functionality yet)
+      // Create and append the delete all button
       let blacklistAllButton = document.createElement('button');
-      blacklistAllButton.innerText = 'Blacklist All';
+      blacklistAllButton.innerText = 'Blacklist Category';
       blacklistAllButton.classList.add('blacklist-all-button');
+      blacklistAllButton.style.float = 'right';
+      blacklistAllButton.style.marginTop = '-26px'; // Adjust the amount to move it higher
+    
+      
       blacklistAllButton.addEventListener('click', () => {
         blacklistAllCookiesInCategory(category, categories[category]);
       });
       section.appendChild(blacklistAllButton);
     }
+    
+    section.appendChild(list);
+    container.appendChild(section);
   });
 }
 
@@ -332,35 +340,48 @@ function updateBlacklistUI(cookiesByCategory) {
   });
 }
 
-// called from updateBlacklistUI to create a section for each category
+// Called from updateBlacklistUI to create a section for each category
 function createCategoryElement(category, cookies) {
-  // Log to check each category being created
-  console.log(`Creating UI element for category: ${category} with cookies:`, cookies);
-  console.log(`Creating element for category: ${category}`); // Check category for which the element is created
-
   const categorySection = document.createElement('section');
   const categoryTitle = document.createElement('h3');
+  categoryTitle.style.color = "white";
   categoryTitle.textContent = `${category} (${cookies.length})`;
   categorySection.appendChild(categoryTitle);
 
-  const cookieList = document.createElement('ul');
   const unmarkAllButton = document.createElement('button');
   unmarkAllButton.textContent = 'Unmark All';
+  unmarkAllButton.style.float = 'right';
   unmarkAllButton.classList.add('unmark-all-button');
+  unmarkAllButton.classList.add('red-thin-button');
+  // Adjust the top margin to move the button higher
+  unmarkAllButton.style.marginTop = '-35px'; // Adjust the amount to move it higher
+  unmarkAllButton.style.marginRight = '10px';
   unmarkAllButton.addEventListener('click', function() {
     // Implement unmark all logic here
     unmarkAllCookiesInCategory(category);
   });
 
-  categorySection.insertBefore(unmarkAllButton, cookieList.firstChild); // Insert it at the top of the section
-  cookies.forEach((cookie) => {
-    console.log(`Adding cookie to category: ${category}`, cookie); // Check each cookie added
+  const cookieList = document.createElement('ul');
+  cookieList.style.paddingLeft = '0'; // Remove indentation by setting padding-left to 0
+  cookieList.style.marginLeft = '20px'; // Remove indentation by setting padding-left to 0
 
+  categorySection.appendChild(unmarkAllButton); // Append the button before the cookie list
+  categorySection.appendChild(cookieList); // Append the cookie list
+
+  cookies.forEach((cookie) => {
     const cookieItem = document.createElement('li');
-    cookieItem.textContent = `${cookie.name} (Domain: ${cookie.domain})`;
-    
+    cookieItem.innerHTML = `<b>${cookie.name}</b><br><i>(Domain: ${cookie.domain})</i> `;
+    cookieItem.style.color = "white";
+
     const unmarkButton = document.createElement('button');
     unmarkButton.textContent = 'Unmark';
+    unmarkButton.style.float = 'right'; // Float the button to the right
+    unmarkButton.style.marginRight = '10px'; // Adjust the amount it's flushed
+    unmarkButton.classList.add('gray-thin-button');
+
+    // Adjust the top margin to move the button higher
+    unmarkButton.style.marginTop = '-15px'; // Adjust the amount to move it higher
+
     unmarkButton.addEventListener('click', function() {
       // Implement unmark logic here
       unmarkCookieForBlacklist(cookie.identifier);
@@ -370,9 +391,9 @@ function createCategoryElement(category, cookies) {
     cookieList.appendChild(cookieItem);
   });
 
-  categorySection.appendChild(cookieList);
   return categorySection;
 }
+
 
 // Function to unmark a cookie from the blacklist
 function unmarkCookieForBlacklist(cookieIdentifier) {
@@ -536,8 +557,8 @@ function confirmBlacklist(cookie, category) {
     const confirmationDialog = document.createElement('div');
     confirmationDialog.innerHTML = `
       <p>Are you sure you want to blacklist '${cookie.name}'?</p>
-      <button id="confirm-blacklist">Yes</button>
-      <button id="cancel-blacklist">No</button>
+      <button class="red-thin-button" id="confirm-blacklist">Yes</button>
+      <button class="blue-thin-button" id="cancel-blacklist">No</button>
     `;
     confirmationDialog.classList.add('confirmation-dialog');
     cookie.category = category; // Set the category of the cookie
@@ -714,8 +735,8 @@ async function blacklistAllCookiesInCategory(category, cookies) {
   const confirmationDialog = document.createElement('div');
   confirmationDialog.innerHTML = `
     <p>Are you sure you want to blacklist all cookies in the '${category}' category?</p>
-    <button id="confirm-blacklistAll">Yes</button>
-    <button id="cancel-blacklistAll">No</button>
+    <button class="red-thin-button" id="confirm-blacklistAll">Yes</button>
+    <button class="blue-thin-button" id="cancel-blacklistAll">No</button>
   `;
   confirmationDialog.classList.add('confirmation-dialog');
   
