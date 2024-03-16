@@ -39,7 +39,12 @@ h1 {
     /* This will help with alignment */
     width: calc(100% - 40px);
     /* Adjust the width to make space for the icon */
-    padding-top: 3px;
+    padding-top: 2px;
+    font-size: 12px;
+}
+
+strong {
+    font-size: 11px;
 }
 
 .cookie-title:hover {
@@ -62,14 +67,16 @@ h1 {
 }
 
 .cookie-value,
-.cookie-expiration {
-    /* Styles for value and expiration fields */
+.cookie-expires,
+.cookie-domain,
+.cookie-path,
+.cookie-secure,
+.cookie-httpOnly,
+.cookie-sameSite,
+.cookie-storeId {
     max-height: 50px;
-    /* Maximum height before scrolling */
     overflow-y: auto;
-    /* Enable vertical scroll */
-    /*white-space: nowrap; /* Keeps the text on a single line */
-    /*overflow-x: auto; /* Enable horizontal scroll */
+    font-size: 11px;
 }
 
 .expanded-category {
