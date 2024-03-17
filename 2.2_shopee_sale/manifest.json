@@ -12,7 +12,8 @@
     "declarativeNetRequest",
     "background",
     "webNavigation",
-    "notifications"
+    "notifications",
+    "scripting"
   ],
   "host_permissions": 
   [

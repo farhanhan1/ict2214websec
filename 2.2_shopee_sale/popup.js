@@ -78,7 +78,6 @@ function displayCookies(categories) {
       let cookieDetails = document.createElement('div');
       cookieDetails.classList.add('cookie-details');
       // Below is to start with expanded cookie instead
-      // // cookieDetails.classList.add('cookie-details', 'collapsed');
       appendCookieDetails(cookieDetails, cookie);
       listItem.appendChild(cookieDetails);
 
@@ -114,7 +113,7 @@ function displayCookies(categories) {
       noCookiesMessage.style.color = '#ccc';
       section.appendChild(noCookiesMessage);
     } else {
-      // Create and append the delete all button (Leaving it here but havent implement functionality yet)
+      // Create and append the blacklist all button
       let blacklistAllButton = document.createElement('button');
       blacklistAllButton.innerText = 'Blacklist All';
       blacklistAllButton.classList.add('blacklist-all-button');
@@ -494,7 +493,7 @@ function saveUserPreference(cookie, category, callback) {
 }
 
 function reattachEventListeners(cookieDetails, cookie, listItem, category) {
-  // Find the edit and delete buttons within the cookieDetails
+  // Find the edit and blacklist buttons within the cookieDetails
   const editButton = cookieDetails.querySelector('.edit-button');
   const blacklistButton = cookieDetails.querySelector('.blacklist-button');
 
@@ -562,7 +561,6 @@ function confirmBlacklist(cookie, category) {
           // Then, update the UI
           addCookieToBlacklistUI([cookie]);
           resolve();
-          
         }
 
         // Optionally reload the current tab if necessary
@@ -582,8 +580,8 @@ function confirmBlacklist(cookie, category) {
       dialogContainer.removeChild(confirmationDialog); // Remove the confirmation dialog
       dialogContainer.style.display = 'none'; // Hide the container
     });
-  });
   refreshCookieList();
+  });
 }
 
 // Called from confirmBlacklist to add the cookie to the blacklist
@@ -678,7 +676,7 @@ function createNewCookie() {
       hideCreateCookieForm();
 
       // Refresh the cookie list to include the new cookie
-      refreshCookieList(); // Call this function to update the UI
+      refreshCookieList(); 
     }
   });
 }
@@ -704,7 +702,7 @@ function wipeAllCookiesForDomain() {
     });
   } else {
     // User did not confirm, do nothing.
-    console.log("User canceled the cookie deletion.");
+    console.log("User cancelled the cookie deletion.");
   }
 }
 
@@ -754,7 +752,6 @@ async function blacklistAllCookiesInCategory(category, cookies) {
     dialogContainer.removeChild(confirmationDialog); // Remove the confirmation dialog
     dialogContainer.style.display = 'none'; // Hide the container
   });
-
   refreshCookieList();
 }
 

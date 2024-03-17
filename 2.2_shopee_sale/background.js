@@ -17,18 +17,20 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 // This function runs when a tab is updated, e.g., when the user navigates to a page
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+  console.log(`Tab ${tabId} updated. Status: ${changeInfo.status}, URL: ${tab.url}`);
   if (changeInfo.status === 'complete' && tab.url) {
-    chrome.storage.sync.get(['deletedCookies'], function (result) {
-      const deletedCookies = result.deletedCookies || [];
-      deletedCookies.forEach(function(cookie) {
+    chrome.storage.sync.get(['blacklistedCookies'], function (result) {
+      const blacklistedCookies = result.blacklistedCookies || [];
+      blacklistedCookies.forEach(function(cookie) {
         const cookieDetails = {
           url: `https://${cookie.domain}${cookie.path}`, 
           name: cookie.name
         };
-        // Try deleting for both http and https
+        // Try blacklisting for both http and https
         chrome.cookies.remove(cookieDetails);
         cookieDetails.url = `http://${cookie.domain}${cookie.path}`;
         chrome.cookies.remove(cookieDetails);
+        console.log(`Blacklisted cookies for ${cookie.name}' in '${cookie.domain}`)
       });
     });
   }
@@ -49,9 +51,9 @@ function deleteCookiesForDomain(domain) {
 
 // Function to handle the deletion of cookies based on user preferences.
 function checkAndDeleteCookies() {
-  chrome.storage.sync.get(['deletedCookies'], function (result) {
-    const deletedCookies = result.deletedCookies || [];
-    deletedCookies.forEach(function(cookie) {
+  chrome.storage.sync.get(['blacklistedCookies'], function (result) {
+    const blacklistedCookies = result.blacklistedCookies || [];
+    blacklistedCookies.forEach(function(cookie) {
       deleteCookiesForDomain(cookie.domain);
     });
   });
