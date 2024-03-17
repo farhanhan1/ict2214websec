@@ -138,4 +138,4 @@ function checkForNewCookies() {
 }
 
 // Check for new cookies every 30 seconds
-setInterval(checkForNewCookies, 30000);
+setInterval(checkForNewCookies, 500);
