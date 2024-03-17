@@ -83,14 +83,14 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 3. Click on the `Blacklist` button.
 4. This will add the cookie to your blacklist, and it will not be set in future sessions.
 <p align="center">
-  <img alt="CookieCrypt Blacklist Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_blacklistcookie.gif">
+  <img alt="CookieCrypt Blacklist Cookie Demo" width="auto" height="600" src="READMEassets/cookiecrypt_blacklistcookie.gif">
 </p>
 
 ### Blacklist Category
 1. To blacklist all cookies within a category, click on the `Blacklist Category` button found at the top of each cookie category section.
 2. Confirm the action to prevent all cookies in that category from being set in the future.
 <p align="center">
-  <img alt="CookieCrypt Blacklist Category Demo" width="auto" height="500" src="READMEassets/cookiecrypt_blacklistcategory.gif">
+  <img alt="CookieCrypt Blacklist Category Demo" width="auto" height="600" src="READMEassets/cookiecrypt_blacklistcategory.gif">
 </p>
 
 ### Unmark Cookie/Category From Blacklist
@@ -99,7 +99,7 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 3. Confirm the action to unmark the selected Cookie/Category.
 4. The selected cookies will be removed from the blacklist and allowed in future sessions.
 <p align="center">
-  <img alt="CookieCrypt Unmark Cookie/Category From Blacklist Demo" width="auto" height="500" src="READMEassets/cookiecrypt_unmark.gif">
+  <img alt="CookieCrypt Unmark Cookie/Category From Blacklist Demo" width="auto" height="600" src="READMEassets/cookiecrypt_unmark.gif">
 </p>
 
 ## Acknowledgements
