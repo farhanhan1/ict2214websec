@@ -1,0 +1,13 @@
+Files (located at ~/myflaskapp):
+requirements.txt
+app.py
+cookieDB.csv
+cookie_classifier_model_RF.joblib
+
+Files (located at /etc/systemd/system):
+myflaskapp.service
+
+To run Flask server for API endpoint (after all files are present):
+sudo systemctl daemon-reload
+sudo systemctl restart myflaskapp.service
+sudo systemctl status myflaskapp.service
