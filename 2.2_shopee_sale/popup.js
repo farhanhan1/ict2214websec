@@ -313,8 +313,8 @@ function displayBlacklistedCookies() {
 
     // New grouping by category with console log to check if categories are correct
     const cookiesByCategory = blacklistedCookies.reduce((acc, cookie) => {
-      // Using the category from the cookie or defaulting to 'Uncategorized'
-      const category = cookie.category || 'Uncategorized';
+      // Using the category from the cookie or defaulting to 'Others'
+      const category = cookie.category || 'Others';
       if (!acc[category]) {
         acc[category] = [];
       }
@@ -337,11 +337,16 @@ function updateBlacklistUI(cookiesByCategory) {
   const listContainer = document.getElementById('blacklistCookiesList');
   listContainer.innerHTML = '<h2>Cookie Blacklist</h2>'; // Reset the container
 
-  Object.entries(cookiesByCategory).forEach(([category, cookies]) => {
-    console.log(`Displaying category: ${category} with ${cookies.length} cookies`); // Check each category being displayed
-    const categoryElement = createCategoryElement(category, cookies);
-    listContainer.appendChild(categoryElement);
-  });
+    // Check if the blacklist is empty
+  if (Object.keys(cookiesByCategory).length === 0) {
+    listContainer.innerHTML += '<p style="font-style: italic; color: #ccc;">No cookies/categories currently blacklisted.</p>';
+  } else {
+    Object.entries(cookiesByCategory).forEach(([category, cookies]) => {
+      console.log(`Displaying category: ${category} with ${cookies.length} cookies`); // Check each category being displayed
+      const categoryElement = createCategoryElement(category, cookies);
+      listContainer.appendChild(categoryElement);
+    });
+  }
 }
 
 // Called from updateBlacklistUI to create a section for each category
