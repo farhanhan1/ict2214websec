@@ -4,7 +4,7 @@
 CookieCrypt is an innovative browser extension designed to empower users with advanced cookie management. It offers a trio of key features: <b>Cookie Inventory Categorization, Real-Time Cookie Monitoring & Alerts, and Cookie Permission Management</b>. These functionalities enhance user understanding, provide greater control over privacy, and align with stringent data protection regulations. Behind its user-centric interface, CookieCrypt leverages a robust backend hosted on an <b>Azure Cloud VM</b>, utilizing <b>Flask</b> for a streamlined API endpoint. This backend is the powerhouse for processing cookies, employing multiple machine learning algorithms to ensure accuracy and efficiency in categorization. The use of Azure Cloud VM ensures scalability and reliability, allowing CookieCrypt to handle vast amounts of data seamlessly while providing the machine learning backbone necessary for its features.
 
 <p align="center">
-  <img alt="CookieCrypt GIF Demo" width="auto" height="500" src="READMEassets/cookiecryptdemo.gif">
+  <img alt="CookieCrypt GIF Demo" width="auto" height="500" src="READMEassets/cookiecrypt_demo.gif">
 </p>
 
 ## Key Features
@@ -43,14 +43,14 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 2. Fill in the details for the cookie as necessary: Name, Value, Domain, Path, Expiration, Secure flag, and HttpOnly flag.
 3. Press the `Create` button to create the cookie on the current domain.
 <p align="center">
-  <img alt="CookieCrypt Create New Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+  <img alt="CookieCrypt Create New Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_create.gif">
 </p>
 
 ### View Cookie Changes
 1. To view any changes made to cookies, click on the `View Cookie Changes` button.
 2. You'll be directed to a page listing all added or removed cookies during the current session.
 <p align="center">
-  <img alt="CookieCrypt View Cookie Changes Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+  <img alt="CookieCrypt View Cookie Changes Demo" width="auto" height="500" src="READMEassets/cookiecrypt_view.gif">
 </p>
 
 ### Edit Cookie
@@ -58,7 +58,7 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 2. Click on the dropdown arrow icon belonging to the desired cookie that you wish to edit.
 3. Click the `Edit` button, make your changes, and then press Save Changes to update the cookie.
 <p align="center">
-  <img alt="CookieCrypt Edit Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+  <img alt="CookieCrypt Edit Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_edit.gif">
 </p>
 
 ### Delete Cookie
@@ -67,14 +67,14 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 3. Click the `Delete` button.
 4. Confirm your action in the popup dialog to remove the cookie.
 <p align="center">
-  <img alt="CookieCrypt Delete Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+  <img alt="CookieCrypt Delete Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_delete.gif">
 </p>
 
 ### Wipe ALL Cookies
 1. To remove all cookies associated with a domain, press the `Wipe ALL Cookies` button.
 2. Confirm the action when prompted to clear all cookies.
 <p align="center">
-  <img alt="CookieCrypt Wipe ALL Cookies Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+  <img alt="CookieCrypt Wipe ALL Cookies Demo" width="auto" height="500" src="READMEassets/cookiecrypt_wipe.gif">
 </p>
 
 ### Blacklist Cookie
@@ -83,14 +83,14 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 3. Click on the `Blacklist` button.
 4. This will add the cookie to your blacklist, and it will not be set in future sessions.
 <p align="center">
-  <img alt="CookieCrypt Blacklist Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+  <img alt="CookieCrypt Blacklist Cookie Demo" width="auto" height="500" src="READMEassets/cookiecrypt_blacklistcookie.gif">
 </p>
 
 ### Blacklist Category
 1. To blacklist all cookies within a category, click on the `Blacklist Category` button found at the top of each cookie category section.
 2. Confirm the action to prevent all cookies in that category from being set in the future.
 <p align="center">
-  <img alt="CookieCrypt Blacklist Category Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+  <img alt="CookieCrypt Blacklist Category Demo" width="auto" height="500" src="READMEassets/cookiecrypt_blacklistcategory.gif">
 </p>
 
 ### Unmark Cookie/Category From Blacklist
@@ -99,7 +99,7 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 3. Confirm the action to unmark the selected Cookie/Category.
 4. The selected cookies will be removed from the blacklist and allowed in future sessions.
 <p align="center">
-  <img alt="CookieCrypt Unmark Cookie/Category From Blacklist Demo" width="auto" height="500" src="READMEassets/cookiecrypt_.gif">
+  <img alt="CookieCrypt Unmark Cookie/Category From Blacklist Demo" width="auto" height="500" src="READMEassets/cookiecrypt_unmark.gif">
 </p>
 
 ## Acknowledgements
