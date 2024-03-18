@@ -123,7 +123,7 @@ chrome.webNavigation.onCompleted.addListener((details) => {
           if (addedCookies.length > 0 || removedCookies.length > 0) {
             const notificationOptions = {
               type: "basic",
-              iconUrl: "icon.png", // Make sure this path is correct and the icon exists in your extension directory
+              iconUrl: "assets/icon.png", // Make sure this path is correct and the icon exists in your extension directory
               title: notificationTitle,
               message: notificationMessage,
               buttons: [{ title: "View cookie changes" }],

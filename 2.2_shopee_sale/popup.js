@@ -84,7 +84,7 @@ function displayCookies(categories) {
       listItem.appendChild(cookieName);
 
       let arrowIcon = document.createElement('img');
-      arrowIcon.src = 'down_arrow_logo.png';
+      arrowIcon.src = 'assets/down_arrow_logo.png';
       arrowIcon.classList.add('arrow-icon');
       arrowIcon.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -194,7 +194,7 @@ function confirmActualDeletion(cookie) {
 function toggleCookieDetails(cookieDetails, arrowIcon) {
   const isCollapsed = cookieDetails.classList.contains('collapsed');
   cookieDetails.classList.toggle('collapsed', !isCollapsed);
-  arrowIcon.src = isCollapsed ? 'down_arrow_logo.png' : 'up_arrow_logo.png';
+  arrowIcon.src = isCollapsed ? 'assets/down_arrow_logo.png' : 'assets/up_arrow_logo.png';
 }
 
 // Transforms cookie details view into an editable form
