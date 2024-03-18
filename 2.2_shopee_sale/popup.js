@@ -1,13 +1,29 @@
 // Function to fetch cookie category from Flask app for a batch of cookie names
 async function fetchCookieCategories(cookieNames) {
-  const response = await fetch('http://52.147.200.156:5000/predict_batch', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ cookie_names: cookieNames })
-  });
-  const data = await response.json();
-  return data.categories; // Assuming the Flask app returns an object with cookie names as keys and categories as values
+  // Display loading indicator
+  document.getElementById('loadingIndicator').style.display = 'block';
+
+  try {
+    const response = await fetch('http://52.147.200.156:5000/predict_batch', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cookie_names: cookieNames })
+    });
+
+    const data = await response.json();
+
+    // Hide loading indicator
+    document.getElementById('loadingIndicator').style.display = 'none';
+
+    return data.categories; // Assuming the Flask app returns an object with cookie names as keys and categories as values
+  } catch (error) {
+    console.error('Error fetching data:', error);
+
+    // Hide loading indicator on error
+    document.getElementById('loadingIndicator').style.display = 'none';
+  }
 }
+
 
 // Asynchronously categorizes cookies into predefined categories based on their names using batch processing
 async function categorizeCookies(cookies) {
