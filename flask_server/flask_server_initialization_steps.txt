@@ -2,7 +2,8 @@ Files (located at ~/myflaskapp):
 requirements.txt
 app.py
 cookieDB.csv
-cookie_classifier_model_RF.joblib
+cookie_classifier_model_RF.joblib (too big to put in repo, 250MB. generate through ml code)
+features_StackingCode.py (ML code used to generate the joblib file)
 
 Files (located at /etc/systemd/system):
 myflaskapp.service
