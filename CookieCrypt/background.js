@@ -89,52 +89,133 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   }
 });
 
-// Real time monitoring of addition or deletion of cookies
-chrome.webNavigation.onCompleted.addListener((details) => {
-  const url = new URL(details.url).toString(); // Convert URL to string
+// // Real time monitoring of addition or deletion of cookies
+// chrome.webNavigation.onCompleted.addListener((details) => {
+//   const url = new URL(details.url).toString(); // Convert URL to string
 
-  chrome.storage.local.get([url], (result) => {
-    const storedData = result[url] ? result[url] : { cookies: [], visits: 0 };
-    const storedCookies = storedData.cookies;
-    const visits = storedData.visits;
+//   chrome.storage.local.get([url], (result) => {
+//     const storedData = result[url] ? result[url] : { cookies: [], visits: 0 };
+//     const storedCookies = storedData.cookies;
+//     const visits = storedData.visits;
 
-    chrome.cookies.getAll({ url: details.url }, (currentCookies) => {
-      const currentCookieNames = currentCookies.map(cookie => cookie.name);
-      const addedCookies = currentCookieNames.filter(name => !storedCookies.includes(name));
-      const removedCookies = storedCookies.filter(name => !currentCookieNames.includes(name));
-      const isSecondVisitOnwards = visits > 0; // Only true if visits counter is more than 0
+//     chrome.cookies.getAll({ url: details.url }, (currentCookies) => {
+//       const currentCookieNames = currentCookies.map(cookie => cookie.name);
+//       const addedCookies = currentCookieNames.filter(name => !storedCookies.includes(name));
+//       const removedCookies = storedCookies.filter(name => !currentCookieNames.includes(name));
+//       const isSecondVisitOnwards = visits > 0; // Only true if visits counter is more than 0
 
-      // Update the storage with the current list of cookies and increment the visit count
-      chrome.storage.local.set({ [url]: { cookies: currentCookieNames, visits: visits + 1, addedCookies, removedCookies } }, () => {
-        if (chrome.runtime.lastError) {
-          console.error(`Error setting storage for ${url}: ${chrome.runtime.lastError.message}`);
-        } else if (isSecondVisitOnwards) {
-          let notificationMessage = '';
-          let notificationTitle = "Cookie Changes Detected";
+//       // Update the storage with the current list of cookies and increment the visit count
+//       chrome.storage.local.set({ [url]: { cookies: currentCookieNames, visits: visits + 1, addedCookies, removedCookies } }, () => {
+//         if (chrome.runtime.lastError) {
+//           console.error(`Error setting storage for ${url}: ${chrome.runtime.lastError.message}`);
+//         } else if (isSecondVisitOnwards) {
+//           let notificationMessage = '';
+//           let notificationTitle = "Cookie Changes Detected";
 
-          if (addedCookies.length > 0 && removedCookies.length === 0) {
-            notificationMessage = `${addedCookies.length} cookie(s) added for ${url}.`;
-          } else if (removedCookies.length > 0 && addedCookies.length === 0) {
-            notificationMessage = `${removedCookies.length} cookie(s) removed for ${url}.`;
-          } else if (addedCookies.length > 0 && removedCookies.length > 0) {
-            notificationMessage = `${addedCookies.length} cookie(s) added, ${removedCookies.length} cookie(s) removed for ${url}.`;
-          }
+//           if (addedCookies.length > 0 && removedCookies.length === 0) {
+//             notificationMessage = `${addedCookies.length} cookie(s) added for ${url}.`;
+//           } else if (removedCookies.length > 0 && addedCookies.length === 0) {
+//             notificationMessage = `${removedCookies.length} cookie(s) removed for ${url}.`;
+//           } else if (addedCookies.length > 0 && removedCookies.length > 0) {
+//             notificationMessage = `${addedCookies.length} cookie(s) added, ${removedCookies.length} cookie(s) removed for ${url}.`;
+//           }
 
-          if (addedCookies.length > 0 || removedCookies.length > 0) {
-            const notificationOptions = {
-              type: "basic",
-              iconUrl: "assets/icon.png", // Make sure this path is correct and the icon exists in your extension directory
-              title: notificationTitle,
-              message: notificationMessage,
-              buttons: [{ title: "View cookie changes" }],
-              requireInteraction: true // This makes the notification stay until the user interacts with it
-            };
+//           if (addedCookies.length > 0 || removedCookies.length > 0) {
+//             const notificationOptions = {
+//               type: "basic",
+//               iconUrl: "assets/icon.png", // Make sure this path is correct and the icon exists in your extension directory
+//               title: notificationTitle,
+//               message: notificationMessage,
+//               buttons: [{ title: "View cookie changes" }],
+//               requireInteraction: true // This makes the notification stay until the user interacts with it
+//             };
 
-            // Create the notification
-            chrome.notifications.create("cookieNotification", notificationOptions);
-          }
-        }
-      });
+//             // Create the notification
+//             chrome.notifications.create("cookieNotification", notificationOptions);
+//           }
+//         }
+//       });
+//     });
+//   });
+// });
+
+//Function to generate a unique ID for each cookie
+function getCookieId(cookie) {
+  return `${cookie.name}@${cookie.domain}`;
+}
+
+// Function to compare cookies to find added or removed ones
+function compareCookies(initialCookies, currentCookies) {
+  const initialSet = new Set(initialCookies.map(getCookieId));
+  const currentSet = new Set(currentCookies.map(getCookieId));
+
+  const added = currentCookies.filter(cookie => !initialSet.has(getCookieId(cookie)));
+  const removed = initialCookies.filter(cookie => !currentSet.has(getCookieId(cookie)));
+
+  return { added, removed };
+}
+
+// Saves the initial state of cookies for a domain in local storage
+function saveInitialStateOfCookies(cookies) {
+  chrome.storage.local.set({initialCookies: cookies});
+}
+
+// Function to get cookies for the current active tab's domain
+function getCookiesForActiveTab(callback) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    if (tabs.length === 0) return; // No active tab
+    const url = new URL(tabs[0].url);
+    const domain = url.hostname;
+
+    chrome.cookies.getAll({domain}, function(cookies) {
+      callback(cookies, domain);
     });
   });
+}
+
+// Initialize local storage with existing cookies on the first run
+chrome.runtime.onInstalled.addListener(() => {
+  getCookiesForActiveTab((cookies, domain) => {
+    saveInitialStateOfCookies(cookies);
+  });
 });
+
+// Monitoring logic to check cookies every second
+setInterval(() => {
+  getCookiesForActiveTab((currentCookies, domain) => {
+    chrome.storage.local.get(['initialCookies'], function(result) {
+      const initialCookies = result.initialCookies || [];
+      const { added, removed } = compareCookies(initialCookies, currentCookies);
+
+      if (added.length > 0 || removed.length > 0) {
+        // Update initialCookies in local storage
+        saveInitialStateOfCookies(currentCookies);
+
+        // Update session storage with added/removed cookies
+        chrome.storage.session.set({ addedCookies: added, removedCookies: removed });
+
+        // Trigger notification
+        showNotification(added, removed);
+      }
+    });
+  });
+}, 1000);
+
+// Function to trigger Windows notification
+function showNotification(added, removed) {
+  let addedCookiesString = added.map(cookie => `${cookie.name}@${cookie.domain}`).join(', ');
+  let removedCookiesString = removed.map(cookie => `${cookie.name}@${cookie.domain}`).join(', ');
+
+  if (addedCookiesString.length > 100) addedCookiesString = addedCookiesString.substring(0, 100) + "...";
+  if (removedCookiesString.length > 100) removedCookiesString = removedCookiesString.substring(0, 100) + "...";
+
+  if (added.length > 0 || removed.length > 0) {
+    chrome.notifications.create('', {
+      type: "basic",
+      iconUrl: "assets/icon.png",
+      title: "Cookie Changes Detected",
+      message: `Added: ${addedCookiesString}, Removed: ${removedCookiesString}`
+    });
+  }
+}
+
