@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>CookieCrypt</title>
+  <link rel="stylesheet" type="text/css" href="popup.css">
+</head>
+
+<body>
+  <h1><img style="width: auto;height: 63px;" src="assets/cookiecryptLogo.png"></h1>
+  <button style="padding-right: 11px; padding-left: 11px;" id="viewCookieChanges" class="purple-thin-button">View
+    Changes</button>
+  <button style="padding-right: 11px; padding-left: 11px;" id="createCookieButton" class="blue-thin-button">Create
+    Cookie</button>
+  <button style="padding-right: 11px; padding-left: 11px;" id="wipeAllCookiesButton" class="red-thin-button">Delete
+    All</button>
+  <button style="padding-right: 11px; padding-left: 11px;" id="clearCacheButton" class="cache-thin-button">Clear
+    Cache</button>
+  <div id="blacklistCookiesList"></div>
+  <div id="cookieList"></div>
+  <div style="text-align: center; font-size: 20px; color: #C3FA03; font-family: Arial, sans-serif;"
+    id="loadingIndicator" style="display: none;">
+    <br><br><br><br>
+    <img style="width: auto; max-height: 100px;" src="assets/loading.gif" alt="Loading...">
+    <br><strong style="font-size: 17px;">Fetching Cookies...</strong><br><br><br><br><br><br><br><br>
+  </div>
+
+  <div id="dialog-container"
+    style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+  </div>
+
+  <div id="createCookieForm" class="modal" style="display: none;">
+    <div class="modal-content">
+      <label for="cookieNameInput">Name:</label>
+      <input style="margin-left: 21px; padding-right: 13px" id="cookieNameInput" type="Name" placeholder="Name">
+      <br>
+      <label for="cookieValueInput">Value:</label>
+      <input style="margin-left: 24px; padding-right: 13px" id="cookieValueInput" type="Value" placeholder="Value">
+      <br>
+      <label for="cookieDomainInput">Domain:</label>
+      <input style="margin-left: 12px; padding-right: 13px" id="cookieDomainInput" type="text" placeholder="Domain">
+      <br>
+      <label for="cookiePathInput">Path:</label>
+      <input style="margin-left: 29px; padding-right: 13px" id="cookiePathInput" type="text" value="/"
+        placeholder="Path">
+      <br>
+      <label for="cookieExpirationInput">Expiration:</label>
+      <input id="cookieExpirationInput" type="datetime-local" placeholder="Expiration">
+      <br>
+      <input style="margin-top: 10px" id="cookieSecureInput" type="checkbox"> Secure
+      <input id="cookieHttpOnlyInput" type="checkbox"> HttpOnly
+      <br>
+      <br>
+      <button id="saveCookieButton" class="blue-thin-button" type="button">Create</button>
+      <button id="cancelCreateCookie" class="red-thin-button" type="button">Cancel</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>

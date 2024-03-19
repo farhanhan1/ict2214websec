@@ -1,3 +1,7 @@
+// Flask server IP and PORT definition
+const FLASK_IP = '52.147.200.156';
+const FLASK_PORT = '5000';
+
 // Function to fetch cookie category from Flask app for a batch of cookie names
 async function fetchCookieCategories(cookieNames) {
   // Display loading indicator
@@ -18,7 +22,7 @@ async function fetchCookieCategories(cookieNames) {
 
   try {
     // Fetch categories of cookies from Flask API hosting our joblib file generated from ML
-    const response = await fetch('http://52.147.200.156:5000/predict_batch', {
+    const response = await fetch(`http://${FLASK_IP}:${FLASK_PORT}/predict_batch`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ cookie_names: uncachedNames })
@@ -64,15 +68,15 @@ async function categorizeCookies(cookies) {
 
   cookies.forEach(cookie => {
     let category = batchCategories[cookie.name] ? capitalizeFirstLetter(batchCategories[cookie.name]) : 'Others';
-    
+
     // Ensure the category exists in the categories object, default to 'Others' if not
     category = categories.hasOwnProperty(category) ? category : 'Others';
-    
+
     if (!categories[category]) {
       console.error(`Undefined category: ${category}. Adding cookie to 'Others'.`);
       category = 'Others';
     }
-    
+
     categories[category].push(cookie);
   });
 
@@ -116,7 +120,7 @@ function displayCookies(categories) {
 
     let list = document.createElement('ul');
     list.classList.add('cookie-list', 'collapsed');
-    
+
 
     // Loop through each cookie in the category
     categories[category].forEach(cookie => {
@@ -395,7 +399,7 @@ function updateBlacklistUI(cookiesByCategory) {
   const listContainer = document.getElementById('blacklistCookiesList');
   listContainer.innerHTML = '<h2>Cookie Blacklist</h2>'; // Reset the container
 
-    // Check if the blacklist is empty
+  // Check if the blacklist is empty
   if (Object.keys(cookiesByCategory).length === 0) {
     listContainer.innerHTML += '<p style="font-style: italic; color: #ccc;">No cookies/categories currently blacklisted.</p>';
   } else {
@@ -803,7 +807,7 @@ function wipeAllCookiesForDomain() {
   }
 }
 
-// function from blacklistAllButton event listener
+// Function from blacklistAllButton event listener
 async function blacklistAllCookiesInCategory(category, cookies) {
   const dialogContainer = document.getElementById('dialog-container'); // Get the dialog container
   const confirmationDialog = document.createElement('div');
@@ -857,7 +861,6 @@ async function blacklistAllCookiesInCategory(category, cookies) {
     dialogContainer.removeChild(confirmationDialog); // Remove the confirmation dialog
     dialogContainer.style.display = 'none'; // Hide the container
   });
-  refreshCookieList();
 }
 
 // Combine DOMContentLoaded event listeners

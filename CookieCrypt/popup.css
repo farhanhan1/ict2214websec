@@ -1,0 +1,387 @@
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    color: #44d62c;
+    background-color: #141414;
+    opacity: 95%;
+    width: 400px;
+    background-image: url(assets/cookiecryptBG.jpg);
+    animation: slideIn 0.3s ease forwards;
+    animation-fill-mode: forwards;
+}
+
+h1 {
+    color: #44d62c;
+}
+
+.cookie-category {
+    border: 1px solid #6d6d6d;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #333333;
+}
+
+.slide-in-anim {
+    animation: slideIn 0.3s ease forwards;
+    animation-fill-mode: forwards;
+}
+
+.cookie-item {
+    cursor: default;
+    padding: 5px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    word-wrap: break-word;
+    position: relative;
+    min-height: 20px;
+}
+
+.cookie-name {
+    font-weight: bold;
+    display: inline-block;
+    width: calc(100% - 40px);
+    padding-top: 2px;
+    font-size: 12px;
+    cursor: default;
+}
+
+strong {
+    font-size: 11px;
+}
+
+.cookie-title:hover {
+    text-decoration: underline;
+}
+
+.cookie-details.collapsed {
+    display: block;
+}
+
+.cookie-details {
+    display: none;
+    max-height: 200px;
+    margin-top: 5px;
+    font-size: 0.9em;
+    word-wrap: break-word;
+    overflow-y: auto;
+}
+
+.cookie-value,
+.cookie-expires,
+.cookie-domain,
+.cookie-path,
+.cookie-secure,
+.cookie-httpOnly,
+.cookie-sameSite,
+.cookie-storeId {
+    max-height: 50px;
+    overflow-y: auto;
+    font-size: 11px;
+}
+
+.expanded-category {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.cookie-category h2 {
+    color: #44d62c;
+    font-size: 1.2em;
+    margin-bottom: 8px;
+    margin-top: 4px;
+    transition: 0.2s;
+}
+
+.cookie-category h2:hover {
+    color: #ee5710;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.cookie-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cookie-category li {
+    background-color: #2b2a2a;
+    border: 1px solid #41eb2b;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.cookie-list.collapsed {
+    display: none;
+}
+
+.edit-button {
+    margin-top: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    padding: 4px 8px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #0551a1;
+    transition: 0.2s
+}
+
+.blacklist-button {
+    margin-top: 5px;
+    cursor: pointer;
+    background-color: #790914;
+    padding: 4px 8px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.blacklist-button:hover {
+    background-color: #47070e;
+    transition: 0.2s;
+}
+
+.blacklist-category-button {
+    margin-top: 5px;
+    cursor: pointer;
+    background-color: #790914;
+    padding: 4px 8px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.blacklist-category-button:hover {
+    background-color: #47070e;
+    transition: 0.2s;
+}
+
+#cookieList {
+    margin-top: 10px;
+}
+
+.editable-label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+.editable-value,
+.editable-expires {
+    width: calc(100% - 20px);
+    height: 50px;
+    margin: 5px 0;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    resize: vertical;
+}
+
+.save-button {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.save-button:hover {
+    background-color: #0056b3;
+    transition: 0.2s
+}
+
+.arrow-icon {
+    cursor: pointer;
+    float: right;
+    width: 20px;
+    height: 20px;
+}
+
+.cancel-button {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #c82333;
+    transition: 0.2s
+}
+
+.button-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+.confirmation-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: rgb(49, 46, 46);
+    z-index: 10;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: rgb(49, 46, 46);
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.red-thin-button {
+    padding: 4px 8px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.red-thin-button:hover {
+    background-color: #af0d1d;
+    transition: 0.2s
+}
+
+.delete-thin-button {
+    padding: 4px 8px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-thin-button:hover {
+    background-color: #af0d1d;
+    transition: 0.2s
+}
+
+.red-thin-button.collapsed {
+    display: none;
+}
+
+.blue-thin-button {
+    padding: 4px 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.blue-thin-button:hover {
+    background-color: #024ea0;
+    transition: 0.2s
+}
+
+.purple-thin-button {
+    padding: 4px 8px;
+    background-color: #7317ec;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.purple-thin-button:hover {
+    background-color: #490d97;
+    transition: 0.2s
+}
+
+.cache-thin-button {
+    padding: 4px 8px;
+    background-color: #474b57;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cache-thin-button:hover {
+    background-color: #272930;
+    transition: 0.2s
+}
+
+.gray-thin-button {
+    padding: 4px 8px;
+    background-color: #313030;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.gray-thin-button:hover {
+    background-color: #1d1d1d;
+    transition: 0.2s
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 128, 128, 0.5);
+    border-radius: 6px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(128, 128, 128, 0.75);
+    transition: 0.2s
+}
