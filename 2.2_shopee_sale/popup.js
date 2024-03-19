@@ -843,6 +843,14 @@ async function blacklistAllCookiesInCategory(category, cookies) {
     // Close the confirmation dialog and hide the container
     dialogContainer.removeChild(confirmationDialog); // Remove the confirmation dialog
     dialogContainer.style.display = 'none'; // Hide the container
+
+    // Refresh the page
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const currentTab = tabs[0];
+      if (currentTab) {
+        chrome.tabs.reload(currentTab.id);
+      }
+    });
   });
 
   // If cancel button is clicked, remove the confirmation dialog and hide the container
@@ -850,7 +858,6 @@ async function blacklistAllCookiesInCategory(category, cookies) {
     dialogContainer.removeChild(confirmationDialog); // Remove the confirmation dialog
     dialogContainer.style.display = 'none'; // Hide the container
   });
-
   refreshCookieList();
 }
 
