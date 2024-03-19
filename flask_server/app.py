@@ -72,7 +72,7 @@ thresholds = {
     'advertisement': 0.477678,
     'analytics': 0.942612,
     'functional': 0.6995015,
-    'necessary': 0.945611,
+    'necessary': 0.870194,
     'performance': 0.62717175
 }
 
