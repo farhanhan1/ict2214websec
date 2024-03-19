@@ -41,13 +41,13 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 ### Create New Cookie
 1. Click on the `Create Cookie` button in the extension popup.
 2. Fill in the details for the cookie as necessary: Name, Value, Domain, Path, Expiration, Secure flag, and HttpOnly flag.
-3. Press the `Create` button to create the cookie on the current domain.
+3. Click the `Create` button to create the cookie on the current domain.
 <p align="center">
   <img alt="CookieCrypt Create New Cookie Demo" width="auto" height="500" src="README_assets/cookiecrypt_create.gif">
 </p>
 
 ### View Cookie Changes
-1. To view any changes made to cookies, click on the `View Cookie Changes` button.
+1. To view any changes made to cookies, click on the `View Changes` button.
 2. You'll be directed to a page listing all added or removed cookies during the current session.
 <p align="center">
   <img alt="CookieCrypt View Cookie Changes Demo" width="auto" height="500" src="README_assets/cookiecrypt_view.gif">
@@ -70,8 +70,8 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
   <img alt="CookieCrypt Delete Cookie Demo" width="auto" height="500" src="README_assets/cookiecrypt_delete.gif">
 </p>
 
-### Wipe ALL Cookies
-1. To remove all cookies associated with a domain, press the `Wipe ALL Cookies` button.
+### Delete All Cookies
+1. To remove all cookies associated with a domain, click the `Delete All` button.
 2. Confirm the action when prompted to clear all cookies.
 <p align="center">
   <img alt="CookieCrypt Wipe ALL Cookies Demo" width="auto" height="500" src="README_assets/cookiecrypt_wipe.gif">
@@ -100,6 +100,13 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 4. The selected cookies will be removed from the blacklist and allowed in future sessions.
 <p align="center">
   <img alt="CookieCrypt Unmark Cookie/Category From Blacklist Demo" width="auto" height="600" src="README_assets/cookiecrypt_unmark.gif">
+</p>
+
+### Clear Cookie Categorization Cache
+1. To clear cookie categorization cache in local browser storage, click the `Clear Cache` button.
+2. Confirm the action when prompted to clear cookie categorization cache.
+<p align="center">
+  <img alt="CookieCrypt Clear Cookie Categorization Cache Demo" width="auto" height="600" src="README_assets/cookiecrypt_clearcache.gif">
 </p>
 
 ## Acknowledgements
