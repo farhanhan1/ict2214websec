@@ -8,8 +8,8 @@ chrome.runtime.onInstalled.addListener(() => {
 // Listen for messages from popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "getCookies") {
-    chrome.cookies.getAll({url: request.url}, (cookies) => {
-      sendResponse({data: cookies});
+    chrome.cookies.getAll({ url: request.url }, (cookies) => {
+      sendResponse({ data: cookies });
     });
     return true; // Keep the message channel open for async response
   }
@@ -21,9 +21,9 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status === 'complete' && tab.url) {
     chrome.storage.sync.get(['blacklistedCookies'], function (result) {
       const blacklistedCookies = result.blacklistedCookies || [];
-      blacklistedCookies.forEach(function(cookie) {
+      blacklistedCookies.forEach(function (cookie) {
         const cookieDetails = {
-          url: `https://${cookie.domain}${cookie.path}`, 
+          url: `https://${cookie.domain}${cookie.path}`,
           name: cookie.name
         };
         // Try blacklisting for both http and https
@@ -41,8 +41,8 @@ function deleteCookiesForDomain(domain) {
   const cookieDetailsHttp = { url: `http://${domain}/*` };
   const cookieDetailsHttps = { url: `https://${domain}/*` };
   // Remove cookies for both http and https versions of the domain
-  chrome.cookies.getAll({domain}, function(cookies) {
-    cookies.forEach(function(cookie) {
+  chrome.cookies.getAll({ domain }, function (cookies) {
+    cookies.forEach(function (cookie) {
       chrome.cookies.remove({ url: cookieDetailsHttp.url, name: cookie.name });
       chrome.cookies.remove({ url: cookieDetailsHttps.url, name: cookie.name });
     });
@@ -53,7 +53,7 @@ function deleteCookiesForDomain(domain) {
 function checkAndDeleteCookies() {
   chrome.storage.sync.get(['blacklistedCookies'], function (result) {
     const blacklistedCookies = result.blacklistedCookies || [];
-    blacklistedCookies.forEach(function(cookie) {
+    blacklistedCookies.forEach(function (cookie) {
       deleteCookiesForDomain(cookie.domain);
     });
   });
@@ -68,7 +68,7 @@ function delayedCheckAndDeleteCookies() {
 chrome.runtime.onStartup.addListener(delayedCheckAndDeleteCookies);
 
 // When a tab is updated, delete cookies with a delay.
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status === 'complete' && tab.url) {
     delayedCheckAndDeleteCookies();
   }
@@ -78,12 +78,12 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 chrome.tabs.onCreated.addListener(delayedCheckAndDeleteCookies);
 
 // Ensure cookies are deleted when the browser starts.
-chrome.runtime.onStartup.addListener(function() {
+chrome.runtime.onStartup.addListener(function () {
   checkAndDeleteCookies();
 });
 
 // When a tab is updated, delete cookies again.
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status === 'complete' && tab.url) {
     checkAndDeleteCookies();
   }

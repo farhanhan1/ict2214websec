@@ -8,24 +8,27 @@
 
 <body>
   <h1><img style="width: auto;height: 63px;" src="assets/cookiecryptLogo.png"></h1>
-  <button style="padding-right: 11px; padding-left: 11px;" id="viewCookieChanges" class="purple-thin-button">View Changes</button>
-  <button style="padding-right: 11px; padding-left: 11px;" id="createCookieButton" class="blue-thin-button">Create Cookie</button>
-  <button style="padding-right: 11px; padding-left: 11px;" id="wipeAllCookiesButton" class="red-thin-button">Delete All</button>
-  <button style="padding-right: 11px; padding-left: 11px;" id="clearCacheButton" class="cache-thin-button">Clear Cache</button>
+  <button style="padding-right: 11px; padding-left: 11px;" id="viewCookieChanges" class="purple-thin-button">View
+    Changes</button>
+  <button style="padding-right: 11px; padding-left: 11px;" id="createCookieButton" class="blue-thin-button">Create
+    Cookie</button>
+  <button style="padding-right: 11px; padding-left: 11px;" id="wipeAllCookiesButton" class="red-thin-button">Delete
+    All</button>
+  <button style="padding-right: 11px; padding-left: 11px;" id="clearCacheButton" class="cache-thin-button">Clear
+    Cache</button>
   <div id="blacklistCookiesList"></div>
   <div id="cookieList"></div>
-  <div style="text-align: center; font-size: 20px; color: #C3FA03; font-family: Arial, sans-serif;" id="loadingIndicator" style="display: none;">
+  <div style="text-align: center; font-size: 20px; color: #C3FA03; font-family: Arial, sans-serif;"
+    id="loadingIndicator" style="display: none;">
     <br><br><br><br>
     <img style="width: auto; max-height: 100px;" src="assets/loading.gif" alt="Loading...">
     <br><strong style="font-size: 17px;">Fetching Cookies...</strong><br><br><br><br><br><br><br><br>
   </div>
-  
+
   <div id="dialog-container"
     style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
-    <!-- Confirmation dialogs will be appended here -->
   </div>
 
-  <!-- Add this form inside the body tag -->
   <div id="createCookieForm" class="modal" style="display: none;">
     <div class="modal-content">
       <label for="cookieNameInput">Name:</label>
@@ -38,7 +41,8 @@
       <input style="margin-left: 12px; padding-right: 13px" id="cookieDomainInput" type="text" placeholder="Domain">
       <br>
       <label for="cookiePathInput">Path:</label>
-      <input style="margin-left: 29px; padding-right: 13px" id="cookiePathInput" type="text" value="/" placeholder="Path">
+      <input style="margin-left: 29px; padding-right: 13px" id="cookiePathInput" type="text" value="/"
+        placeholder="Path">
       <br>
       <label for="cookieExpirationInput">Expiration:</label>
       <input id="cookieExpirationInput" type="datetime-local" placeholder="Expiration">

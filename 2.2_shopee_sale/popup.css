@@ -1,3 +1,16 @@
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 body {
     font-family: Arial, sans-serif;
     margin: 10px;
@@ -6,6 +19,8 @@ body {
     opacity: 95%;
     width: 400px;
     background-image: url(assets/cookiecryptBG.jpg);
+    animation: slideIn 0.3s ease forwards;
+    animation-fill-mode: forwards;
 }
 
 h1 {
@@ -17,30 +32,32 @@ h1 {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    background-color: #333333
+    background-color: #333333;
+}
+
+.slide-in-anim {
+    animation: slideIn 0.3s ease forwards;
+    animation-fill-mode: forwards;
 }
 
 .cookie-item {
-    cursor: pointer;
+    cursor: default;
     padding: 5px;
     border: 1px solid #dddddd;
     border-radius: 5px;
     margin-bottom: 5px;
     word-wrap: break-word;
-    /* Ensure long words are broken and wrapped */
     position: relative;
-    /* Added for absolute positioning of icons */
     min-height: 20px;
 }
 
 .cookie-name {
     font-weight: bold;
     display: inline-block;
-    /* This will help with alignment */
     width: calc(100% - 40px);
-    /* Adjust the width to make space for the icon */
     padding-top: 2px;
     font-size: 12px;
+    cursor: default;
 }
 
 strong {
@@ -61,9 +78,7 @@ strong {
     margin-top: 5px;
     font-size: 0.9em;
     word-wrap: break-word;
-    /* Ensure long words are broken and wrapped */
     overflow-y: auto;
-    /* Add vertical scrolling */
 }
 
 .cookie-value,
@@ -93,11 +108,13 @@ strong {
     font-size: 1.2em;
     margin-bottom: 8px;
     margin-top: 4px;
+    transition: 0.2s;
 }
 
 .cookie-category h2:hover {
     color: #ee5710;
-    transition: 0.2s
+    transition: 0.2s;
+    cursor: pointer;
 }
 
 .cookie-category ul {
@@ -116,11 +133,6 @@ strong {
 
 .cookie-list.collapsed {
     display: none;
-}
-
-.category-title {
-    cursor: pointer;
-    color: #0056b3;
 }
 
 .edit-button {
@@ -179,7 +191,6 @@ strong {
     font-weight: bold;
     margin-top: 10px;
     display: block;
-    /* Make label take its own line */
 }
 
 .editable-value,
@@ -192,13 +203,10 @@ strong {
     border-radius: 4px;
     border: 1px solid #ddd;
     resize: vertical;
-    /* Allows resizing vertically */
 }
 
-/* To make save button look nicer */
 .save-button {
     display: inline-block;
-    /* Change to inline-block */
     padding: 8px 15px;
     background-color: #007bff;
     color: white;
@@ -206,7 +214,6 @@ strong {
     border-radius: 4px;
     cursor: pointer;
     margin-right: 10px;
-    /* Add right margin for spacing */
 }
 
 .save-button:hover {
@@ -217,17 +224,12 @@ strong {
 .arrow-icon {
     cursor: pointer;
     float: right;
-    /* Align to the right */
     width: 20px;
-    /* Adjust size as needed */
     height: 20px;
-    /* Adjust size as needed */
 }
 
-/* To make cancel button look nicer */
 .cancel-button {
     display: inline-block;
-    /* Change to inline-block */
     padding: 8px 15px;
     background-color: #dc3545;
     color: white;
@@ -241,7 +243,6 @@ strong {
     transition: 0.2s
 }
 
-/* Container for buttons */
 .button-container {
     display: flex;
     margin-top: 10px;
@@ -369,40 +370,19 @@ strong {
     transition: 0.2s
 }
 
-/* This styles the scrollbar track */
 ::-webkit-scrollbar {
     width: 12px;
-    /* Adjust the width of the scrollbar */
     background-color: black;
-    /* Makes the background transparent */
 }
 
-/* This styles the scrollbar handle */
 ::-webkit-scrollbar-thumb {
     background-color: rgba(128, 128, 128, 0.5);
-    /* A semi-transparent gray color */
     border-radius: 6px;
-    /* Rounds the corners of the scrollbar handle */
     border: 3px solid transparent;
-    /* Makes the scrollbar handle 'float' */
     background-clip: content-box;
-    /* Ensures the inner border doesn't overlap */
 }
 
-/* Optional: This styles the scrollbar handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background-color: rgba(128, 128, 128, 0.75);
     transition: 0.2s
-    /* A darker semi-transparent gray color on hover */
 }
-
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-  
-  .blinking {
-    animation: blink 1s linear infinite;
-  }
-  

@@ -17,6 +17,7 @@ async function fetchCookieCategories(cookieNames) {
   }
 
   try {
+    // Fetch categories of cookies from Flask API hosting our joblib file generated from ML
     const response = await fetch('http://52.147.200.156:5000/predict_batch', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -97,6 +98,7 @@ function clearCookieCategoriesCache() {
 function displayCookies(categories) {
   const container = document.getElementById('cookieList');
   container.innerHTML = '';
+  container.classList.add('slide-in-anim');
 
   // Loop through each category to display them
   Object.keys(categories).forEach(category => {
@@ -109,10 +111,12 @@ function displayCookies(categories) {
     // Variable to keep track of the current style state
     title.addEventListener('click', () => {
       list.classList.toggle('collapsed');
+      list.classList.add('slide-in-anim');
     });
 
     let list = document.createElement('ul');
     list.classList.add('cookie-list', 'collapsed');
+    
 
     // Loop through each cookie in the category
     categories[category].forEach(cookie => {
@@ -135,13 +139,10 @@ function displayCookies(categories) {
 
       let cookieDetails = document.createElement('div');
       cookieDetails.classList.add('cookie-details');
-      // Below is to start with expanded cookie instead
-      // // cookieDetails.classList.add('cookie-details', 'collapsed');
       appendCookieDetails(cookieDetails, cookie);
       listItem.appendChild(cookieDetails);
 
       let editButton = cookieDetails.querySelector('.edit-button');
-      // editButton.classList.add('blue-thin-button');
       editButton.addEventListener('click', () => {
         transformToEditable(cookieDetails, cookie, listItem, category);
       });
@@ -659,6 +660,7 @@ function confirmBlacklist(cookie, category) {
             chrome.tabs.reload(currentTab.id);
           }
         });
+        refreshCookieList();
       });
       dialogContainer.removeChild(confirmationDialog); // Remove the confirmation dialog
       dialogContainer.style.display = 'none'; // Hide the container
@@ -670,7 +672,6 @@ function confirmBlacklist(cookie, category) {
       dialogContainer.style.display = 'none'; // Hide the container
     });
   });
-  refreshCookieList();
 }
 
 // Called from confirmBlacklist to add the cookie to the blacklist
@@ -752,17 +753,15 @@ function createNewCookie() {
   const expirationDate = expiration ? new Date(expiration).getTime() / 1000 : undefined;
   const secure = document.getElementById('cookieSecureInput').checked;
   const httpOnly = document.getElementById('cookieHttpOnlyInput').checked;
-  // const sameSiteRestriction = document.getElementById('cookieSameSiteSelect').value;
+
 
   const newCookie = {
     url: `http${secure ? 's' : ''}://${trimmedDomain}${path}`,
     name,
     value,
-    // domain,
     path,
     secure,
     httpOnly,
-    // sameSite: sameSiteRestriction,
     expirationDate
   };
 
@@ -970,9 +969,8 @@ async function getCookies(url) {
   });
 }
 
-// DOMContLoaded 4. Setup of create cookie form
+// Setup of create cookie form
 function setupCreateCookieForm(tabs) {
-  // Code from your fourth DOMContentLoaded listener
   const createCookieButton = document.getElementById('createCookieButton');
   const saveCookieButton = document.getElementById('saveCookieButton');
   const cancelCreateButton = document.getElementById('cancelCreateCookie');

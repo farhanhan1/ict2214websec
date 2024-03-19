@@ -3,8 +3,7 @@
   "name": "CookieCrypt",
   "description": "Categorizes and displays cookies used by websites. Developed by ICT2214 Group 16!",
   "version": "13.37",
-  "permissions": 
-  [
+  "permissions": [
     "cookies",
     "storage",
     "tabs",
@@ -14,28 +13,29 @@
     "webNavigation",
     "notifications"
   ],
-  "host_permissions": 
-  [
+  "host_permissions": [
     "*://*/*"
   ],
-  "action": 
-  {
+  "action": {
     "default_popup": "popup.html",
     "default_icon": "assets/icon.png"
   },
-  "icons": 
-  {
+  "icons": {
     "48": "assets/icon.png"
   },
-  "background": 
-  {
+  "background": {
     "service_worker": "background.js"
   },
   "web_accessible_resources": [
     {
-      "resources": ["cookieChanges.html", "cookieChanges.js", "style.css"],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "cookieChanges.html",
+        "cookieChanges.js",
+        "style.css"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ]
-  
 }
