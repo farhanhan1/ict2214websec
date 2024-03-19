@@ -3,27 +3,49 @@ async function fetchCookieCategories(cookieNames) {
   // Display loading indicator
   document.getElementById('loadingIndicator').style.display = 'block';
 
+  // Filter out cookie names that are already cached
+  const uncachedNames = cookieNames.filter(name => !localStorage.getItem(name));
+
+  if (uncachedNames.length === 0) {
+    // Hide loading indicator if all names are cached
+    document.getElementById('loadingIndicator').style.display = 'none';
+    // Return categories from cache
+    return cookieNames.reduce((acc, name) => {
+      acc[name] = localStorage.getItem(name);
+      return acc;
+    }, {});
+  }
+
   try {
     const response = await fetch('http://52.147.200.156:5000/predict_batch', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cookie_names: cookieNames })
+      body: JSON.stringify({ cookie_names: uncachedNames })
     });
 
     const data = await response.json();
 
+    // Cache newly fetched categories
+    Object.entries(data.categories).forEach(([name, category]) => {
+      localStorage.setItem(name, category);
+    });
+
+    // Combine cached categories with newly fetched categories
+    const allCategories = cookieNames.reduce((acc, name) => {
+      acc[name] = localStorage.getItem(name);
+      return acc;
+    }, {});
+
     // Hide loading indicator
     document.getElementById('loadingIndicator').style.display = 'none';
 
-    return data.categories; // Assuming the Flask app returns an object with cookie names as keys and categories as values
+    return allCategories; // Return combined categories
   } catch (error) {
     console.error('Error fetching data:', error);
-
     // Hide loading indicator on error
     document.getElementById('loadingIndicator').style.display = 'none';
   }
 }
-
 
 // Asynchronously categorizes cookies into predefined categories based on their names using batch processing
 async function categorizeCookies(cookies) {
@@ -51,6 +73,7 @@ async function categorizeCookies(cookies) {
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
+
 
 // Displays cookies in the UI
 function displayCookies(categories) {
