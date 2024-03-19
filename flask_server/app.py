@@ -62,6 +62,10 @@ CORS(app)
 model_pipeline_path = 'cookie_classifier_model_RF.joblib'
 pipeline, tokenizer, le = joblib.load(model_pipeline_path)
 
+# Path to the CSV database
+cookie_db_path = 'cookieDB.csv'
+cookie_db = pd.read_csv(cookie_db_path) if os.path.exists(cookie_db_path) else pd.DataFrame(columns=['Category', 'Cookie-ID'])
+
 # Define thresholds for each category's prediction
 # Values have been selected based on experiments and evaluation
 thresholds = {
@@ -71,10 +75,6 @@ thresholds = {
     'necessary': 0.945611,
     'performance': 0.62717175
 }
-
-# Path to the CSV database
-cookie_db_path = 'cookieDB.csv'
-cookie_db = pd.read_csv(cookie_db_path) if os.path.exists(cookie_db_path) else pd.DataFrame(columns=['Category', 'Cookie-ID'])
 
 # Uses defined thresholds to make accurate prediction
 def predict_with_thresholds(name, pipeline=pipeline, le=le, thresholds=thresholds):
