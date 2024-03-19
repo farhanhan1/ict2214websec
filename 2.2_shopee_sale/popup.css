@@ -341,6 +341,20 @@ strong {
     transition: 0.2s
 }
 
+.cache-thin-button {
+    padding: 4px 8px;
+    background-color: #474b57;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cache-thin-button:hover {
+    background-color: #272930;
+    transition: 0.2s
+}
+
 .gray-thin-button {
     padding: 4px 8px;
     background-color: #313030;

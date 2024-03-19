@@ -62,18 +62,36 @@ async function categorizeCookies(cookies) {
   const batchCategories = await fetchCookieCategories(cookieNames);
 
   cookies.forEach(cookie => {
-    const category = batchCategories[cookie.name] ? capitalizeFirstLetter(batchCategories[cookie.name]) : 'Others';
+    let category = batchCategories[cookie.name] ? capitalizeFirstLetter(batchCategories[cookie.name]) : 'Others';
+    
+    // Ensure the category exists in the categories object, default to 'Others' if not
+    category = categories.hasOwnProperty(category) ? category : 'Others';
+    
+    if (!categories[category]) {
+      console.error(`Undefined category: ${category}. Adding cookie to 'Others'.`);
+      category = 'Others';
+    }
+    
     categories[category].push(cookie);
   });
 
   return categories;
 }
 
+
 // Helper function to capitalize the first letter of a string for category matching
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
+// Function to clear the cache
+function clearCookieCategoriesCache() {
+  if (confirm(`Are you sure you want to clear cookie categories cache?`)) {
+    localStorage.clear();
+    console.log('Cache cleared');
+    alert("Cookie categories cache has been cleared!")
+  }
+}
 
 // Displays cookies in the UI
 function displayCookies(categories) {
@@ -839,7 +857,9 @@ async function blacklistAllCookiesInCategory(category, cookies) {
 // Combine DOMContentLoaded event listeners
 document.addEventListener('DOMContentLoaded', function () {
   const wipeAllButton = document.getElementById('wipeAllCookiesButton');
+  const clearCacheButton = document.getElementById('clearCacheButton');
   wipeAllButton.addEventListener('click', wipeAllCookiesForDomain);
+  clearCacheButton.addEventListener('click', clearCookieCategoriesCache);
 
   document.getElementById('dialog-container').addEventListener('click', function (event) {
     // Check if the clicked element is a blacklist button
