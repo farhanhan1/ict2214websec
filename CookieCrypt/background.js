@@ -176,22 +176,30 @@ function appendAndSaveCookieChanges(added, removed, domain) {
   });
 }
 
-// Function to trigger notifications, now includes the domain in the notification title
 function showNotification(added, removed, domain) {
-  let addedCookiesString = added.map(cookie => `${cookie.name}@${cookie.domain}`).join(', ');
-  let removedCookiesString = removed.map(cookie => `${cookie.name}@${cookie.domain}`).join(', ');
+  // Fetch user preferences first
+  chrome.storage.local.get(['disableNotificationsforAll', `disableNotificationsFor${domain}`], function(prefs) {
+    // Check if notifications are disabled globally or for the current domain
+    if (prefs.disableNotificationsforAll || prefs[`disableNotificationsFor${domain}`]) {
+      return; // Skip notification if disabled
+    }
 
-  if (addedCookiesString.length > 100) addedCookiesString = addedCookiesString.substring(0, 100) + "...";
-  if (removedCookiesString.length > 100) removedCookiesString = removedCookiesString.substring(0, 100) + "...";
+    // Proceed with creating the notification if enabled
+    let addedCookiesString = added.map(cookie => `${cookie.name}@${cookie.domain}`).join(', ');
+    let removedCookiesString = removed.map(cookie => `${cookie.name}@${cookie.domain}`).join(', ');
 
-  if (added.length > 0 || removed.length > 0) {
-    chrome.notifications.create('', {
-      type: "basic",
-      iconUrl: "assets/icon.png",
-      title: `Cookie Changes Detected - ${domain}`,
-      message: `Added: ${addedCookiesString}, Removed: ${removedCookiesString}`
-    });
-  }
+    if (addedCookiesString.length > 100) addedCookiesString = addedCookiesString.substring(0, 100) + "...";
+    if (removedCookiesString.length > 100) removedCookiesString = removedCookiesString.substring(0, 100) + "...";
+
+    if (added.length > 0 || removed.length > 0) {
+      chrome.notifications.create('', {
+        type: "basic",
+        iconUrl: "assets/icon.png",
+        title: `Cookie Changes Detected - ${domain}`,
+        message: `Added: ${addedCookiesString}, Removed: ${removedCookiesString}`
+      });
+    }
+  });
 }
 
 

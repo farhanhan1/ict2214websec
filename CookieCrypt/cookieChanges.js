@@ -62,3 +62,92 @@ document.querySelector('.blue-thin-button').addEventListener('click', function (
   // This will take the user back to the previous page in their history
   window.history.back(); 
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  updateGlobalNotifButtonLabelBasedOnStatus();
+  updateSiteSpecificNotifButtonLabelBasedOnStatus();
+});
+
+// Handler for global notifications toggle
+document.getElementById('toggleNotifButtonForAllSites').addEventListener('click', function() {
+  let key = 'disableNotificationsforAll';
+  chrome.storage.local.get([key], function(result) {
+      if (result[key]) {
+          chrome.storage.local.remove(key, function() {
+              alert('Notifications globally enabled.');
+              updateGlobalNotifButtonLabel('Disable Notifications Globally');
+          });
+      } else {
+          chrome.storage.local.set({[key]: true}, function() {
+              alert('Notifications globally disabled.');
+              updateGlobalNotifButtonLabel('Enable Notifications Globally');
+          });
+      }
+  });
+});
+
+// Handler for site-specific notifications toggle
+document.getElementById('toggleNotifButtonForCurrentSite').addEventListener('click', function() {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      if (tabs.length === 0) return;
+      const url = new URL(tabs[0].url);
+      const domain = url.hostname;
+      let key = `disableNotificationsFor${domain}`;
+      chrome.storage.local.get([key], function(result) {
+          if (result[key]) {
+              chrome.storage.local.remove(key, function() {
+                  alert(`Notifications enabled for ${domain}.`);
+                  updateSiteSpecificNotifButtonLabel('Disable Notifications on Current Site');
+              });
+          } else {
+              chrome.storage.local.set({[key]: true}, function() {
+                  alert(`Notifications disabled for ${domain}.`);
+                  updateSiteSpecificNotifButtonLabel('Enable Notifications on Current Site');
+              });
+          }
+      });
+  });
+});
+
+function updateGlobalNotifButtonLabelBasedOnStatus() {
+  let key = 'disableNotificationsforAll';
+  chrome.storage.local.get([key], function(result) {
+      if (result[key]) {
+          updateGlobalNotifButtonLabel('Enable Notifications for All Sites');
+      } else {
+          updateGlobalNotifButtonLabel('Disable Notifications for All Sites');
+      }
+  });
+}
+
+function updateSiteSpecificNotifButtonLabelBasedOnStatus() {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      if (tabs.length === 0) return;
+      const url = new URL(tabs[0].url);
+      const domain = url.hostname;
+      let key = `disableNotificationsFor${domain}`;
+      chrome.storage.local.get([key], function(result) {
+          if (result[key]) {
+              updateSiteSpecificNotifButtonLabel('Enable Notifications on Current Site');
+          } else {
+              updateSiteSpecificNotifButtonLabel('Disable Notifications on Current Site');
+          }
+      });
+  });
+}
+
+function updateGlobalNotifButtonLabel(newLabel) {
+  const button = document.getElementById('toggleNotifButtonForAllSites');
+  if (button) {
+      button.textContent = newLabel;
+  }
+}
+
+function updateSiteSpecificNotifButtonLabel(newLabel) {
+  const button = document.getElementById('toggleNotifButtonForCurrentSite');
+  if (button) {
+      button.textContent = newLabel;
+  }
+}
+
+
