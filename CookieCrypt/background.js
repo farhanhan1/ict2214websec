@@ -77,8 +77,12 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 // Also delete cookies with a delay when a new tab is created
 chrome.tabs.onCreated.addListener(delayedCheckAndDeleteCookies);
 
-// Ensure cookies are deleted when the browser starts.
+// Listen for browser startup event
 chrome.runtime.onStartup.addListener(function () {
+  // Clear session storage
+  chrome.storage.session.clear(function() {
+    console.log('Session storage cleared.');
+  });
   checkAndDeleteCookies();
 });
 
@@ -88,56 +92,6 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     checkAndDeleteCookies();
   }
 });
-
-// // Real time monitoring of addition or deletion of cookies
-// chrome.webNavigation.onCompleted.addListener((details) => {
-//   const url = new URL(details.url).toString(); // Convert URL to string
-
-//   chrome.storage.local.get([url], (result) => {
-//     const storedData = result[url] ? result[url] : { cookies: [], visits: 0 };
-//     const storedCookies = storedData.cookies;
-//     const visits = storedData.visits;
-
-//     chrome.cookies.getAll({ url: details.url }, (currentCookies) => {
-//       const currentCookieNames = currentCookies.map(cookie => cookie.name);
-//       const addedCookies = currentCookieNames.filter(name => !storedCookies.includes(name));
-//       const removedCookies = storedCookies.filter(name => !currentCookieNames.includes(name));
-//       const isSecondVisitOnwards = visits > 0; // Only true if visits counter is more than 0
-
-//       // Update the storage with the current list of cookies and increment the visit count
-//       chrome.storage.local.set({ [url]: { cookies: currentCookieNames, visits: visits + 1, addedCookies, removedCookies } }, () => {
-//         if (chrome.runtime.lastError) {
-//           console.error(`Error setting storage for ${url}: ${chrome.runtime.lastError.message}`);
-//         } else if (isSecondVisitOnwards) {
-//           let notificationMessage = '';
-//           let notificationTitle = "Cookie Changes Detected";
-
-//           if (addedCookies.length > 0 && removedCookies.length === 0) {
-//             notificationMessage = `${addedCookies.length} cookie(s) added for ${url}.`;
-//           } else if (removedCookies.length > 0 && addedCookies.length === 0) {
-//             notificationMessage = `${removedCookies.length} cookie(s) removed for ${url}.`;
-//           } else if (addedCookies.length > 0 && removedCookies.length > 0) {
-//             notificationMessage = `${addedCookies.length} cookie(s) added, ${removedCookies.length} cookie(s) removed for ${url}.`;
-//           }
-
-//           if (addedCookies.length > 0 || removedCookies.length > 0) {
-//             const notificationOptions = {
-//               type: "basic",
-//               iconUrl: "assets/icon.png", // Make sure this path is correct and the icon exists in your extension directory
-//               title: notificationTitle,
-//               message: notificationMessage,
-//               buttons: [{ title: "View cookie changes" }],
-//               requireInteraction: true // This makes the notification stay until the user interacts with it
-//             };
-
-//             // Create the notification
-//             chrome.notifications.create("cookieNotification", notificationOptions);
-//           }
-//         }
-//       });
-//     });
-//   });
-// });
 
 //Function to generate a unique ID for each cookie
 function getCookieId(cookie) {
@@ -202,23 +156,6 @@ setInterval(() => {
     });
   });
 }, 1000);
-
-
-// // Function to append and save cookie changes to session storage
-// function appendAndSaveCookieChanges(added, removed) {
-//   chrome.storage.session.get(['addedCookies', 'removedCookies'], function(result) {
-//     // Retrieve existing records, or initialize empty arrays if none
-//     let existingAdded = result.addedCookies || [];
-//     let existingRemoved = result.removedCookies || [];
-
-//     // Append new actions to the existing records
-//     let updatedAdded = existingAdded.concat(added);
-//     let updatedRemoved = existingRemoved.concat(removed);
-
-//     // Save the updated records back to session storage
-//     chrome.storage.session.set({ addedCookies: updatedAdded, removedCookies: updatedRemoved });
-//   });
-// }
 
 // Function to append and save cookie changes to session storage, now using domain
 function appendAndSaveCookieChanges(added, removed, domain) {
