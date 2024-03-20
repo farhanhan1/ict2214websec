@@ -156,10 +156,11 @@ function compareCookies(initialCookies, currentCookies) {
 }
 
 // Saves the initial state of cookies for a domain in local storage
-function saveInitialStateOfCookies(cookies) {
-  chrome.storage.local.set({initialCookies: cookies});
+function saveInitialStateOfCookies(cookies, domain) {
+  // Using a dynamic key for each domain to separate the cookie states
+  let domainKey = `initialCookies_${domain}`;
+  chrome.storage.local.set({[domainKey]: cookies});
 }
-
 // Function to get cookies for the current active tab's domain
 function getCookiesForActiveTab(callback) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -183,26 +184,63 @@ chrome.runtime.onInstalled.addListener(() => {
 // Monitoring logic to check cookies every second
 setInterval(() => {
   getCookiesForActiveTab((currentCookies, domain) => {
-    chrome.storage.local.get(['initialCookies'], function(result) {
-      const initialCookies = result.initialCookies || [];
+    let domainKey = `initialCookies_${domain}`;
+    chrome.storage.local.get([domainKey], function(result) {
+      const initialCookies = result[domainKey] || [];
       const { added, removed } = compareCookies(initialCookies, currentCookies);
 
       if (added.length > 0 || removed.length > 0) {
-        // Update initialCookies in local storage
-        saveInitialStateOfCookies(currentCookies);
+        // Update initialCookies in local storage for the current domain
+        saveInitialStateOfCookies(currentCookies, domain);
 
-        // Update session storage with added/removed cookies
-        chrome.storage.session.set({ addedCookies: added, removedCookies: removed });
+        // Append and save cookie changes to session storage
+        appendAndSaveCookieChanges(added, removed, domain); // Ensure 'domain' is defined in this scope
 
         // Trigger notification
-        showNotification(added, removed);
+        showNotification(added, removed, domain);
       }
     });
   });
 }, 1000);
 
-// Function to trigger Windows notification
-function showNotification(added, removed) {
+
+// // Function to append and save cookie changes to session storage
+// function appendAndSaveCookieChanges(added, removed) {
+//   chrome.storage.session.get(['addedCookies', 'removedCookies'], function(result) {
+//     // Retrieve existing records, or initialize empty arrays if none
+//     let existingAdded = result.addedCookies || [];
+//     let existingRemoved = result.removedCookies || [];
+
+//     // Append new actions to the existing records
+//     let updatedAdded = existingAdded.concat(added);
+//     let updatedRemoved = existingRemoved.concat(removed);
+
+//     // Save the updated records back to session storage
+//     chrome.storage.session.set({ addedCookies: updatedAdded, removedCookies: updatedRemoved });
+//   });
+// }
+
+// Function to append and save cookie changes to session storage, now using domain
+function appendAndSaveCookieChanges(added, removed, domain) {
+  chrome.storage.session.get(['cookieChanges'], function(result) {
+    // Retrieve existing records, or initialize an empty object if none
+    let existingChanges = result.cookieChanges || {};
+    existingChanges[domain] = existingChanges[domain] || {added: [], removed: []};
+
+    // Append new actions to the existing records within the specific domain
+    let updatedAdded = existingChanges[domain].added.concat(added);
+    let updatedRemoved = existingChanges[domain].removed.concat(removed);
+
+    // Update the domain-specific changes
+    existingChanges[domain] = {added: updatedAdded, removed: updatedRemoved};
+
+    // Save the updated records back to session storage
+    chrome.storage.session.set({cookieChanges: existingChanges});
+  });
+}
+
+// Function to trigger notifications, now includes the domain in the notification title
+function showNotification(added, removed, domain) {
   let addedCookiesString = added.map(cookie => `${cookie.name}@${cookie.domain}`).join(', ');
   let removedCookiesString = removed.map(cookie => `${cookie.name}@${cookie.domain}`).join(', ');
 
@@ -213,9 +251,10 @@ function showNotification(added, removed) {
     chrome.notifications.create('', {
       type: "basic",
       iconUrl: "assets/icon.png",
-      title: "Cookie Changes Detected",
+      title: `Cookie Changes Detected - ${domain}`,
       message: `Added: ${addedCookiesString}, Removed: ${removedCookiesString}`
     });
   }
 }
+
 
