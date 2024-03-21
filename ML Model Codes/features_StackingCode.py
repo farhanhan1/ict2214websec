@@ -152,6 +152,7 @@ else:
     # Save the pipeline, tokenizer, and label encoder
     joblib.dump((pipeline, tokenizer, le), model_file_path)
 
+############# FOLLOWING CODE IS FOR POST-PROCESSING/ AFTER MODEL GENERATION#############
 #Threshold is implemented to prevent false positives
 thresholds = {
     'advertisement': 0.477678,
