@@ -144,8 +144,7 @@ else:
 
     # Calculate accuracy and F1-score
     accuracy = accuracy_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred, average='weighted') # Use 'binary' if you have a binary classification problem
-
+    f1 = f1_score(y_test, y_pred, average='weighted')
     print(f'Accuracy: {accuracy:.4f}')
     print(f'F1-Score: {f1:.4f}')
     print(classification_report(y_test, y_pred, zero_division=0))
