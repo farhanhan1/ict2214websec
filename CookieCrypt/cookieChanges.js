@@ -1,10 +1,13 @@
 // Global variable to track if update is in progress
 let isUpdateInProgress = false;
+document.getElementById('loadingIndicator').style.display = 'block';
 
 function updateGUI() {
   // Only show the loading gif if update isn't already in progress
-  if (!isUpdateInProgress) {
-    document.getElementById('loadingIndicator').style.display = 'block';
+  if (isUpdateInProgress) {
+    document.getElementById('loadingIndicator').style.display = 'none';
+    return;
+  } else {
     isUpdateInProgress = true;
   }
 
@@ -25,14 +28,14 @@ function updateGUI() {
       // Dynamically build the display content based on the fetched changes
       let addedCookiesContent = `<h2>Added Cookies for ${domain}</h2>`;
       if (changesForDomain.added.length > 0) {
-        addedCookiesContent += `<ul style="color: #E5E1DA;margin-left:-20px">` + changesForDomain.added.map(cookie => `<li>${cookie.name}</li>`).join('') + `</ul>`;
+        addedCookiesContent += `<ul style="color: #E5E1DA; margin-left:-20px">` + changesForDomain.added.map(cookie => `<li>${cookie.name}</li>`).join('') + `</ul>`;
       } else {
         addedCookiesContent += `<p style="color:#ccc;font-style:italic;">No cookies added during this session.</p>`;
       }
 
       let removedCookiesContent = `<h2>Removed Cookies for ${domain}</h2>`;
       if (changesForDomain.removed.length > 0) {
-        removedCookiesContent += `<ul style="color: #E5E1DA">` + changesForDomain.removed.map(cookie => `<li>${cookie.name}</li>`).join('') + `</ul>`;
+        removedCookiesContent += `<ul style="color: #E5E1DA; margin-left:-20px">` + changesForDomain.removed.map(cookie => `<li>${cookie.name}</li>`).join('') + `</ul>`;
       } else {
         removedCookiesContent += `<p style="color:#ccc;font-style:italic;">No cookies removed during this session.</p>`;
       }
@@ -57,7 +60,7 @@ function updateGUI() {
 setInterval(updateGUI, 1000); 
 
 // For the back button
-document.querySelector('.blue-thin-button').addEventListener('click', function () 
+document.querySelector('.gray-thin-button').addEventListener('click', function () 
 {
   // This will take the user back to the previous page in their history
   window.history.back(); 
@@ -113,9 +116,9 @@ function updateGlobalNotifButtonLabelBasedOnStatus() {
   let key = 'disableNotificationsforAll';
   chrome.storage.local.get([key], function(result) {
       if (result[key]) {
-          updateGlobalNotifButtonLabel('Enable Notifications for All Sites');
+          updateGlobalNotifButtonLabel('Enable Notifications Globally');
       } else {
-          updateGlobalNotifButtonLabel('Disable Notifications for All Sites');
+          updateGlobalNotifButtonLabel('Disable Notifications Globally');
       }
   });
 }
