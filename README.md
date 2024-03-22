@@ -42,7 +42,7 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 > [!NOTE]
 > Flask Server Installation not needed as our extension is already set to use our public server
 > so as to save users time from having to generate the joblib file themselves,
-> but for documentation purposes and if you want to host your own locally
+> but below is for documentation purposes and if you want to host your own Flask locally
 ### Flask Server (Local)
 1. Download the `flask_server` folder in this repository
 2. Ensure Python3 is already installed in your system
@@ -69,7 +69,7 @@ const FLASK_PORT = '5000';
   <img alt="CookieCrypt Create New Cookie Demo" width="auto" height="500" src="README_assets/cookiecrypt_create.gif">
 </p>
 <p align="center">
-  <img alt="CookieCrypt Create New Cookie Demo" width="442" height="auto" src="README_assets/cookiecrypt_create.gif">
+  <img alt="CookieCrypt Notification Demo" width="442" height="auto" src="README_assets/cookiecrypt_notif_.gif">
 </p>
 
 ### View Cookie Changes
@@ -77,6 +77,14 @@ const FLASK_PORT = '5000';
 2. You'll be directed to a page listing all added or removed cookies during the current session.
 <p align="center">
   <img alt="CookieCrypt View Cookie Changes Demo" width="auto" height="500" src="README_assets/cookiecrypt_view.gif">
+</p>
+
+### Disable Real-time Notification
+1. To disable the Real-time Notifications Popups, click on the `View Changes` button.
+2. Click on the `Disable Notifications on Current Site` button or the `Disable Notifications Globally` button
+3. Notifications will be disabled only on the current site or all sites, depending on the button you clicked
+<p align="center">
+  <img alt="CookieCrypt Disable Notifications Demo" width="auto" height="500" src="README_assets/cookiecrypt_disablenotif.gif">
 </p>
 
 ### Edit Cookie
