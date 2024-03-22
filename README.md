@@ -58,8 +58,9 @@ const FLASK_IP = '127.0.0.1';
 const FLASK_PORT = '5000';
 ```
 
-6. After joblib file is generated, run `app.py`
-7. Reload the extension to update the changes
+6. Reload the extension to update the changes
+7. After joblib file is generated, run `app.py`
+
 
 ## User Manual
 ### Create New Cookie
