@@ -89,7 +89,6 @@ def parse_keywords_file(filepath):
     return category_keywords
 
 # Define the file paths
-# Add r in front of '' for actual copied path
 model_file_path = r'cookie_classifier_model_RF.joblib'
 data_file_path = r'cookieDB.csv'
 keywords_file_path = r'distinctKeywords.txt'
@@ -153,12 +152,12 @@ else:
     joblib.dump((pipeline, tokenizer, le), model_file_path)
 
 ############# FOLLOWING CODE IS FOR POST-PROCESSING/ AFTER MODEL GENERATION#############
-#Threshold is implemented to prevent false positives
+# Threshold is implemented to prevent false positives
 thresholds = {
     'advertisement': 0.477678,
     'analytics': 0.942612,
     'functional': 0.6995015,
-    'necessary': 0.900194,
+    'necessary': 0.870194,
     'performance': 0.62717175
 }
 
@@ -183,7 +182,7 @@ def predict_category_and_probability(cookie_id, model=pipeline, label_encoder=le
 
 
 ############# FOLLOWING CODE IS USED TO PREDICT AN ENTIRE TEST DATA THAT IS IN CSV #############
-############################## CAN BE COMMENTED OUT IF NOT NEDDED ##############################
+############################## CAN BE COMMENTED OUT IF NOT NEEDED ##############################
 
 # Load the dataset where you want to make predictions
 input_data_file_path = r'cleaned_output_file.csv'  # Update this path to the new dataset CSV file

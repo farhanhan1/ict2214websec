@@ -32,10 +32,33 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 - **Autonomy Over Data**: Users can decide which cookies to accept or blacklist, giving them full control over their browsing experience.
 
 ## Installation
+### Chrome Extension
 1. Download the `CookieCrypt` folder in this repository
 2. On Google Chrome, go to `chrome://extensions/`
 3. Enable 'Developer Mode'.
 4. Choose 'Load Unpacked' and select the downloaded `CookieCrypt` folder
+<br>
+
+> [!NOTE]
+> Flask Server Installation not needed as our extension is already set to use our public server
+> so as to save users time from having to generate the joblib file themselves,
+> but for documentation purposes and if you want to host your own locally
+### Flask Server (Local)
+1. Download the `flask_server` folder in this repository
+2. Ensure Python3 is already installed in your system
+3. Run the command `pip install -r requirements.txt`
+4. Generate `cookie_classifier_model_RF.joblib` by running `features_StackingCode.py`
+<br><strong>
+NOTE: This script might run for hours, depending on your processor's speed due to Machine Learning being done</strong>
+5. In `CookieCrypt/popup.js`, modify the `FLASK_IP` variable to `127.0.0.1`
+6. After joblib file is generated, run `app.py`
+<br>
+```
+// Flask server IP and PORT definition
+const FLASK_IP = '127.0.0.1';
+const FLASK_PORT = '5000';
+```
+5. Reload the extension to update the changes
 
 ## User Manual
 ### Create New Cookie
@@ -44,6 +67,9 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 3. Click the `Create` button to create the cookie on the current domain.
 <p align="center">
   <img alt="CookieCrypt Create New Cookie Demo" width="auto" height="500" src="README_assets/cookiecrypt_create.gif">
+</p>
+<p align="center">
+  <img alt="CookieCrypt Create New Cookie Demo" width="442" height="auto" src="README_assets/cookiecrypt_create.gif">
 </p>
 
 ### View Cookie Changes
