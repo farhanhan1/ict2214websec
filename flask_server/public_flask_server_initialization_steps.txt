@@ -3,6 +3,7 @@ requirements.txt
 app.py
 cookieDB.csv
 cookie_classifier_model_RF.joblib (too big to put in repo, 250MB. generate through ml code)
+distinctKeywords.txt (Needed for ML code to run)
 features_StackingCode.py (ML code used to generate the joblib file)
 
 Files (located at /etc/systemd/system):
