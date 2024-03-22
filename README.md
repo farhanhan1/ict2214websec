@@ -51,7 +51,6 @@ The extension enables users to manage cookie permissions with ease, ensuring tha
 <br><strong>
 NOTE: This script might run for hours, depending on your processor's speed due to Machine Learning being done</strong>
 5. In `CookieCrypt/popup.js`, modify the `FLASK_IP` variable to `127.0.0.1`
-6. After joblib file is generated, run `app.py`
 
 ```
 // Flask server IP and PORT definition
@@ -59,7 +58,8 @@ const FLASK_IP = '127.0.0.1';
 const FLASK_PORT = '5000';
 ```
 
-5. Reload the extension to update the changes
+6. After joblib file is generated, run `app.py`
+7. Reload the extension to update the changes
 
 ## User Manual
 ### Create New Cookie
