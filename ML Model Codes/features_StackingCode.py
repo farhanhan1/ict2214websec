@@ -185,8 +185,8 @@ def predict_category_and_probability(cookie_id, model=pipeline, label_encoder=le
 ############################## CAN BE COMMENTED OUT IF NOT NEEDED ##############################
 
 # Load the dataset where you want to make predictions
-input_data_file_path = r'cleaned_output_file.csv'  # Update this path to the new dataset CSV file
-output_data_file_path = r'cleaned_output_filev6.csv'  # Path to save the output
+input_data_file_path = r'testDataset.csv'  # Update this path to the test dataset
+output_data_file_path = r'testDataset_output.csv'  # Path to save the output
 
 # Read the new dataset
 new_df = pd.read_csv(input_data_file_path)
