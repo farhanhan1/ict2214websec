@@ -71,7 +71,7 @@ const FLASK_PORT = '5000';
   <img alt="CookieCrypt Create New Cookie Demo" width="auto" height="500" src="README_assets/cookiecrypt_create.gif">
 </p>
 <p align="center">
-  <img alt="CookieCrypt Notification Demo" width="442" height="auto" src="README_assets/cookiecrypt_notif_.gif">
+  <img alt="CookieCrypt Notification Demo" width="442" height="auto" src="README_assets/cookiecrypt_notif.gif">
 </p>
 
 ### View Cookie Changes
